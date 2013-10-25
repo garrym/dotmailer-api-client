@@ -51,7 +51,6 @@ A small console application for testing method calls and objects returned from t
 
 #### Known Issues
 
-- Methods that require dates are currently not supported
 - Methods that require binary uploads are not supported
 - All client methods are synchronous and will be updated to async in the near future
 
