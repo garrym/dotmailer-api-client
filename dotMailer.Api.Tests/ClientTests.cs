@@ -124,6 +124,20 @@ namespace dotMailer.Api.Tests
         }
 
         [Test]
+        public void Ensure_DeleteContact_Works()
+        {
+            var client = GetClient();
+            AssertResult(() => client.DeleteContact(sampleContactId));
+        }
+
+        [Test]
+        public void Ensure_DeleteContactsTransactionalData_Works()
+        {
+            var client = GetClient();
+            AssertResult(() => client.DeleteContactsTransactionalData("Collection name", "Key"));
+        }
+
+        [Test]
         public void Ensure_DeleteContactTransactionalData_Works()
         {
             var client = GetClient();
@@ -427,7 +441,14 @@ namespace dotMailer.Api.Tests
             var client = GetClient();
             AssertResult(() => client.GetContactsSuppressedSinceDate(sampleSinceDate));
         }
-        
+
+        [Test]
+        public void Ensure_GetContactsTransactionalDataByKey_Works()
+        {
+            var client = GetClient();
+            AssertResult(() => client.GetContactsTransactionalDataByKey("Collection name", "Key"));
+        }
+
         [Test]
         public void Ensure_GetContactsTransactionalDataImportByImportId_Works()
         {
