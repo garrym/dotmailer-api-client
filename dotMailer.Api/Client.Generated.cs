@@ -172,6 +172,7 @@ namespace dotMailer.Api
 			new Dictionary<string, object>
 			{
 				{ "addressBookId", addressBookId },
+				{ "date", date },
 				{ "withFullData", withFullData },
 				{ "select", select },
 				{ "skip", skip }
@@ -188,6 +189,7 @@ namespace dotMailer.Api
 			new Dictionary<string, object>
 			{
 				{ "addressBookId", addressBookId },
+				{ "date", date },
 				{ "select", select },
 				{ "skip", skip }
 			});
@@ -260,6 +262,7 @@ namespace dotMailer.Api
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId },
+				{ "date", date },
 				{ "select", select },
 				{ "skip", skip }
 			});
@@ -472,6 +475,7 @@ namespace dotMailer.Api
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId },
+				{ "date", date },
 				{ "select", select },
 				{ "skip", skip }
 			});
@@ -487,6 +491,7 @@ namespace dotMailer.Api
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId },
+				{ "date", date },
 				{ "select", select },
 				{ "skip", skip }
 			});
@@ -556,6 +561,7 @@ namespace dotMailer.Api
 			var request = new Request("v2/campaigns/with-activity-since/{date}?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
+				{ "date", date },
 				{ "select", select },
 				{ "skip", skip }
 			});
@@ -626,6 +632,7 @@ namespace dotMailer.Api
 			var request = new Request("v2/contacts/created-since/{date}?withFullData={withFullData}&select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
+				{ "date", date },
 				{ "withFullData", withFullData },
 				{ "select", select },
 				{ "skip", skip }
@@ -680,6 +687,7 @@ namespace dotMailer.Api
 			var request = new Request("v2/contacts/modified-since/{date}?withFullData={withFullData}&select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
+				{ "date", date },
 				{ "withFullData", withFullData },
 				{ "select", select },
 				{ "skip", skip }
@@ -695,6 +703,7 @@ namespace dotMailer.Api
 			var request = new Request("v2/contacts/suppressed-since/{date}?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
+				{ "date", date },
 				{ "select", select },
 				{ "skip", skip }
 			});
@@ -735,6 +744,7 @@ namespace dotMailer.Api
 			var request = new Request("v2/contacts/unsubscribed-since/{date}?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
+				{ "date", date },
 				{ "select", select },
 				{ "skip", skip }
 			});

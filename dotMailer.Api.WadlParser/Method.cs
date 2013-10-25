@@ -82,6 +82,8 @@ namespace dotMailer.Api.WadlParser
                 x.DataType.Equals("bool", StringComparison.OrdinalIgnoreCase)
                 ||
                 x.DataType.Equals("guid", StringComparison.OrdinalIgnoreCase)
+                ||
+                x.DataType.Equals("datetime", StringComparison.OrdinalIgnoreCase)
             ).ToList();
             var complexParameters = Parameters.Where(x => !primitiveParameters.Contains(x)).ToList();
             if (primitiveParameters.Any())
