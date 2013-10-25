@@ -84,12 +84,17 @@ namespace dotMailer.Api.Tests
         #region Delete Methods
 
         [Test]
+        public void Ensure_DeleteAddressBook_Works()
+        {
+            var client = GetClient();
+            AssertResult(() => client.DeleteAddressBook(sampleAddressBookId));
+        }
+
+        [Test]
         public void Ensure_DeleteAddressBookContact_Works()
         {
             var client = GetClient();
-            var addressBook = client.GetAddressBooks().Data.First();
-            var contact = client.GetAddressBookContacts(addressBook.Id).Data.First();
-            AssertResult(() => client.DeleteAddressBookContact(addressBook.Id, contact.Id));
+            AssertResult(() => client.DeleteAddressBookContact(sampleAddressBookId, sampleContactId));
         }
 
         [Test]

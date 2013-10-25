@@ -160,13 +160,31 @@ namespace dotMailer.Api.WadlParser
 
             if (HttpMethod == HttpMethod.Put)
             {
-                if (string.IsNullOrEmpty(returnType))
+                if (complexParameters.Any())
                 {
-                    code += string.Format("\t\t\treturn Put(request);");
+                    var complexParameter = complexParameters.First();
+                    if (string.IsNullOrEmpty(returnType))
+                    {
+                        code += string.Format("\t\t\treturn Put(request, {0});", complexParameter.Name);
+                    }
+                    else
+                    {
+                        if (complexParameter.DataType.Equals(returnType))
+                            code += string.Format("\t\t\treturn Put<{0}>(request, {1});", returnType, complexParameter.Name);
+                        else
+                            code += string.Format("\t\t\treturn Put<{0}, {1}>(request, {2});", returnType, complexParameter.DataType, complexParameter.Name);
+                    }
                 }
                 else
                 {
-                    code += string.Format("\t\t\treturn Put<{0}>(request);", returnType);
+                    if (string.IsNullOrEmpty(returnType))
+                    {
+                        code += string.Format("\t\t\treturn Put(request);");
+                    }
+                    else
+                    {
+                        code += string.Format("\t\t\treturn Put<{0}>(request);", returnType);
+                    }
                 }
             }
 

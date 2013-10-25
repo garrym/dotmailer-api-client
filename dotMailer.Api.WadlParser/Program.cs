@@ -131,7 +131,7 @@ namespace dotMailer.Api.WadlParser
         {
             var sb = new StringBuilder();
             foreach (var method in restDefinition.Methods.OrderBy(x => x.Name))
-            { 
+            {
                 sb.Append(method);
                 if (method != restDefinition.Methods.Last())
                     sb.AppendLine();
@@ -267,28 +267,33 @@ namespace dotMailer.Api.WadlParser
 
         private static void ProcessMethodNode(XElement element)
         {
-            var method = new Method();
-            method.Path = "v2/" + element.Attribute("path").Value; // Append v2 because it's not returned with the WADL
-            method.Id = element.Attribute("id").Value;
+            var path = "v2/" + element.Attribute("path").Value; // Append v2 because it's not returned with the WADL
+            var id = element.Attribute("id").Value;
 
-            var methodNode = element.Elements().First();
-            method.HttpMethod = GetHttpMethod(methodNode.Attribute("name").Value);
-            method.Name = methodNode.Attribute("id").Value;
-
-            var documentationNode = methodNode.Elements().First(x => x.Name.LocalName.Equals("doc"));
-            method.Description = documentationNode.Value;
-
-            var requestNode = methodNode.Elements().First(x => x.Name.LocalName.Equals("request"));
-            foreach (var parameterNode in requestNode.Elements())
-                method.Parameters.Add(ProcessParameterNode(parameterNode));
-
-            var responseNodes = methodNode.Elements().Where(x => x.Name.LocalName.Equals("response"));
-            foreach (var responseNode in responseNodes)
+            foreach (var methodNode in element.Elements())
             {
-                method.Responses.Add(ProcessResponseNode(responseNode));
-            }
+                var method = new Method();
+                method.Path = path;
+                method.Id = id;
 
-            restDefinition.Methods.Add(method);
+                method.HttpMethod = GetHttpMethod(methodNode.Attribute("name").Value);
+                method.Name = methodNode.Attribute("id").Value;
+
+                var documentationNode = methodNode.Elements().First(x => x.Name.LocalName.Equals("doc"));
+                method.Description = documentationNode.Value;
+
+                var requestNode = methodNode.Elements().First(x => x.Name.LocalName.Equals("request"));
+                foreach (var parameterNode in requestNode.Elements())
+                    method.Parameters.Add(ProcessParameterNode(parameterNode));
+
+                var responseNodes = methodNode.Elements().Where(x => x.Name.LocalName.Equals("response"));
+                foreach (var responseNode in responseNodes)
+                {
+                    method.Responses.Add(ProcessResponseNode(responseNode));
+                }
+
+                restDefinition.Methods.Add(method);
+            }
         }
 
         private static Parameter ProcessParameterNode(XElement element)

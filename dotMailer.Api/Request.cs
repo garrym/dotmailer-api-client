@@ -48,10 +48,7 @@ namespace dotMailer.Api
                     else
                     {
                         // Path parameter
-                        if (parameter.Key.Equals("date"))
-                            absolutePath = absolutePath.Replace("{" + parameter.Key + "}", ((DateTime)parameter.Value).ToString("yyyy-MM-dd"));
-                        else
-                            absolutePath = absolutePath.Replace("{" + parameter.Key + "}", parameter.Value.ToString());
+                        absolutePath = absolutePath.Replace("{" + parameter.Key + "}", parameter.Value.ToString());
                     }
                 }
 

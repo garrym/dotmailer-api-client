@@ -16,6 +16,19 @@ namespace dotMailer.Api
     public partial class Client
     {
 		/// <summary>
+		/// Deletes an address book.
+		/// </summary>
+		public ServiceResult DeleteAddressBook(int id)
+		{
+			var request = new Request("v2/address-books/{id}", 
+			new Dictionary<string, object>
+			{
+				{ "id", id }
+			});
+			return Delete(request);
+		}
+
+		/// <summary>
 		/// Deletes a contact from a given address book.
 		/// </summary>
 		public ServiceResult DeleteAddressBookContact(int addressBookId, int contactId)
@@ -65,6 +78,33 @@ namespace dotMailer.Api
 			{
 				{ "campaignId", campaignId },
 				{ "documentId", documentId }
+			});
+			return Delete(request);
+		}
+
+		/// <summary>
+		/// Deletes a contact.
+		/// </summary>
+		public ServiceResult DeleteContact(int id)
+		{
+			var request = new Request("v2/contacts/{id}", 
+			new Dictionary<string, object>
+			{
+				{ "id", id }
+			});
+			return Delete(request);
+		}
+
+		/// <summary>
+		/// Deletes a piece of transactional data by key.
+		/// </summary>
+		public ServiceResult DeleteContactsTransactionalData(string collectionName, string key)
+		{
+			var request = new Request("v2/contacts/transactional-data/{collectionName}/{key}", 
+			new Dictionary<string, object>
+			{
+				{ "collectionName", collectionName },
+				{ "key", key }
 			});
 			return Delete(request);
 		}
@@ -711,6 +751,20 @@ namespace dotMailer.Api
 		}
 
 		/// <summary>
+		/// Gets a piece of transactional data by key.
+		/// </summary>
+		public ServiceResult<ApiTransactionalData> GetContactsTransactionalDataByKey(string collectionName, string key)
+		{
+			var request = new Request("v2/contacts/transactional-data/{collectionName}/{key}", 
+			new Dictionary<string, object>
+			{
+				{ "collectionName", collectionName },
+				{ "key", key }
+			});
+			return Get<ApiTransactionalData>(request);
+		}
+
+		/// <summary>
 		/// Gets the import status of a previously started transactional import.
 		/// </summary>
 		public ServiceResult<ApiTransactionalDataImport> GetContactsTransactionalDataImportByImportId(Guid importId)
@@ -752,6 +806,34 @@ namespace dotMailer.Api
 		}
 
 		/// <summary>
+		/// Gets a list of all transactional data for a contact (100 most recent only).
+		/// </summary>
+		public ServiceResult<ApiTransactionalDataList> GetContactTransactionalDataByCollectionName(string collectionName, string email)
+		{
+			var request = new Request("v2/contacts/{email}/transactional-data/{collectionName}", 
+			new Dictionary<string, object>
+			{
+				{ "collectionName", collectionName },
+				{ "email", email }
+			});
+			return Get<ApiTransactionalDataList>(request);
+		}
+
+		/// <summary>
+		/// Gets a list of all transactional data for a contact (100 most recent only).
+		/// </summary>
+		public ServiceResult<ApiTransactionalDataList> GetContactTransactionalDataByCollectionName(string collectionName, int id)
+		{
+			var request = new Request("v2/contacts/{id}/transactional-data/{collectionName}", 
+			new Dictionary<string, object>
+			{
+				{ "collectionName", collectionName },
+				{ "id", id }
+			});
+			return Get<ApiTransactionalDataList>(request);
+		}
+
+		/// <summary>
 		/// Gets all custom from addresses which can be used in a campaign.
 		/// </summary>
 		public ServiceResult<ApiCampaignFromAddressList> GetCustomFromAddresses(int? select = null, int? skip = null)
@@ -763,6 +845,15 @@ namespace dotMailer.Api
 				{ "skip", skip }
 			});
 			return Get<ApiCampaignFromAddressList>(request);
+		}
+
+		/// <summary>
+		/// Lists the data fields within the account.
+		/// </summary>
+		public ServiceResult<ApiDataFieldList> GetDataFields()
+		{
+			var request = new Request("v2/data-fields");
+			return Get<ApiDataFieldList>(request);
 		}
 
 		/// <summary>
@@ -824,6 +915,19 @@ namespace dotMailer.Api
 		}
 
 		/// <summary>
+		/// Gets the refresh progress for a segment.
+		/// </summary>
+		public ServiceResult<ApiSegmentRefresh> GetSegmentsRefrehById(int id)
+		{
+			var request = new Request("v2/segments/refresh/{id}", 
+			new Dictionary<string, object>
+			{
+				{ "id", id }
+			});
+			return Get<ApiSegmentRefresh>(request);
+		}
+
+		/// <summary>
 		/// Gets the UTC time as set on the server.
 		/// </summary>
 		public ServiceResult GetServerTime()
@@ -858,6 +962,19 @@ namespace dotMailer.Api
 			});
 			return Get<ApiTemplateList>(request);
 		}
+		/// <summary>
+		/// Adds a contact to a given address book.
+		/// </summary>
+		public ServiceResult<ApiContact> PostAddressBookContacts(int addressBookId, ApiContact apiContact)
+		{
+			var request = new Request("v2/address-books/{addressBookId}/contacts", 
+			new Dictionary<string, object>
+			{
+				{ "addressBookId", addressBookId },
+			});
+			return Post<ApiContact>(request, apiContact);
+		}
+
 		/// <summary>
 		/// Bulk creates, or bulk updates, contacts. Import format can either be CSV or Excel. Must include one column called "Email". Any other columns will attempt to map to your custom data fields. The ID of returned object can be used to query import progress.
 		/// </summary>
@@ -904,6 +1021,19 @@ namespace dotMailer.Api
 		{
 			var request = new Request("v2/address-books");
 			return Post<ApiAddressBook>(request, apiAddressBook);
+		}
+
+		/// <summary>
+		/// Adds a document to a campaign as an attachment.
+		/// </summary>
+		public ServiceResult<ApiDocument> PostCampaignAttachments(int campaignId, ApiDocument document)
+		{
+			var request = new Request("v2/campaigns/{campaignId}/attachments", 
+			new Dictionary<string, object>
+			{
+				{ "campaignId", campaignId },
+			});
+			return Post<ApiDocument>(request, document);
 		}
 
 		/// <summary>
@@ -1036,6 +1166,32 @@ namespace dotMailer.Api
 		}
 
 		/// <summary>
+		/// Upload a document to the specified folder.
+		/// </summary>
+		public ServiceResult<ApiDocument> PostDocumentFolderDocuments(int folderId)
+		{
+			var request = new Request("v2/document-folders/{folderId}/documents", 
+			new Dictionary<string, object>
+			{
+				{ "folderId", folderId }
+			});
+			return Post<ApiDocument>(request);
+		}
+
+		/// <summary>
+		/// Creates a new campaign image folder.
+		/// </summary>
+		public ServiceResult<ApiImageFolder> PostImageFolder(int id, ApiImageFolder folder)
+		{
+			var request = new Request("v2/image-folders/{id}", 
+			new Dictionary<string, object>
+			{
+				{ "id", id },
+			});
+			return Post<ApiImageFolder>(request, folder);
+		}
+
+		/// <summary>
 		/// Uploads a new campaign image to the specified folder.
 		/// </summary>
 		public ServiceResult<ApiImage> PostImageFolderImages(int folderId)
@@ -1081,6 +1237,58 @@ namespace dotMailer.Api
 		{
 			var request = new Request("v2/templates");
 			return Post<ApiTemplate>(request, template);
+		}
+
+		/// <summary>
+		/// Updates an address book.
+		/// </summary>
+		public ServiceResult<ApiAddressBook> UpdateAddressBook(int id, ApiAddressBook apiAddressBook)
+		{
+			var request = new Request("v2/address-books/{id}", 
+			new Dictionary<string, object>
+			{
+				{ "id", id },
+			});
+			return Put<ApiAddressBook>(request, apiAddressBook);
+		}
+
+		/// <summary>
+		/// Updates a given campaign.
+		/// </summary>
+		public ServiceResult<ApiCampaign> UpdateCampaign(int id, ApiCampaign apiCampaign)
+		{
+			var request = new Request("v2/campaigns/{id}", 
+			new Dictionary<string, object>
+			{
+				{ "id", id },
+			});
+			return Put<ApiCampaign>(request, apiCampaign);
+		}
+
+		/// <summary>
+		/// Updates a contact.
+		/// </summary>
+		public ServiceResult<ApiContact> UpdateContact(int id, ApiContact apiContact)
+		{
+			var request = new Request("v2/contacts/{id}", 
+			new Dictionary<string, object>
+			{
+				{ "id", id },
+			});
+			return Put<ApiContact>(request, apiContact);
+		}
+
+		/// <summary>
+		/// Updates a template.
+		/// </summary>
+		public ServiceResult<ApiTemplate> UpdateTemplate(int id, ApiTemplate template)
+		{
+			var request = new Request("v2/templates/{id}", 
+			new Dictionary<string, object>
+			{
+				{ "id", id },
+			});
+			return Put<ApiTemplate>(request, template);
 		}
 
 
