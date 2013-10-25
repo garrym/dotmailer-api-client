@@ -1,0 +1,7 @@
+[Oo]bj
+[Bb]in
+/packages/*
+!packages/repositories.config
+*.user
+*.suo
+*.DotSettings

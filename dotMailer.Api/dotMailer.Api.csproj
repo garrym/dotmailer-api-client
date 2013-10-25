@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{43A62BC4-B736-4FC4-B91E-6E01D4B70CE4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>dotMailer.Api</RootNamespace>
+    <AssemblyName>dotMailer.Api</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.7\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Client.cs" />
+    <Compile Include="Client.Generated.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Request.cs" />
+    <Compile Include="Resources\Enums\ApiAddressBookVisibility.cs" />
+    <Compile Include="Resources\Enums\ApiBusinessObjectType.cs" />
+    <Compile Include="Resources\Enums\ApiCampaignReplyActions.cs" />
+    <Compile Include="Resources\Enums\ApiCampaignReplyTypes.cs" />
+    <Compile Include="Resources\Enums\ApiCampaignSendStatuses.cs" />
+    <Compile Include="Resources\Enums\ApiCampaignStatuses.cs" />
+    <Compile Include="Resources\Enums\ApiContactEmailTypes.cs" />
+    <Compile Include="Resources\Enums\ApiContactImportStatuses.cs" />
+    <Compile Include="Resources\Enums\ApiContactOptInTypes.cs" />
+    <Compile Include="Resources\Enums\ApiContactStatuses.cs" />
+    <Compile Include="Resources\Enums\ApiDataFieldVisibility.cs" />
+    <Compile Include="Resources\Enums\ApiDataTypes.cs" />
+    <Compile Include="Resources\Enums\ApiResubscribeStatuses.cs" />
+    <Compile Include="Resources\Enums\ApiRoiDetailDataTypes.cs" />
+    <Compile Include="Resources\Enums\ApiSegmentRefreshStatuses.cs" />
+    <Compile Include="Resources\Enums\ApiSplitTestMetrics.cs" />
+    <Compile Include="Resources\Enums\ApiTransactionalDataImportFaultReason.cs" />
+    <Compile Include="Resources\Enums\ApiTransactionalDataImportStatuses.cs" />
+    <Compile Include="Resources\Models\ApiAccount.cs" />
+    <Compile Include="Resources\Models\ApiAccountProperty.cs" />
+    <Compile Include="Resources\Models\ApiAccountPropertyList.cs" />
+    <Compile Include="Resources\Models\ApiAddressBook.cs" />
+    <Compile Include="Resources\Models\ApiAddressBookList.cs" />
+    <Compile Include="Resources\Models\ApiCampaign.cs" />
+    <Compile Include="Resources\Models\ApiCampaignContactClick.cs" />
+    <Compile Include="Resources\Models\ApiCampaignContactClickList.cs" />
+    <Compile Include="Resources\Models\ApiCampaignContactOpen.cs" />
+    <Compile Include="Resources\Models\ApiCampaignContactOpenList.cs" />
+    <Compile Include="Resources\Models\ApiCampaignContactPageView.cs" />
+    <Compile Include="Resources\Models\ApiCampaignContactPageViewList.cs" />
+    <Compile Include="Resources\Models\ApiCampaignContactReply.cs" />
+    <Compile Include="Resources\Models\ApiCampaignContactReplyList.cs" />
+    <Compile Include="Resources\Models\ApiCampaignContactRoiDetail.cs" />
+    <Compile Include="Resources\Models\ApiCampaignContactRoiDetailList.cs" />
+    <Compile Include="Resources\Models\ApiCampaignContactSocialBookmarkView.cs" />
+    <Compile Include="Resources\Models\ApiCampaignContactSocialBookmarkViewList.cs" />
+    <Compile Include="Resources\Models\ApiCampaignContactSummary.cs" />
+    <Compile Include="Resources\Models\ApiCampaignContactSummaryList.cs" />
+    <Compile Include="Resources\Models\ApiCampaignFromAddress.cs" />
+    <Compile Include="Resources\Models\ApiCampaignFromAddressList.cs" />
+    <Compile Include="Resources\Models\ApiCampaignList.cs" />
+    <Compile Include="Resources\Models\ApiCampaignSend.cs" />
+    <Compile Include="Resources\Models\ApiCampaignSummary.cs" />
+    <Compile Include="Resources\Models\ApiContact.cs" />
+    <Compile Include="Resources\Models\ApiContactData.cs" />
+    <Compile Include="Resources\Models\ApiContactDataList.cs" />
+    <Compile Include="Resources\Models\ApiContactImport.cs" />
+    <Compile Include="Resources\Models\ApiContactImportReport.cs" />
+    <Compile Include="Resources\Models\ApiContactList.cs" />
+    <Compile Include="Resources\Models\ApiContactResubscription.cs" />
+    <Compile Include="Resources\Models\ApiContactSuppression.cs" />
+    <Compile Include="Resources\Models\ApiContactSuppressionList.cs" />
+    <Compile Include="Resources\Models\ApiDataField.cs" />
+    <Compile Include="Resources\Models\ApiDataFieldList.cs" />
+    <Compile Include="Resources\Models\ApiDependency.cs" />
+    <Compile Include="Resources\Models\ApiDependencyList.cs" />
+    <Compile Include="Resources\Models\ApiDependencyResult.cs" />
+    <Compile Include="Resources\Models\ApiDocument.cs" />
+    <Compile Include="Resources\Models\ApiDocumentFolder.cs" />
+    <Compile Include="Resources\Models\ApiDocumentFolderList.cs" />
+    <Compile Include="Resources\Models\ApiDocumentList.cs" />
+    <Compile Include="Resources\Models\ApiImage.cs" />
+    <Compile Include="Resources\Models\ApiImageFolder.cs" />
+    <Compile Include="Resources\Models\ApiImageFolderList.cs" />
+    <Compile Include="Resources\Models\ApiJsonData.cs" />
+    <Compile Include="Resources\Models\ApiResubscribeResult.cs" />
+    <Compile Include="Resources\Models\ApiSegment.cs" />
+    <Compile Include="Resources\Models\ApiSegmentList.cs" />
+    <Compile Include="Resources\Models\ApiSegmentRefresh.cs" />
+    <Compile Include="Resources\Models\ApiSms.cs" />
+    <Compile Include="Resources\Models\ApiSplitTestSendOptions.cs" />
+    <Compile Include="Resources\Models\ApiTemplate.cs" />
+    <Compile Include="Resources\Models\ApiTemplateList.cs" />
+    <Compile Include="Resources\Models\ApiTransactionalData.cs" />
+    <Compile Include="Resources\Models\ApiTransactionalDataImport.cs" />
+    <Compile Include="Resources\Models\ApiTransactionalDataImportReport.cs" />
+    <Compile Include="Resources\Models\ApiTransactionalDataImportReportFault.cs" />
+    <Compile Include="Resources\Models\ApiTransactionalDataImportReportFaultList.cs" />
+    <Compile Include="Resources\Models\ApiTransactionalDataList.cs" />
+    <Compile Include="Resources\Models\Int32List.cs" />
+    <Compile Include="ServiceResult.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

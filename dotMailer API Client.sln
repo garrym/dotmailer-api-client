@@ -1,0 +1,47 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{8EF7FBF0-C4E0-4796-A318-4E953317CE3E}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotMailer.Api", "dotMailer.Api\dotMailer.Api.csproj", "{43A62BC4-B736-4FC4-B91E-6E01D4B70CE4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotMailer.Api.WadlParser", "dotMailer.Api.WadlParser\dotMailer.Api.WadlParser.csproj", "{E4617641-2812-480D-A6A7-35898EABF300}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotMailer.Api.TestBench", "dotMailer.Api.TestBench\dotMailer.Api.TestBench.csproj", "{84221D71-AF10-47AB-B7F5-B0B4E0BC6D89}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dotMailer.Api.Tests", "dotMailer.Api.Tests\dotMailer.Api.Tests.csproj", "{F9F5B990-93BD-45E8-9875-32C455904BAC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{43A62BC4-B736-4FC4-B91E-6E01D4B70CE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43A62BC4-B736-4FC4-B91E-6E01D4B70CE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43A62BC4-B736-4FC4-B91E-6E01D4B70CE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43A62BC4-B736-4FC4-B91E-6E01D4B70CE4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4617641-2812-480D-A6A7-35898EABF300}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4617641-2812-480D-A6A7-35898EABF300}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4617641-2812-480D-A6A7-35898EABF300}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4617641-2812-480D-A6A7-35898EABF300}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84221D71-AF10-47AB-B7F5-B0B4E0BC6D89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84221D71-AF10-47AB-B7F5-B0B4E0BC6D89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84221D71-AF10-47AB-B7F5-B0B4E0BC6D89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84221D71-AF10-47AB-B7F5-B0B4E0BC6D89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9F5B990-93BD-45E8-9875-32C455904BAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9F5B990-93BD-45E8-9875-32C455904BAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9F5B990-93BD-45E8-9875-32C455904BAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9F5B990-93BD-45E8-9875-32C455904BAC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
