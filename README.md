@@ -51,8 +51,10 @@ A small console application for testing method calls and objects returned from t
 
 #### Known Issues
 
-- Methods that require binary uploads are not supported
+- Not all methods are supported yet
+- Methods that require binary uploads are not supported yet due the parameters not appearing in the WADL
 - All client methods are synchronous and will be updated to async in the near future
+- There are some spelling mistakes with method names in the WADL which are reflected in the generated code (Namely 'PostSegmentRefreh' and 'GetSegmentsRefrehById')
 
 
 #### Limits
