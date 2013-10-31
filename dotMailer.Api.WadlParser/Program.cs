@@ -11,7 +11,7 @@ namespace dotMailer.Api.WadlParser
     {
         private static readonly RestDefinition restDefinition = new RestDefinition();
         private const string outputDirectory = @"C:\Output\";
-        private const string url = "http://apiconnector.com/v2/help/wadl";
+        private const string url = "https://api.dotmailer.com/v2/help/wadl";
 
         static void Main()
         {
@@ -119,6 +119,7 @@ namespace dotMailer.Api.WadlParser
             const string templateName = "Client.Generated";
             var clientCode = LoadTemplateClass(templateName);
 
+            clientCode = clientCode.Replace("[[BASE-ADDRESS]]", restDefinition.BaseAddress);
             clientCode = GenerateMethodsCode(clientCode);
 
             var fileName = string.Format("{0}.cs", templateName);
@@ -137,7 +138,7 @@ namespace dotMailer.Api.WadlParser
                     sb.AppendLine();
             }
 
-            return clientCode.Replace("// METHOD-PLACEHOLDER", sb.ToString());
+            return clientCode.Replace("[[METHODS]]", sb.ToString());
         }
 
         private static void CreateFile(string path, string data)
@@ -258,7 +259,9 @@ namespace dotMailer.Api.WadlParser
 
         private static void ProcessMethods(XDocument document)
         {
-            var methodElements = document.Root.Elements().First(x => x.Name.LocalName.Equals("resources")).Elements().ToList();
+            var resourcesElement = document.Root.Elements().First(x => x.Name.LocalName.Equals("resources"));
+            restDefinition.BaseAddress = resourcesElement.Attribute("base").Value;
+            var methodElements = resourcesElement.Elements().ToList();
             foreach (var element in methodElements)
             {
                 ProcessMethodNode(element);
@@ -267,7 +270,7 @@ namespace dotMailer.Api.WadlParser
 
         private static void ProcessMethodNode(XElement element)
         {
-            var path = "v2/" + element.Attribute("path").Value; // Append v2 because it's not returned with the WADL
+            var path = element.Attribute("path").Value;
             var id = element.Attribute("id").Value;
 
             foreach (var methodNode in element.Elements())

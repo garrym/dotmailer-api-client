@@ -16,8 +16,6 @@ namespace dotMailer.Api
             httpClient = GetHttpClient(username, password);
         }
 
-        public const string BaseAddress = "https://apiconnector.com/";
-
         #region Helpers
 
         private static HttpClient GetHttpClient(string username, string password)

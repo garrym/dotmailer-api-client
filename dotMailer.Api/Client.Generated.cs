@@ -15,12 +15,14 @@ namespace dotMailer.Api
     /// </summary>
     public partial class Client
     {
+		public const string BaseAddress = "https://api.dotmailer.com/v2/";
+
 		/// <summary>
 		/// Deletes an address book.
 		/// </summary>
 		public ServiceResult DeleteAddressBook(int id)
 		{
-			var request = new Request("v2/address-books/{id}", 
+			var request = new Request("address-books/{id}", 
 			new Dictionary<string, object>
 			{
 				{ "id", id }
@@ -33,7 +35,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult DeleteAddressBookContact(int addressBookId, int contactId)
 		{
-			var request = new Request("v2/address-books/{addressBookId}/contacts/{contactId}", 
+			var request = new Request("address-books/{addressBookId}/contacts/{contactId}", 
 			new Dictionary<string, object>
 			{
 				{ "addressBookId", addressBookId },
@@ -47,7 +49,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult DeleteAddressBookContacts(int addressBookId)
 		{
-			var request = new Request("v2/address-books/{addressBookId}/contacts", 
+			var request = new Request("address-books/{addressBookId}/contacts", 
 			new Dictionary<string, object>
 			{
 				{ "addressBookId", addressBookId }
@@ -60,7 +62,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult DeleteAddressBookContactsInbulk(int addressBookId, Int32List contactIds)
 		{
-			var request = new Request("v2/address-books/{addressBookId}/contacts/inbulk", 
+			var request = new Request("address-books/{addressBookId}/contacts/inbulk", 
 			new Dictionary<string, object>
 			{
 				{ "addressBookId", addressBookId },
@@ -73,7 +75,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult DeleteCampaignAttachment(int campaignId, int documentId)
 		{
-			var request = new Request("v2/campaigns/{campaignId}/attachments/{documentId}", 
+			var request = new Request("campaigns/{campaignId}/attachments/{documentId}", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId },
@@ -87,7 +89,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult DeleteContact(int id)
 		{
-			var request = new Request("v2/contacts/{id}", 
+			var request = new Request("contacts/{id}", 
 			new Dictionary<string, object>
 			{
 				{ "id", id }
@@ -100,7 +102,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult DeleteContactsTransactionalData(string collectionName, string key)
 		{
-			var request = new Request("v2/contacts/transactional-data/{collectionName}/{key}", 
+			var request = new Request("contacts/transactional-data/{collectionName}/{key}", 
 			new Dictionary<string, object>
 			{
 				{ "collectionName", collectionName },
@@ -114,7 +116,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult DeleteContactTransactionalData(string collectionName, string email)
 		{
-			var request = new Request("v2/contacts/{email}/transactional-data/{collectionName}", 
+			var request = new Request("contacts/{email}/transactional-data/{collectionName}", 
 			new Dictionary<string, object>
 			{
 				{ "collectionName", collectionName },
@@ -128,7 +130,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult DeleteContactTransactionalData(string collectionName, int id)
 		{
-			var request = new Request("v2/contacts/{id}/transactional-data/{collectionName}", 
+			var request = new Request("contacts/{id}/transactional-data/{collectionName}", 
 			new Dictionary<string, object>
 			{
 				{ "collectionName", collectionName },
@@ -142,7 +144,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiDependencyResult> DeleteDataField(string name)
 		{
-			var request = new Request("v2/data-fields/{name}", 
+			var request = new Request("data-fields/{name}", 
 			new Dictionary<string, object>
 			{
 				{ "name", name }
@@ -155,7 +157,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiAccount> GetAccountInfo()
 		{
-			var request = new Request("v2/account-info");
+			var request = new Request("account-info");
 			return Get<ApiAccount>(request);
 		}
 
@@ -164,7 +166,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiAddressBook> GetAddressBookById(int id)
 		{
-			var request = new Request("v2/address-books/{id}", 
+			var request = new Request("address-books/{id}", 
 			new Dictionary<string, object>
 			{
 				{ "id", id }
@@ -177,7 +179,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiCampaignList> GetAddressBookCampaigns(int addressBookId, int? select = null, int? skip = null)
 		{
-			var request = new Request("v2/address-books/{addressBookId}/campaigns?select={select}&skip={skip}", 
+			var request = new Request("address-books/{addressBookId}/campaigns?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "addressBookId", addressBookId },
@@ -192,7 +194,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiContactList> GetAddressBookContacts(int addressBookId, bool? withFullData = null, int? select = null, int? skip = null)
 		{
-			var request = new Request("v2/address-books/{addressBookId}/contacts?withFullData={withFullData}&select={select}&skip={skip}", 
+			var request = new Request("address-books/{addressBookId}/contacts?withFullData={withFullData}&select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "addressBookId", addressBookId },
@@ -208,7 +210,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiContactList> GetAddressBookContactsModifiedSinceDate(int addressBookId, DateTime date, bool? withFullData = null, int? select = null, int? skip = null)
 		{
-			var request = new Request("v2/address-books/{addressBookId}/contacts/modified-since/{date}?withFullData={withFullData}&select={select}&skip={skip}", 
+			var request = new Request("address-books/{addressBookId}/contacts/modified-since/{date}?withFullData={withFullData}&select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "addressBookId", addressBookId },
@@ -225,7 +227,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiContactSuppressionList> GetAddressBookContactsUnsubscribedSinceDate(int addressBookId, DateTime date, int? select = null, int? skip = null)
 		{
-			var request = new Request("v2/address-books/{addressBookId}/contacts/unsubscribed-since/{date}?select={select}&skip={skip}", 
+			var request = new Request("address-books/{addressBookId}/contacts/unsubscribed-since/{date}?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "addressBookId", addressBookId },
@@ -241,7 +243,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiAddressBookList> GetAddressBooks(int? select = null, int? skip = null)
 		{
-			var request = new Request("v2/address-books?select={select}&skip={skip}", 
+			var request = new Request("address-books?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "select", select },
@@ -255,7 +257,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiAddressBookList> GetAddressBooksPrivate(int? select = null, int? skip = null)
 		{
-			var request = new Request("v2/address-books/private?select={select}&skip={skip}", 
+			var request = new Request("address-books/private?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "select", select },
@@ -269,7 +271,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiAddressBookList> GetAddressBooksPublic(int? select = null, int? skip = null)
 		{
-			var request = new Request("v2/address-books/public?select={select}&skip={skip}", 
+			var request = new Request("address-books/public?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "select", select },
@@ -283,7 +285,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiCampaignContactSummaryList> GetCampaignActivities(int campaignId, int? select = null, int? skip = null)
 		{
-			var request = new Request("v2/campaigns/{campaignId}/activities?select={select}&skip={skip}", 
+			var request = new Request("campaigns/{campaignId}/activities?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId },
@@ -298,7 +300,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiCampaignContactSummaryList> GetCampaignActivitiesSinceDateByDate(int campaignId, DateTime date, int? select = null, int? skip = null)
 		{
-			var request = new Request("v2/campaigns/{campaignId}/activities/since-date/{date}?select={select}&skip={skip}", 
+			var request = new Request("campaigns/{campaignId}/activities/since-date/{date}?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId },
@@ -314,7 +316,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiCampaignContactSummary> GetCampaignActivityByContactId(int campaignId, int contactId)
 		{
-			var request = new Request("v2/campaigns/{campaignId}/activities/{contactId}", 
+			var request = new Request("campaigns/{campaignId}/activities/{contactId}", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId },
@@ -328,7 +330,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiCampaignContactClickList> GetCampaignActivityClicks(int campaignId, int contactId, int? select = null, int? skip = null)
 		{
-			var request = new Request("v2/campaigns/{campaignId}/activities/{contactId}/clicks?select={select}&skip={skip}", 
+			var request = new Request("campaigns/{campaignId}/activities/{contactId}/clicks?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId },
@@ -344,7 +346,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiCampaignContactOpenList> GetCampaignActivityOpens(int campaignId, int contactId, int? select = null, int? skip = null)
 		{
-			var request = new Request("v2/campaigns/{campaignId}/activities/{contactId}/opens?select={select}&skip={skip}", 
+			var request = new Request("campaigns/{campaignId}/activities/{contactId}/opens?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId },
@@ -360,7 +362,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiCampaignContactPageViewList> GetCampaignActivityPageViews(int campaignId, int contactId, int? select = null, int? skip = null)
 		{
-			var request = new Request("v2/campaigns/{campaignId}/activities/{contactId}/page-views?select={select}&skip={skip}", 
+			var request = new Request("campaigns/{campaignId}/activities/{contactId}/page-views?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId },
@@ -376,7 +378,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiCampaignContactReplyList> GetCampaignActivityReplies(int campaignId, int contactId, int? select = null, int? skip = null)
 		{
-			var request = new Request("v2/campaigns/{campaignId}/activities/{contactId}/replies?select={select}&skip={skip}", 
+			var request = new Request("campaigns/{campaignId}/activities/{contactId}/replies?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId },
@@ -392,7 +394,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiCampaignContactRoiDetailList> GetCampaignActivityRoiDetails(int campaignId, int contactId, int? select = null, int? skip = null)
 		{
-			var request = new Request("v2/campaigns/{campaignId}/activities/{contactId}/roi-details?select={select}&skip={skip}", 
+			var request = new Request("campaigns/{campaignId}/activities/{contactId}/roi-details?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId },
@@ -408,7 +410,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiCampaignContactSocialBookmarkViewList> GetCampaignActivitySocialBookmarkViews(int campaignId, int contactId, int? select = null, int? skip = null)
 		{
-			var request = new Request("v2/campaigns/{campaignId}/activities/{contactId}/social-bookmark-views?select={select}&skip={skip}", 
+			var request = new Request("campaigns/{campaignId}/activities/{contactId}/social-bookmark-views?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId },
@@ -424,7 +426,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiAddressBookList> GetCampaignAddressBooks(int campaignId, int? select = null, int? skip = null)
 		{
-			var request = new Request("v2/campaigns/{campaignId}/address-books?select={select}&skip={skip}", 
+			var request = new Request("campaigns/{campaignId}/address-books?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId },
@@ -439,7 +441,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiDocumentList> GetCampaignAttachments(int campaignId)
 		{
-			var request = new Request("v2/campaigns/{campaignId}/attachments", 
+			var request = new Request("campaigns/{campaignId}/attachments", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId }
@@ -452,7 +454,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiCampaign> GetCampaignById(int id)
 		{
-			var request = new Request("v2/campaigns/{id}", 
+			var request = new Request("campaigns/{id}", 
 			new Dictionary<string, object>
 			{
 				{ "id", id }
@@ -465,7 +467,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiCampaignContactClickList> GetCampaignClicks(int campaignId, int? select = null, int? skip = null)
 		{
-			var request = new Request("v2/campaigns/{campaignId}/clicks?select={select}&skip={skip}", 
+			var request = new Request("campaigns/{campaignId}/clicks?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId },
@@ -480,7 +482,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiContactList> GetCampaignHardBouncingContacts(int campaignId, bool? withFullData = null, int? select = null, int? skip = null)
 		{
-			var request = new Request("v2/campaigns/{campaignId}/hard-bouncing-contacts?withFullData={withFullData}&select={select}&skip={skip}", 
+			var request = new Request("campaigns/{campaignId}/hard-bouncing-contacts?withFullData={withFullData}&select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId },
@@ -496,7 +498,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiCampaignContactOpenList> GetCampaignOpens(int campaignId, int? select = null, int? skip = null)
 		{
-			var request = new Request("v2/campaigns/{campaignId}/opens?select={select}&skip={skip}", 
+			var request = new Request("campaigns/{campaignId}/opens?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId },
@@ -511,7 +513,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiCampaignContactPageViewList> GetCampaignPageViewsSinceDateByDate(int campaignId, DateTime date, int? select = null, int? skip = null)
 		{
-			var request = new Request("v2/campaigns/{campaignId}/page-views/since-date/{date}?select={select}&skip={skip}", 
+			var request = new Request("campaigns/{campaignId}/page-views/since-date/{date}?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId },
@@ -527,7 +529,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiCampaignContactRoiDetailList> GetCampaignRoiDetailsSinceDateByDate(int campaignId, DateTime date, int? select = null, int? skip = null)
 		{
-			var request = new Request("v2/campaigns/{campaignId}/roi-details/since-date/{date}?select={select}&skip={skip}", 
+			var request = new Request("campaigns/{campaignId}/roi-details/since-date/{date}?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId },
@@ -543,7 +545,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiCampaignList> GetCampaigns(int? select = null, int? skip = null)
 		{
-			var request = new Request("v2/campaigns?select={select}&skip={skip}", 
+			var request = new Request("campaigns?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "select", select },
@@ -557,7 +559,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiCampaignContactSocialBookmarkViewList> GetCampaignSocialBookmarkViews(int campaignId, int? select = null, int? skip = null)
 		{
-			var request = new Request("v2/campaigns/{campaignId}/social-bookmark-views?select={select}&skip={skip}", 
+			var request = new Request("campaigns/{campaignId}/social-bookmark-views?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId },
@@ -572,7 +574,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiCampaignSend> GetCampaignsSendBySendId(Guid sendId)
 		{
-			var request = new Request("v2/campaigns/send/{sendId}", 
+			var request = new Request("campaigns/send/{sendId}", 
 			new Dictionary<string, object>
 			{
 				{ "sendId", sendId }
@@ -585,7 +587,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiCampaignSummary> GetCampaignSummary(int campaignId)
 		{
-			var request = new Request("v2/campaigns/{campaignId}/summary", 
+			var request = new Request("campaigns/{campaignId}/summary", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId }
@@ -598,7 +600,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiCampaignList> GetCampaignsWithActivitySinceDate(DateTime date, int? select = null, int? skip = null)
 		{
-			var request = new Request("v2/campaigns/with-activity-since/{date}?select={select}&skip={skip}", 
+			var request = new Request("campaigns/with-activity-since/{date}?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "date", date },
@@ -613,7 +615,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiAddressBookList> GetContactAddressBooks(int contactId, int? select = null, int? skip = null)
 		{
-			var request = new Request("v2/contacts/{contactId}/address-books?select={select}&skip={skip}", 
+			var request = new Request("contacts/{contactId}/address-books?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "contactId", contactId },
@@ -628,7 +630,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiContact> GetContactByEmail(string email)
 		{
-			var request = new Request("v2/contacts/{email}", 
+			var request = new Request("contacts/{email}", 
 			new Dictionary<string, object>
 			{
 				{ "email", email }
@@ -641,7 +643,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiContact> GetContactById(int id)
 		{
-			var request = new Request("v2/contacts/{id}", 
+			var request = new Request("contacts/{id}", 
 			new Dictionary<string, object>
 			{
 				{ "id", id }
@@ -654,7 +656,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiContactList> GetContacts(bool? withFullData = null, int? select = null, int? skip = null)
 		{
-			var request = new Request("v2/contacts?withFullData={withFullData}&select={select}&skip={skip}", 
+			var request = new Request("contacts?withFullData={withFullData}&select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "withFullData", withFullData },
@@ -669,7 +671,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiContactList> GetContactsCreatedSinceDate(DateTime date, bool? withFullData = null, int? select = null, int? skip = null)
 		{
-			var request = new Request("v2/contacts/created-since/{date}?withFullData={withFullData}&select={select}&skip={skip}", 
+			var request = new Request("contacts/created-since/{date}?withFullData={withFullData}&select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "date", date },
@@ -685,7 +687,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiContactImport> GetContactsImportByImportId(Guid importId)
 		{
-			var request = new Request("v2/contacts/import/{importId}", 
+			var request = new Request("contacts/import/{importId}", 
 			new Dictionary<string, object>
 			{
 				{ "importId", importId }
@@ -698,7 +700,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiContactImportReport> GetContactsImportReport(Guid importId)
 		{
-			var request = new Request("v2/contacts/import/{importId}/report", 
+			var request = new Request("contacts/import/{importId}/report", 
 			new Dictionary<string, object>
 			{
 				{ "importId", importId }
@@ -711,7 +713,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult GetContactsImportReportFaults(Guid importId)
 		{
-			var request = new Request("v2/contacts/import/{importId}/report-faults", 
+			var request = new Request("contacts/import/{importId}/report-faults", 
 			new Dictionary<string, object>
 			{
 				{ "importId", importId }
@@ -724,7 +726,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiContactList> GetContactsModifiedSinceDate(DateTime date, bool? withFullData = null, int? select = null, int? skip = null)
 		{
-			var request = new Request("v2/contacts/modified-since/{date}?withFullData={withFullData}&select={select}&skip={skip}", 
+			var request = new Request("contacts/modified-since/{date}?withFullData={withFullData}&select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "date", date },
@@ -740,7 +742,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiContactSuppressionList> GetContactsSuppressedSinceDate(DateTime date, int? select = null, int? skip = null)
 		{
-			var request = new Request("v2/contacts/suppressed-since/{date}?select={select}&skip={skip}", 
+			var request = new Request("contacts/suppressed-since/{date}?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "date", date },
@@ -755,7 +757,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiTransactionalData> GetContactsTransactionalDataByKey(string collectionName, string key)
 		{
-			var request = new Request("v2/contacts/transactional-data/{collectionName}/{key}", 
+			var request = new Request("contacts/transactional-data/{collectionName}/{key}", 
 			new Dictionary<string, object>
 			{
 				{ "collectionName", collectionName },
@@ -769,7 +771,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiTransactionalDataImport> GetContactsTransactionalDataImportByImportId(Guid importId)
 		{
-			var request = new Request("v2/contacts/transactional-data/import/{importId}", 
+			var request = new Request("contacts/transactional-data/import/{importId}", 
 			new Dictionary<string, object>
 			{
 				{ "importId", importId }
@@ -782,7 +784,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiTransactionalDataImportReport> GetContactsTransactionalDataImportReport(Guid importId)
 		{
-			var request = new Request("v2/contacts/transactional-data/import/{importId}/report", 
+			var request = new Request("contacts/transactional-data/import/{importId}/report", 
 			new Dictionary<string, object>
 			{
 				{ "importId", importId }
@@ -795,7 +797,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiContactSuppressionList> GetContactsUnsubscribedSinceDate(DateTime date, int? select = null, int? skip = null)
 		{
-			var request = new Request("v2/contacts/unsubscribed-since/{date}?select={select}&skip={skip}", 
+			var request = new Request("contacts/unsubscribed-since/{date}?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "date", date },
@@ -810,7 +812,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiTransactionalDataList> GetContactTransactionalDataByCollectionName(string collectionName, string email)
 		{
-			var request = new Request("v2/contacts/{email}/transactional-data/{collectionName}", 
+			var request = new Request("contacts/{email}/transactional-data/{collectionName}", 
 			new Dictionary<string, object>
 			{
 				{ "collectionName", collectionName },
@@ -824,7 +826,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiTransactionalDataList> GetContactTransactionalDataByCollectionName(string collectionName, int id)
 		{
-			var request = new Request("v2/contacts/{id}/transactional-data/{collectionName}", 
+			var request = new Request("contacts/{id}/transactional-data/{collectionName}", 
 			new Dictionary<string, object>
 			{
 				{ "collectionName", collectionName },
@@ -838,7 +840,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiCampaignFromAddressList> GetCustomFromAddresses(int? select = null, int? skip = null)
 		{
-			var request = new Request("v2/custom-from-addresses?select={select}&skip={skip}", 
+			var request = new Request("custom-from-addresses?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "select", select },
@@ -852,7 +854,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiDataFieldList> GetDataFields()
 		{
-			var request = new Request("v2/data-fields");
+			var request = new Request("data-fields");
 			return Get<ApiDataFieldList>(request);
 		}
 
@@ -861,7 +863,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiDocumentList> GetDocumentFolderDocuments(int folderId)
 		{
-			var request = new Request("v2/document-folders/{folderId}/documents", 
+			var request = new Request("document-folders/{folderId}/documents", 
 			new Dictionary<string, object>
 			{
 				{ "folderId", folderId }
@@ -874,7 +876,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiDocumentFolderList> GetDocumentFolders()
 		{
-			var request = new Request("v2/document-folders");
+			var request = new Request("document-folders");
 			return Get<ApiDocumentFolderList>(request);
 		}
 
@@ -883,7 +885,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiImageFolder> GetImageFolderById(int id)
 		{
-			var request = new Request("v2/image-folders/{id}", 
+			var request = new Request("image-folders/{id}", 
 			new Dictionary<string, object>
 			{
 				{ "id", id }
@@ -896,7 +898,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiImageFolderList> GetImageFolders()
 		{
-			var request = new Request("v2/image-folders");
+			var request = new Request("image-folders");
 			return Get<ApiImageFolderList>(request);
 		}
 
@@ -905,7 +907,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiSegmentList> GetSegments(int? select = null, int? skip = null)
 		{
-			var request = new Request("v2/segments?select={select}&skip={skip}", 
+			var request = new Request("segments?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "select", select },
@@ -919,7 +921,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiSegmentRefresh> GetSegmentsRefrehById(int id)
 		{
-			var request = new Request("v2/segments/refresh/{id}", 
+			var request = new Request("segments/refresh/{id}", 
 			new Dictionary<string, object>
 			{
 				{ "id", id }
@@ -932,7 +934,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult GetServerTime()
 		{
-			var request = new Request("v2/server-time");
+			var request = new Request("server-time");
 			return Get(request);
 		}
 
@@ -941,7 +943,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiTemplate> GetTemplateById(int id)
 		{
-			var request = new Request("v2/templates/{id}", 
+			var request = new Request("templates/{id}", 
 			new Dictionary<string, object>
 			{
 				{ "id", id }
@@ -954,7 +956,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiTemplateList> GetTemplates(int? select = null, int? skip = null)
 		{
-			var request = new Request("v2/templates?select={select}&skip={skip}", 
+			var request = new Request("templates?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "select", select },
@@ -967,7 +969,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiContact> PostAddressBookContacts(int addressBookId, ApiContact apiContact)
 		{
-			var request = new Request("v2/address-books/{addressBookId}/contacts", 
+			var request = new Request("address-books/{addressBookId}/contacts", 
 			new Dictionary<string, object>
 			{
 				{ "addressBookId", addressBookId },
@@ -980,7 +982,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiContactImport> PostAddressBookContactsImport(int addressBookId)
 		{
-			var request = new Request("v2/address-books/{addressBookId}/contacts/import", 
+			var request = new Request("address-books/{addressBookId}/contacts/import", 
 			new Dictionary<string, object>
 			{
 				{ "addressBookId", addressBookId }
@@ -993,7 +995,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiResubscribeResult> PostAddressBookContactsResubscribe(int addressBookId, ApiContactResubscription apiContactResubscription)
 		{
-			var request = new Request("v2/address-books/{addressBookId}/contacts/resubscribe", 
+			var request = new Request("address-books/{addressBookId}/contacts/resubscribe", 
 			new Dictionary<string, object>
 			{
 				{ "addressBookId", addressBookId },
@@ -1006,7 +1008,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiContactSuppression> PostAddressBookContactsUnsubscribe(int addressBookId, ApiContact apiContact)
 		{
-			var request = new Request("v2/address-books/{addressBookId}/contacts/unsubscribe", 
+			var request = new Request("address-books/{addressBookId}/contacts/unsubscribe", 
 			new Dictionary<string, object>
 			{
 				{ "addressBookId", addressBookId },
@@ -1019,7 +1021,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiAddressBook> PostAddressBooks(ApiAddressBook apiAddressBook)
 		{
-			var request = new Request("v2/address-books");
+			var request = new Request("address-books");
 			return Post<ApiAddressBook>(request, apiAddressBook);
 		}
 
@@ -1028,7 +1030,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiDocument> PostCampaignAttachments(int campaignId, ApiDocument document)
 		{
-			var request = new Request("v2/campaigns/{campaignId}/attachments", 
+			var request = new Request("campaigns/{campaignId}/attachments", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId },
@@ -1041,7 +1043,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiCampaign> PostCampaignCopy(int campaignId)
 		{
-			var request = new Request("v2/campaigns/{campaignId}/copy", 
+			var request = new Request("campaigns/{campaignId}/copy", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId }
@@ -1054,7 +1056,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiCampaign> PostCampaigns(ApiCampaign apiCampaign)
 		{
-			var request = new Request("v2/campaigns");
+			var request = new Request("campaigns");
 			return Post<ApiCampaign>(request, apiCampaign);
 		}
 
@@ -1063,7 +1065,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiCampaignSend> PostCampaignsSend(ApiCampaignSend apiCampaignSend)
 		{
-			var request = new Request("v2/campaigns/send");
+			var request = new Request("campaigns/send");
 			return Post<ApiCampaignSend>(request, apiCampaignSend);
 		}
 
@@ -1072,7 +1074,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiContact> PostContacts(ApiContact apiContact)
 		{
-			var request = new Request("v2/contacts");
+			var request = new Request("contacts");
 			return Post<ApiContact>(request, apiContact);
 		}
 
@@ -1081,7 +1083,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiContactImport> PostContactsImport()
 		{
-			var request = new Request("v2/contacts/import");
+			var request = new Request("contacts/import");
 			return Post<ApiContactImport>(request);
 		}
 
@@ -1090,7 +1092,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiResubscribeResult> PostContactsResubscribe(ApiContactResubscription apiContactResubscription)
 		{
-			var request = new Request("v2/contacts/resubscribe");
+			var request = new Request("contacts/resubscribe");
 			return Post<ApiResubscribeResult, ApiContactResubscription>(request, apiContactResubscription);
 		}
 
@@ -1099,7 +1101,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiTransactionalData> PostContactsTransactionalData(string collectionName, ApiTransactionalData apiTransactionalData)
 		{
-			var request = new Request("v2/contacts/transactional-data/{collectionName}", 
+			var request = new Request("contacts/transactional-data/{collectionName}", 
 			new Dictionary<string, object>
 			{
 				{ "collectionName", collectionName },
@@ -1112,7 +1114,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiTransactionalData> PostContactsTransactionalData(string collectionName, string key, ApiJsonData apiJsonData)
 		{
-			var request = new Request("v2/contacts/transactional-data/{collectionName}/{key}", 
+			var request = new Request("contacts/transactional-data/{collectionName}/{key}", 
 			new Dictionary<string, object>
 			{
 				{ "collectionName", collectionName },
@@ -1126,7 +1128,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiTransactionalDataImport> PostContactsTransactionalDataImport(string collectionName, ApiTransactionalDataList apiTransactionalData)
 		{
-			var request = new Request("v2/contacts/transactional-data/import/{collectionName}", 
+			var request = new Request("contacts/transactional-data/import/{collectionName}", 
 			new Dictionary<string, object>
 			{
 				{ "collectionName", collectionName },
@@ -1139,7 +1141,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiContactSuppression> PostContactsUnsubscribe(ApiContact apiContact)
 		{
-			var request = new Request("v2/contacts/unsubscribe");
+			var request = new Request("contacts/unsubscribe");
 			return Post<ApiContactSuppression, ApiContact>(request, apiContact);
 		}
 
@@ -1148,7 +1150,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult PostDataFields(ApiDataField dataField)
 		{
-			var request = new Request("v2/data-fields");
+			var request = new Request("data-fields");
 			return Post(request, dataField);
 		}
 
@@ -1157,7 +1159,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiDocumentFolder> PostDocumentFolder(int folderId, ApiDocumentFolder folder)
 		{
-			var request = new Request("v2/document-folders/{folderId}", 
+			var request = new Request("document-folders/{folderId}", 
 			new Dictionary<string, object>
 			{
 				{ "folderId", folderId },
@@ -1170,7 +1172,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiDocument> PostDocumentFolderDocuments(int folderId)
 		{
-			var request = new Request("v2/document-folders/{folderId}/documents", 
+			var request = new Request("document-folders/{folderId}/documents", 
 			new Dictionary<string, object>
 			{
 				{ "folderId", folderId }
@@ -1183,7 +1185,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiImageFolder> PostImageFolder(int id, ApiImageFolder folder)
 		{
-			var request = new Request("v2/image-folders/{id}", 
+			var request = new Request("image-folders/{id}", 
 			new Dictionary<string, object>
 			{
 				{ "id", id },
@@ -1196,7 +1198,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiImage> PostImageFolderImages(int folderId)
 		{
-			var request = new Request("v2/image-folders/{folderId}/images", 
+			var request = new Request("image-folders/{folderId}/images", 
 			new Dictionary<string, object>
 			{
 				{ "folderId", folderId }
@@ -1209,7 +1211,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiSegmentRefresh> PostSegmentsRefreh(int id)
 		{
-			var request = new Request("v2/segments/refresh/{id}", 
+			var request = new Request("segments/refresh/{id}", 
 			new Dictionary<string, object>
 			{
 				{ "id", id }
@@ -1222,7 +1224,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult PostSmsMessagesSendTo(string telephoneNumber, ApiSms sms)
 		{
-			var request = new Request("v2/sms-messages/send-to/{telephoneNumber}", 
+			var request = new Request("sms-messages/send-to/{telephoneNumber}", 
 			new Dictionary<string, object>
 			{
 				{ "telephoneNumber", telephoneNumber },
@@ -1235,7 +1237,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiTemplate> PostTemplates(ApiTemplate template)
 		{
-			var request = new Request("v2/templates");
+			var request = new Request("templates");
 			return Post<ApiTemplate>(request, template);
 		}
 
@@ -1244,7 +1246,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiAddressBook> UpdateAddressBook(int id, ApiAddressBook apiAddressBook)
 		{
-			var request = new Request("v2/address-books/{id}", 
+			var request = new Request("address-books/{id}", 
 			new Dictionary<string, object>
 			{
 				{ "id", id },
@@ -1257,7 +1259,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiCampaign> UpdateCampaign(int id, ApiCampaign apiCampaign)
 		{
-			var request = new Request("v2/campaigns/{id}", 
+			var request = new Request("campaigns/{id}", 
 			new Dictionary<string, object>
 			{
 				{ "id", id },
@@ -1270,7 +1272,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiContact> UpdateContact(int id, ApiContact apiContact)
 		{
-			var request = new Request("v2/contacts/{id}", 
+			var request = new Request("contacts/{id}", 
 			new Dictionary<string, object>
 			{
 				{ "id", id },
@@ -1283,7 +1285,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public ServiceResult<ApiTemplate> UpdateTemplate(int id, ApiTemplate template)
 		{
-			var request = new Request("v2/templates/{id}", 
+			var request = new Request("templates/{id}", 
 			new Dictionary<string, object>
 			{
 				{ "id", id },
