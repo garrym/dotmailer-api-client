@@ -62,6 +62,11 @@ namespace dotMailer.Api.Tests
         private int sampleDocumentFolderId = -1;
         private int sampleDocumentId = -1;
         private int sampleSegmentId = -1;
+        private const string sampleCampaignSubject = "Sample Campaign";
+        private const string sampleCampaignName = "Sample Campaign";
+        private const string sampleCampaignFromName = "test@test.com";
+        private const string sampleCampaignHtmlContent = "<h1>Hello World!</h1>";
+        private const string sampleCampaignPlainTextContent = "Hello World";
 
         [Test]
         public void Ensure_Code_Coverage()
@@ -622,7 +627,14 @@ namespace dotMailer.Api.Tests
         public void Ensure_PostCampaigns_Works()
         {
             var client = GetClient();
-            var campaign = new ApiCampaign();
+            var campaign = new ApiCampaign
+            {
+                Name = sampleCampaignName,
+                Subject = sampleCampaignSubject,
+                FromName = sampleCampaignFromName,
+                HtmlContent = sampleCampaignHtmlContent,
+                PlainTextContent = sampleCampaignPlainTextContent
+            };
 
             AssertResult(() => client.PostCampaigns(campaign));
         }

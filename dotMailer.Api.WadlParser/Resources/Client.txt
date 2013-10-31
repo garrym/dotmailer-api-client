@@ -72,7 +72,7 @@ namespace dotMailer.Api
         private ServiceResult<T> Post<T>(Request request)
         {
             var response = httpClient.PostAsJsonAsync(request.Url, string.Empty).Result;
-            if (IsValidResponse(response, HttpStatusCode.Created, HttpStatusCode.OK))
+            if (IsValidResponse(response, HttpStatusCode.Created, HttpStatusCode.OK, HttpStatusCode.Accepted))
             {
                 var result = response.Content.ReadAsAsync<T>().Result;
                 return new ServiceResult<T>(true, result);
@@ -83,7 +83,7 @@ namespace dotMailer.Api
         private ServiceResult<T> Post<T>(Request request, T data)
         {
             var response = httpClient.PostAsJsonAsync(request.Url, data).Result;
-            if (IsValidResponse(response, HttpStatusCode.Created, HttpStatusCode.OK))
+            if (IsValidResponse(response, HttpStatusCode.Created, HttpStatusCode.OK, HttpStatusCode.Accepted))
             {
                 var result = response.Content.ReadAsAsync<T>().Result;
                 return new ServiceResult<T>(true, result);
@@ -94,7 +94,7 @@ namespace dotMailer.Api
         private ServiceResult<TOutput> Post<TOutput, TInput>(Request request, TInput data)
         {
             var response = httpClient.PostAsJsonAsync(request.Url, data).Result;
-            if (IsValidResponse(response, HttpStatusCode.Created, HttpStatusCode.OK))
+            if (IsValidResponse(response, HttpStatusCode.Created, HttpStatusCode.OK, HttpStatusCode.Accepted))
             {
                 var result = response.Content.ReadAsAsync<TOutput>().Result;
                 return new ServiceResult<TOutput>(true, result);
