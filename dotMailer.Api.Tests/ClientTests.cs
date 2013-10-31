@@ -786,7 +786,15 @@ namespace dotMailer.Api.Tests
         public void Ensure_UpdateCampaign_Works()
         {
             var client = GetClient();
-            var campaign = new ApiCampaign { Id = sampleCampaignId };
+            var campaign = new ApiCampaign
+            {
+                Id = sampleCampaignId,
+                Name = sampleCampaignName,
+                Subject = sampleCampaignSubject,
+                FromName = sampleCampaignFromName,
+                HtmlContent = sampleCampaignHtmlContent,
+                PlainTextContent = sampleCampaignPlainTextContent
+            };
             AssertResult(() => client.UpdateCampaign(sampleCampaignId, campaign));
         }
 
@@ -794,7 +802,7 @@ namespace dotMailer.Api.Tests
         public void Ensure_UpdateContact_Works()
         {
             var client = GetClient();
-            var contact = new ApiContact();
+            var contact = new ApiContact { Email = sampleContactEmail };
             AssertResult(() => client.UpdateContact(sampleContactId, contact));
         }
 
@@ -802,7 +810,14 @@ namespace dotMailer.Api.Tests
         public void Ensure_UpdateTemplate_Works()
         {
             var client = GetClient();
-            var template = new ApiTemplate();
+            var template = new ApiTemplate
+            {
+                Name = sampleCampaignName,
+                Subject = sampleCampaignSubject,
+                FromName = sampleCampaignFromName,
+                HtmlContent = sampleCampaignHtmlContent,
+                PlainTextContent = sampleCampaignPlainTextContent
+            };
             AssertResult(() => client.UpdateTemplate(sampleTemplateId, template));
         }
 
