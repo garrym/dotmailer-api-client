@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using dotMailer.Api.Resources.Enums;
 using dotMailer.Api.Resources.Models;
 using NUnit.Framework;
 
@@ -25,7 +27,7 @@ namespace dotMailer.Api.Tests
         private void AssertResult<T>(Func<ServiceResult<T>> method)
         {
             var result = method();
-            Assert.IsTrue(result.Success);
+            Assert.IsTrue(result.Success, result.Message);
             Assert.IsNotNull(result.Data);
             Assert.IsInstanceOf<T>(result.Data);
         }
@@ -564,7 +566,7 @@ namespace dotMailer.Api.Tests
         public void Ensure_PostAddressBookContacts_Works()
         {
             var client = GetClient();
-            var contact = new ApiContact();
+            var contact = new ApiContact { Email = sampleContactEmail };
             AssertResult(() => client.PostAddressBookContacts(sampleAddressBookId, contact));
         }
 
@@ -580,8 +582,7 @@ namespace dotMailer.Api.Tests
         {
             var client = GetClient();
             var contactResubscription = new ApiContactResubscription();
-            var contact = new ApiContact();
-            contact.Email = "test@test.com";
+            var contact = new ApiContact { Email = sampleContactEmail };
             contactResubscription.UnsubscribedContact = contact;
             AssertResult(() => client.PostAddressBookContactsResubscribe(sampleAddressBookId, contactResubscription));
         }
@@ -590,7 +591,7 @@ namespace dotMailer.Api.Tests
         public void Ensure_PostAddressBookContactsUnsubscribe_Works()
         {
             var client = GetClient();
-            var contact = new ApiContact();
+            var contact = new ApiContact { Email = sampleContactEmail };
             AssertResult(() => client.PostAddressBookContactsUnsubscribe(sampleAddressBookId, contact));
         }
 
@@ -622,6 +623,7 @@ namespace dotMailer.Api.Tests
         {
             var client = GetClient();
             var campaign = new ApiCampaign();
+
             AssertResult(() => client.PostCampaigns(campaign));
         }
 
@@ -629,7 +631,11 @@ namespace dotMailer.Api.Tests
         public void Ensure_PostCampaignsSend_Works()
         {
             var client = GetClient();
-            var campaignSend = new ApiCampaignSend();
+
+            var contactIds = new Int32List { sampleContactId };
+            var addressBookIds = new Int32List { sampleAddressBookId };
+            var campaignSend = new ApiCampaignSend { CampaignId = sampleCampaignId, ContactIds = contactIds, AddressBookIds = addressBookIds };
+
             AssertResult(() => client.PostCampaignsSend(campaignSend));
         }
 
@@ -637,7 +643,7 @@ namespace dotMailer.Api.Tests
         public void Ensure_PostContacts_Works()
         {
             var client = GetClient();
-            var contact = new ApiContact();
+            var contact = new ApiContact { Email = sampleContactEmail };
             AssertResult(() => client.PostContacts(contact));
         }
 
@@ -652,7 +658,10 @@ namespace dotMailer.Api.Tests
         public void Ensure_PostContactsResubscribe_Works()
         {
             var client = GetClient();
-            var resubscription = new ApiContactResubscription();
+            var resubscription = new ApiContactResubscription
+            {
+                UnsubscribedContact = new ApiContact { Email = sampleContactEmail }
+            };
             AssertResult(() => client.PostContactsResubscribe(resubscription));
         }
 
@@ -676,6 +685,7 @@ namespace dotMailer.Api.Tests
         public void Ensure_PostContactsUnsubscribe_Works()
         {
             var client = GetClient();
+            //var contact = new ApiContact { Email = sampleContactEmail };
             var contact = new ApiContact();
             AssertResult(() => client.PostContactsUnsubscribe(contact));
         }
@@ -684,7 +694,12 @@ namespace dotMailer.Api.Tests
         public void Ensure_PostDataFields_Works()
         {
             var client = GetClient();
-            var dataField = new ApiDataField();
+            var dataField = new ApiDataField
+            {
+                Name = "TestDataField",
+                Type = ApiDataTypes.String,
+                Visibility = ApiDataFieldVisibility.Public
+            };
             AssertResult(() => client.PostDataFields(dataField));
         }
 

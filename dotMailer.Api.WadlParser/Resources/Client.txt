@@ -33,9 +33,10 @@ namespace dotMailer.Api
             return acceptableStatusCodes.Any(x => x == responseMessage.StatusCode);
         }
 
-        private static string StatusCodeSpecificError(string message, HttpStatusCode statusCode)
+        private static string StatusCodeSpecificError(string message, HttpResponseMessage responseMessage)
         {
-            return string.Format("Error: {0} (Status Code: {1}, Status Description: {2})", message, (int)statusCode, statusCode);
+            var errorInfo = responseMessage.Content.ReadAsAsync<RequestErrorInfo>().Result;
+            return string.Format("Error: {0} (Status Code: {1}, Status Description: {2}, Detail: {3})", message, (int)responseMessage.StatusCode, responseMessage.StatusCode, errorInfo.Message);
         }
 
         #endregion
@@ -50,7 +51,7 @@ namespace dotMailer.Api
                 var result = response.Content.ReadAsStringAsync().Result;
                 return new ServiceResult(true, result);
             }
-            return new ServiceResult(false, StatusCodeSpecificError("Failed to get object", response.StatusCode));
+            return new ServiceResult(false, StatusCodeSpecificError("Failed to get object", response));
         }
 
         private ServiceResult<T> Get<T>(Request request)
@@ -61,7 +62,7 @@ namespace dotMailer.Api
                 var result = response.Content.ReadAsAsync<T>().Result;
                 return new ServiceResult<T>(true, result);
             }
-            return new ServiceResult<T>(false, default(T), StatusCodeSpecificError("Failed to get object", response.StatusCode));
+            return new ServiceResult<T>(false, default(T), StatusCodeSpecificError("Failed to get object", response));
         }
 
         #endregion
@@ -76,7 +77,7 @@ namespace dotMailer.Api
                 var result = response.Content.ReadAsAsync<T>().Result;
                 return new ServiceResult<T>(true, result);
             }
-            return new ServiceResult<T>(false, default(T), StatusCodeSpecificError("Failed to post object", response.StatusCode));
+            return new ServiceResult<T>(false, default(T), StatusCodeSpecificError("Failed to post object", response));
         }
 
         private ServiceResult<T> Post<T>(Request request, T data)
@@ -87,7 +88,7 @@ namespace dotMailer.Api
                 var result = response.Content.ReadAsAsync<T>().Result;
                 return new ServiceResult<T>(true, result);
             }
-            return new ServiceResult<T>(false, data, StatusCodeSpecificError("Failed to post object", response.StatusCode));
+            return new ServiceResult<T>(false, data, StatusCodeSpecificError("Failed to post object", response));
         }
 
         private ServiceResult<TOutput> Post<TOutput, TInput>(Request request, TInput data)
@@ -98,7 +99,7 @@ namespace dotMailer.Api
                 var result = response.Content.ReadAsAsync<TOutput>().Result;
                 return new ServiceResult<TOutput>(true, result);
             }
-            return new ServiceResult<TOutput>(false, default(TOutput), StatusCodeSpecificError("Failed to post object", response.StatusCode));
+            return new ServiceResult<TOutput>(false, default(TOutput), StatusCodeSpecificError("Failed to post object", response));
         }
 
         #endregion
@@ -113,7 +114,7 @@ namespace dotMailer.Api
                 var result = response.Content.ReadAsAsync<T>().Result;
                 return new ServiceResult<T>(true, result);
             }
-            return new ServiceResult<T>(false, data, StatusCodeSpecificError("Failed to put object", response.StatusCode));
+            return new ServiceResult<T>(false, data, StatusCodeSpecificError("Failed to put object", response));
         }
 
         #endregion
@@ -127,7 +128,7 @@ namespace dotMailer.Api
             {
                 return new ServiceResult(true);
             }
-            return new ServiceResult(false, StatusCodeSpecificError("Failed to delete object", response.StatusCode));
+            return new ServiceResult(false, StatusCodeSpecificError("Failed to delete object", response));
         }
 
         private ServiceResult<T> Delete<T>(Request request)
@@ -138,7 +139,7 @@ namespace dotMailer.Api
                 var result = response.Content.ReadAsAsync<T>().Result;
                 return new ServiceResult<T>(true, result);
             }
-            return new ServiceResult<T>(false, default(T), StatusCodeSpecificError("Failed to delete object", response.StatusCode));
+            return new ServiceResult<T>(false, default(T), StatusCodeSpecificError("Failed to delete object", response));
         }
 
         #endregion
