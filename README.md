@@ -49,12 +49,6 @@ This will generate C# classes on the local file system which can then be copied 
 A small console application for testing method calls and objects returned from the dotMailer.Api client class.
 
 
-#### Known Issues
-
-- Methods that require binary uploads are not supported
-- All client methods are synchronous and will be updated to async in the near future
-
-
 #### Limits
 
 Please be aware that the dotMailer API has [usage limits](http://api.dotmailer.com/) - please use bulk API methods where you can, and use the in-app API call debugger if you need to troubleshoot your integration.
