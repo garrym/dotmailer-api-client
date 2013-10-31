@@ -53,7 +53,8 @@ namespace dotMailer.Api
                     }
                 }
 
-                return string.IsNullOrEmpty(queryString.ToString()) ? absolutePath : string.Concat(absolutePath, "?", queryString);
+                var returnUrl = string.IsNullOrEmpty(queryString.ToString()) ? absolutePath : string.Concat(absolutePath, "?", queryString);
+                return returnUrl;
             }
         }
 

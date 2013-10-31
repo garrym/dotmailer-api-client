@@ -33,11 +33,16 @@ namespace dotMailer.Api
             return acceptableStatusCodes.Any(x => x == responseMessage.StatusCode);
         }
 
+        private static string StatusCodeSpecificError(string message, HttpStatusCode statusCode)
+        {
+            return string.Format("Error: {0} (Status Code: {1}, Status Description: {2})", message, (int)statusCode, statusCode);
+        }
+
         #endregion
 
-        #region HttpMethods
+        #region Get Methods
 
-		private ServiceResult Get(Request request)
+        private ServiceResult Get(Request request)
         {
             var response = httpClient.GetAsync(request.Url).Result;
             if (IsValidResponse(response, HttpStatusCode.OK))
@@ -59,10 +64,14 @@ namespace dotMailer.Api
             return new ServiceResult<T>(false, default(T), StatusCodeSpecificError("Failed to get object", response.StatusCode));
         }
 
+        #endregion
+
+        #region Post Methods
+
         private ServiceResult<T> Post<T>(Request request)
         {
             var response = httpClient.PostAsJsonAsync(request.Url, string.Empty).Result;
-            if (IsValidResponse(response, HttpStatusCode.Created))
+            if (IsValidResponse(response, HttpStatusCode.Created, HttpStatusCode.OK))
             {
                 var result = response.Content.ReadAsAsync<T>().Result;
                 return new ServiceResult<T>(true, result);
@@ -73,7 +82,7 @@ namespace dotMailer.Api
         private ServiceResult<T> Post<T>(Request request, T data)
         {
             var response = httpClient.PostAsJsonAsync(request.Url, data).Result;
-            if (IsValidResponse(response, HttpStatusCode.Created))
+            if (IsValidResponse(response, HttpStatusCode.Created, HttpStatusCode.OK))
             {
                 var result = response.Content.ReadAsAsync<T>().Result;
                 return new ServiceResult<T>(true, result);
@@ -84,13 +93,17 @@ namespace dotMailer.Api
         private ServiceResult<TOutput> Post<TOutput, TInput>(Request request, TInput data)
         {
             var response = httpClient.PostAsJsonAsync(request.Url, data).Result;
-            if (IsValidResponse(response, HttpStatusCode.Created))
+            if (IsValidResponse(response, HttpStatusCode.Created, HttpStatusCode.OK))
             {
                 var result = response.Content.ReadAsAsync<TOutput>().Result;
                 return new ServiceResult<TOutput>(true, result);
             }
             return new ServiceResult<TOutput>(false, default(TOutput), StatusCodeSpecificError("Failed to post object", response.StatusCode));
         }
+
+        #endregion
+
+        #region Put Methods
 
         private ServiceResult<T> Put<T>(Request request, T data)
         {
@@ -102,6 +115,10 @@ namespace dotMailer.Api
             }
             return new ServiceResult<T>(false, data, StatusCodeSpecificError("Failed to put object", response.StatusCode));
         }
+
+        #endregion
+
+        #region Delete Methods
 
         private ServiceResult Delete(Request request)
         {
@@ -122,11 +139,6 @@ namespace dotMailer.Api
                 return new ServiceResult<T>(true, result);
             }
             return new ServiceResult<T>(false, default(T), StatusCodeSpecificError("Failed to delete object", response.StatusCode));
-        }
-
-        private static string StatusCodeSpecificError(string message, HttpStatusCode statusCode)
-        {
-            return string.Format("Error: {0} (Status Code: {1}, Status Description: {2})", message, (int)statusCode, statusCode);
         }
 
         #endregion

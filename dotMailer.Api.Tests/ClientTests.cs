@@ -580,6 +580,9 @@ namespace dotMailer.Api.Tests
         {
             var client = GetClient();
             var contactResubscription = new ApiContactResubscription();
+            var contact = new ApiContact();
+            contact.Email = "test@test.com";
+            contactResubscription.UnsubscribedContact = contact;
             AssertResult(() => client.PostAddressBookContactsResubscribe(sampleAddressBookId, contactResubscription));
         }
 
