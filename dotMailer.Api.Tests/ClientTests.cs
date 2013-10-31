@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using dotMailer.Api.Resources.Enums;
@@ -67,6 +66,12 @@ namespace dotMailer.Api.Tests
         private const string sampleCampaignFromName = "test@test.com";
         private const string sampleCampaignHtmlContent = "<h1>Hello World!</h1>";
         private const string sampleCampaignPlainTextContent = "Hello World";
+        private const string sampleDocumentFolderName = "Document Name";
+        private const string sampleImageFolderName = "Image Folder Name";
+        private const string sampleTelephoneNumber = "01234567890";
+        private const string sampleDataFieldName = "Data Field";
+        private const string sampleTransactionalDataKey = "CollectionKey";
+        private const string sampleTransactionalDataCollectionName = "Collection Name";
 
         [Test]
         public void Ensure_Code_Coverage()
@@ -118,7 +123,6 @@ namespace dotMailer.Api.Tests
         {
             var client = GetClient();
             var contacts = client.GetAddressBookContacts(sampleAddressBookId).Data;
-            // TODO: Do we really need an Int32List class generated from the WADL? Would be better to convert this to an int[] or List<int>
             var contactIds = new Int32List();
             contactIds.AddRange(contacts.Select(x => x.Id));
 
@@ -143,21 +147,21 @@ namespace dotMailer.Api.Tests
         public void Ensure_DeleteContactsTransactionalData_Works()
         {
             var client = GetClient();
-            AssertResult(() => client.DeleteContactsTransactionalData("Collection name", "Key"));
+            AssertResult(() => client.DeleteContactsTransactionalData(sampleTransactionalDataCollectionName, sampleTransactionalDataKey));
         }
 
         [Test]
         public void Ensure_DeleteContactTransactionalData_Works()
         {
             var client = GetClient();
-            AssertResult(() => client.DeleteContactTransactionalData("Collection name", sampleContactId));
+            AssertResult(() => client.DeleteContactTransactionalData(sampleTransactionalDataCollectionName, sampleContactId));
         }
 
         [Test]
         public void Ensure_DeleteDataField_Works()
         {
             var client = GetClient();
-            AssertResult(() => client.DeleteDataField("Sample data field name"));
+            AssertResult(() => client.DeleteDataField(sampleDataFieldName));
         }
 
         #endregion
@@ -455,7 +459,7 @@ namespace dotMailer.Api.Tests
         public void Ensure_GetContactsTransactionalDataByKey_Works()
         {
             var client = GetClient();
-            AssertResult(() => client.GetContactsTransactionalDataByKey("Collection name", "Key"));
+            AssertResult(() => client.GetContactsTransactionalDataByKey(sampleTransactionalDataCollectionName, sampleTransactionalDataKey));
         }
 
         [Test]
@@ -483,7 +487,7 @@ namespace dotMailer.Api.Tests
         public void Ensure_GetContactTransactionalDataByCollectionName_Works()
         {
             var client = GetClient();
-            AssertResult(() => client.GetContactTransactionalDataByCollectionName("Collection name", sampleContactEmail));
+            AssertResult(() => client.GetContactTransactionalDataByCollectionName(sampleTransactionalDataCollectionName, sampleContactEmail));
         }
 
         [Test]
@@ -571,7 +575,7 @@ namespace dotMailer.Api.Tests
         public void Ensure_PostAddressBookContacts_Works()
         {
             var client = GetClient();
-            var contact = new ApiContact { Email = sampleContactEmail };
+            var contact = GetSampleContact();
             AssertResult(() => client.PostAddressBookContacts(sampleAddressBookId, contact));
         }
 
@@ -586,9 +590,7 @@ namespace dotMailer.Api.Tests
         public void Ensure_PostAddressBookContactsResubscribe_Works()
         {
             var client = GetClient();
-            var contactResubscription = new ApiContactResubscription();
-            var contact = new ApiContact { Email = sampleContactEmail };
-            contactResubscription.UnsubscribedContact = contact;
+            var contactResubscription = GetSampleResubscription();
             AssertResult(() => client.PostAddressBookContactsResubscribe(sampleAddressBookId, contactResubscription));
         }
 
@@ -596,7 +598,7 @@ namespace dotMailer.Api.Tests
         public void Ensure_PostAddressBookContactsUnsubscribe_Works()
         {
             var client = GetClient();
-            var contact = new ApiContact { Email = sampleContactEmail };
+            var contact = GetSampleContact();
             AssertResult(() => client.PostAddressBookContactsUnsubscribe(sampleAddressBookId, contact));
         }
 
@@ -604,7 +606,7 @@ namespace dotMailer.Api.Tests
         public void Ensure_PostAddressBooks_Works()
         {
             var client = GetClient();
-            var addressBook = new ApiAddressBook();
+            var addressBook = GetSampleAddressBook();
             AssertResult(() => client.PostAddressBooks(addressBook));
         }
 
@@ -612,7 +614,7 @@ namespace dotMailer.Api.Tests
         public void Ensure_PostCampaignAttachments_Works()
         {
             var client = GetClient();
-            var document = new ApiDocument();
+            var document = GetSampleDocument();
             AssertResult(() => client.PostCampaignAttachments(sampleCampaignId, document));
         }
 
@@ -627,15 +629,7 @@ namespace dotMailer.Api.Tests
         public void Ensure_PostCampaigns_Works()
         {
             var client = GetClient();
-            var campaign = new ApiCampaign
-            {
-                Name = sampleCampaignName,
-                Subject = sampleCampaignSubject,
-                FromName = sampleCampaignFromName,
-                HtmlContent = sampleCampaignHtmlContent,
-                PlainTextContent = sampleCampaignPlainTextContent
-            };
-
+            var campaign = GetSampleCampaign();
             AssertResult(() => client.PostCampaigns(campaign));
         }
 
@@ -643,11 +637,7 @@ namespace dotMailer.Api.Tests
         public void Ensure_PostCampaignsSend_Works()
         {
             var client = GetClient();
-
-            var contactIds = new Int32List { sampleContactId };
-            var addressBookIds = new Int32List { sampleAddressBookId };
-            var campaignSend = new ApiCampaignSend { CampaignId = sampleCampaignId, ContactIds = contactIds, AddressBookIds = addressBookIds };
-
+            var campaignSend = GetSampleCampaignSend();
             AssertResult(() => client.PostCampaignsSend(campaignSend));
         }
 
@@ -655,7 +645,7 @@ namespace dotMailer.Api.Tests
         public void Ensure_PostContacts_Works()
         {
             var client = GetClient();
-            var contact = new ApiContact { Email = sampleContactEmail };
+            var contact = GetSampleContact();
             AssertResult(() => client.PostContacts(contact));
         }
 
@@ -670,10 +660,7 @@ namespace dotMailer.Api.Tests
         public void Ensure_PostContactsResubscribe_Works()
         {
             var client = GetClient();
-            var resubscription = new ApiContactResubscription
-            {
-                UnsubscribedContact = new ApiContact { Email = sampleContactEmail }
-            };
+            var resubscription = GetSampleResubscription();
             AssertResult(() => client.PostContactsResubscribe(resubscription));
         }
 
@@ -681,24 +668,23 @@ namespace dotMailer.Api.Tests
         public void Ensure_PostContactsTransactionalData_Works()
         {
             var client = GetClient();
-            var transactionalData = new ApiTransactionalData();
-            AssertResult(() => client.PostContactsTransactionalData("Collection name", transactionalData));
+            var transactionalData = GetSampleTransactionalData();
+            AssertResult(() => client.PostContactsTransactionalData(sampleTransactionalDataCollectionName, transactionalData));
         }
 
         [Test]
         public void Ensure_PostContactsTransactionalDataImport_Works()
         {
             var client = GetClient();
-            var transactionalDataList = new ApiTransactionalDataList();
-            AssertResult(() => client.PostContactsTransactionalDataImport("Collection name", transactionalDataList));
+            var transactionalDataList = GetSampleTransactionalDataList();
+            AssertResult(() => client.PostContactsTransactionalDataImport(sampleTransactionalDataCollectionName, transactionalDataList));
         }
 
         [Test]
         public void Ensure_PostContactsUnsubscribe_Works()
         {
             var client = GetClient();
-            //var contact = new ApiContact { Email = sampleContactEmail };
-            var contact = new ApiContact();
+            var contact = GetSampleContact();
             AssertResult(() => client.PostContactsUnsubscribe(contact));
         }
 
@@ -706,12 +692,7 @@ namespace dotMailer.Api.Tests
         public void Ensure_PostDataFields_Works()
         {
             var client = GetClient();
-            var dataField = new ApiDataField
-            {
-                Name = "TestDataField",
-                Type = ApiDataTypes.String,
-                Visibility = ApiDataFieldVisibility.Public
-            };
+            var dataField = GetSampleDataField();
             AssertResult(() => client.PostDataFields(dataField));
         }
 
@@ -719,7 +700,7 @@ namespace dotMailer.Api.Tests
         public void Ensure_PostDocumentFolder_Works()
         {
             var client = GetClient();
-            var documentFolder = new ApiDocumentFolder();
+            var documentFolder = GetSampleDocumentFolder();
             AssertResult(() => client.PostDocumentFolder(1, documentFolder));
         }
 
@@ -734,7 +715,7 @@ namespace dotMailer.Api.Tests
         public void Ensure_PostImageFolder_Works()
         {
             var client = GetClient();
-            var folder = new ApiImageFolder();
+            var folder = GetSampleImageFolder();
             AssertResult(() => client.PostImageFolder(sampleCampaignId, folder));
         }
 
@@ -748,25 +729,23 @@ namespace dotMailer.Api.Tests
         [Test]
         public void Ensure_PostSegmentsRefreh_Works()
         {
-            // TODO: Spelling mistake
             var client = GetClient();
-            AssertResult(() => client.PostSegmentsRefreh(1));
+            AssertResult(() => client.PostSegmentsRefreh(sampleSegmentId));
         }
 
         [Test]
         public void Ensure_PostSmsMessagesSendTo_Works()
         {
             var client = GetClient();
-            const string telephoneNumber = "01234567890";
-            var sms = new ApiSms();
-            AssertResult(() => client.PostSmsMessagesSendTo(telephoneNumber, sms));
+            var sms = GetSampleSms();
+            AssertResult(() => client.PostSmsMessagesSendTo(sampleTelephoneNumber, sms));
         }
 
         [Test]
         public void Ensure_PostTemplates_Works()
         {
             var client = GetClient();
-            var template = new ApiTemplate();
+            var template = GetSampleTemplate();
             AssertResult(() => client.PostTemplates(template));
         }
 
@@ -778,7 +757,7 @@ namespace dotMailer.Api.Tests
         public void Ensure_UpdateAddressBook_Works()
         {
             var client = GetClient();
-            var addressBook = new ApiAddressBook();
+            var addressBook = GetSampleAddressBook();
             AssertResult(() => client.UpdateAddressBook(sampleAddressBookId, addressBook));
         }
 
@@ -786,7 +765,45 @@ namespace dotMailer.Api.Tests
         public void Ensure_UpdateCampaign_Works()
         {
             var client = GetClient();
-            var campaign = new ApiCampaign
+            var campaign = GetSampleCampaign();
+            AssertResult(() => client.UpdateCampaign(sampleCampaignId, campaign));
+        }
+
+        [Test]
+        public void Ensure_UpdateContact_Works()
+        {
+            var client = GetClient();
+            var contact = GetSampleContact();
+            AssertResult(() => client.UpdateContact(sampleContactId, contact));
+        }
+
+        [Test]
+        public void Ensure_UpdateTemplate_Works()
+        {
+            var client = GetClient();
+            var template = GetSampleTemplate();
+            AssertResult(() => client.UpdateTemplate(sampleTemplateId, template));
+        }
+
+        #endregion
+
+        #region Sample Helpers
+
+        private ApiTemplate GetSampleTemplate()
+        {
+            return new ApiTemplate
+            {
+                Name = sampleCampaignName,
+                Subject = sampleCampaignSubject,
+                FromName = sampleCampaignFromName,
+                HtmlContent = sampleCampaignHtmlContent,
+                PlainTextContent = sampleCampaignPlainTextContent
+            };
+        }
+
+        private ApiCampaign GetSampleCampaign()
+        {
+            return new ApiCampaign
             {
                 Id = sampleCampaignId,
                 Name = sampleCampaignName,
@@ -795,30 +812,85 @@ namespace dotMailer.Api.Tests
                 HtmlContent = sampleCampaignHtmlContent,
                 PlainTextContent = sampleCampaignPlainTextContent
             };
-            AssertResult(() => client.UpdateCampaign(sampleCampaignId, campaign));
         }
 
-        [Test]
-        public void Ensure_UpdateContact_Works()
+        private ApiDataField GetSampleDataField()
         {
-            var client = GetClient();
-            var contact = new ApiContact { Email = sampleContactEmail };
-            AssertResult(() => client.UpdateContact(sampleContactId, contact));
-        }
-
-        [Test]
-        public void Ensure_UpdateTemplate_Works()
-        {
-            var client = GetClient();
-            var template = new ApiTemplate
+            return new ApiDataField
             {
-                Name = sampleCampaignName,
-                Subject = sampleCampaignSubject,
-                FromName = sampleCampaignFromName,
-                HtmlContent = sampleCampaignHtmlContent,
-                PlainTextContent = sampleCampaignPlainTextContent
+                Name = sampleDataFieldName,
+                Type = ApiDataTypes.String,
+                Visibility = ApiDataFieldVisibility.Public
             };
-            AssertResult(() => client.UpdateTemplate(sampleTemplateId, template));
+        }
+
+        private ApiImageFolder GetSampleImageFolder()
+        {
+            return new ApiImageFolder
+            {
+                Name = sampleImageFolderName
+            };
+        }
+
+        private ApiDocumentFolder GetSampleDocumentFolder()
+        {
+            return new ApiDocumentFolder
+            {
+                Name = sampleDocumentFolderName
+            };
+        }
+
+        private ApiContact GetSampleContact()
+        {
+            return new ApiContact
+            {
+                Email = sampleContactEmail
+            };
+        }
+
+        private ApiAddressBook GetSampleAddressBook()
+        {
+            return new ApiAddressBook();
+        }
+
+        private ApiContactResubscription GetSampleResubscription()
+        {
+            return new ApiContactResubscription
+            {
+                UnsubscribedContact = GetSampleContact()
+            };
+        }
+
+        private ApiTransactionalData GetSampleTransactionalData()
+        {
+            return new ApiTransactionalData();
+        }
+
+        private ApiSms GetSampleSms()
+        {
+            return new ApiSms();
+        }
+
+        private ApiTransactionalDataList GetSampleTransactionalDataList()
+        {
+            return new ApiTransactionalDataList();
+        }
+
+        private ApiCampaignSend GetSampleCampaignSend()
+        {
+            var contactIds = new Int32List { sampleContactId };
+            var addressBookIds = new Int32List { sampleAddressBookId };
+            return new ApiCampaignSend
+            {
+                CampaignId = sampleCampaignId,
+                ContactIds = contactIds,
+                AddressBookIds = addressBookIds
+            };
+        }
+
+        private ApiDocument GetSampleDocument()
+        {
+            return new ApiDocument();
         }
 
         #endregion
