@@ -35,25 +35,36 @@ namespace dotMailer.Api
 
                 foreach (var parameter in parameters)
                 {
+                    var value = FormatParameterValue(parameter.Value);
+
                     var isQueryStringParameter = queryString.AllKeys.Any(x => x.Equals(parameter.Key, StringComparison.OrdinalIgnoreCase));
 
                     if (isQueryStringParameter)
                     {
                         // If parameter doesn't have a value remove the querystring property
-                        if (parameter.Value == null)
+                        if (string.IsNullOrEmpty(value))
                             queryString.Remove(parameter.Key);
                         else
-                            queryString[parameter.Key] = parameter.Value.ToString();
+                            queryString[parameter.Key] = value;
                     }
                     else
                     {
-                        // Path parameter
-                        absolutePath = absolutePath.Replace("{" + parameter.Key + "}", parameter.Value.ToString());
+                        absolutePath = absolutePath.Replace("{" + parameter.Key + "}", value);
                     }
                 }
 
                 return string.IsNullOrEmpty(queryString.ToString()) ? absolutePath : string.Concat(absolutePath, "?", queryString);
             }
+        }
+
+        private string FormatParameterValue(object value)
+        {
+            if (value == null)
+                return null;
+
+            if (value is DateTime)
+                return ((DateTime)value).ToString("yyyy-MM-dd");
+            return value.ToString();
         }
     }
 }
