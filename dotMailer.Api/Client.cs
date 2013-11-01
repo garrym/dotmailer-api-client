@@ -1,6 +1,4 @@
 using System;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -28,118 +26,109 @@ namespace dotMailer.Api
             return client;
         }
 
-        private static bool IsValidResponse(HttpResponseMessage responseMessage, params HttpStatusCode[] acceptableStatusCodes)
+        private ServiceResult Result(HttpResponseMessage response)
         {
-            return acceptableStatusCodes.Any(x => x == responseMessage.StatusCode);
+            return response.IsSuccessStatusCode ? SuccessResult(response) : ErrorResult(response);
         }
 
-        private static string StatusCodeSpecificError(string message, HttpResponseMessage responseMessage)
+        private ServiceResult<T> Result<T>(HttpResponseMessage response)
         {
-            var errorInfo = responseMessage.Content.ReadAsAsync<RequestErrorInfo>().Result;
-            return string.Format("Error: {0} (Status Code: {1}, Status Description: {2}, Detail: {3})", message, (int)responseMessage.StatusCode, responseMessage.StatusCode, errorInfo.Message);
+            return response.IsSuccessStatusCode ? SuccessResult<T>(response) : ErrorResult<T>(response);
+        }
+
+        private ServiceResult SuccessResult(HttpResponseMessage response)
+        {
+            var result = response.Content.ReadAsStringAsync().Result;
+            return new ServiceResult(true, result);
+        }
+
+        private ServiceResult<T> SuccessResult<T>(HttpResponseMessage response)
+        {
+            var result = response.Content.ReadAsAsync<T>().Result;
+            return new ServiceResult<T>(true, result);
+        }
+
+        private ServiceResult ErrorResult(HttpResponseMessage response)
+        {
+            var message = GetErrorMessage(response);
+            return new ServiceResult(false, message);
+        }
+
+        private ServiceResult<T> ErrorResult<T>(HttpResponseMessage response)
+        {
+            var message = GetErrorMessage(response);
+            return new ServiceResult<T>(false, default(T), message);
+        }
+
+        private string GetErrorMessage(HttpResponseMessage response)
+        {
+            var errorInfo = response.Content.ReadAsAsync<RequestErrorInfo>().Result;
+            var message = string.Format("Failed to {0} object (Status Code: {1}, Status Description: {2}, Detail: {3})", response.RequestMessage.Method.Method, (int)response.StatusCode, response.StatusCode, errorInfo.Message);
+            return message;
         }
 
         #endregion
 
-        #region Get Methods
+        #region Get
 
         private ServiceResult Get(Request request)
         {
             var response = httpClient.GetAsync(request.Url).Result;
-            if (IsValidResponse(response, HttpStatusCode.OK))
-            {
-                var result = response.Content.ReadAsStringAsync().Result;
-                return new ServiceResult(true, result);
-            }
-            return new ServiceResult(false, StatusCodeSpecificError("Failed to get object", response));
+            return Result(response);
         }
 
         private ServiceResult<T> Get<T>(Request request)
         {
             var response = httpClient.GetAsync(request.Url).Result;
-            if (IsValidResponse(response, HttpStatusCode.OK))
-            {
-                var result = response.Content.ReadAsAsync<T>().Result;
-                return new ServiceResult<T>(true, result);
-            }
-            return new ServiceResult<T>(false, default(T), StatusCodeSpecificError("Failed to get object", response));
+            return Result<T>(response);
         }
 
         #endregion
 
-        #region Post Methods
+        #region Post
 
         private ServiceResult<T> Post<T>(Request request)
         {
             var response = httpClient.PostAsJsonAsync(request.Url, string.Empty).Result;
-            if (IsValidResponse(response, HttpStatusCode.Created, HttpStatusCode.OK, HttpStatusCode.Accepted))
-            {
-                var result = response.Content.ReadAsAsync<T>().Result;
-                return new ServiceResult<T>(true, result);
-            }
-            return new ServiceResult<T>(false, default(T), StatusCodeSpecificError("Failed to post object", response));
+            return Result<T>(response);
         }
 
         private ServiceResult<T> Post<T>(Request request, T data)
         {
             var response = httpClient.PostAsJsonAsync(request.Url, data).Result;
-            if (IsValidResponse(response, HttpStatusCode.Created, HttpStatusCode.OK, HttpStatusCode.Accepted))
-            {
-                var result = response.Content.ReadAsAsync<T>().Result;
-                return new ServiceResult<T>(true, result);
-            }
-            return new ServiceResult<T>(false, data, StatusCodeSpecificError("Failed to post object", response));
+            return Result<T>(response);
         }
 
         private ServiceResult<TOutput> Post<TOutput, TInput>(Request request, TInput data)
         {
             var response = httpClient.PostAsJsonAsync(request.Url, data).Result;
-            if (IsValidResponse(response, HttpStatusCode.Created, HttpStatusCode.OK, HttpStatusCode.Accepted))
-            {
-                var result = response.Content.ReadAsAsync<TOutput>().Result;
-                return new ServiceResult<TOutput>(true, result);
-            }
-            return new ServiceResult<TOutput>(false, default(TOutput), StatusCodeSpecificError("Failed to post object", response));
+            return Result<TOutput>(response);
         }
 
         #endregion
 
-        #region Put Methods
+        #region Put
 
         private ServiceResult<T> Put<T>(Request request, T data)
         {
             var response = httpClient.PutAsJsonAsync(request.Url, data).Result;
-            if (IsValidResponse(response, HttpStatusCode.OK))
-            {
-                var result = response.Content.ReadAsAsync<T>().Result;
-                return new ServiceResult<T>(true, result);
-            }
-            return new ServiceResult<T>(false, data, StatusCodeSpecificError("Failed to put object", response));
+            return Result<T>(response);
         }
 
         #endregion
 
-        #region Delete Methods
+        #region Delete
 
         private ServiceResult Delete(Request request)
         {
             var response = httpClient.DeleteAsync(request.Url).Result;
-            if (IsValidResponse(response, HttpStatusCode.NoContent))
-            {
-                return new ServiceResult(true);
-            }
-            return new ServiceResult(false, StatusCodeSpecificError("Failed to delete object", response));
+            return Result(response);
         }
 
         private ServiceResult<T> Delete<T>(Request request)
         {
             var response = httpClient.DeleteAsync(request.Url).Result;
-            if (IsValidResponse(response, HttpStatusCode.OK))
-            {
-                var result = response.Content.ReadAsAsync<T>().Result;
-                return new ServiceResult<T>(true, result);
-            }
-            return new ServiceResult<T>(false, default(T), StatusCodeSpecificError("Failed to delete object", response));
+            return Result<T>(response);
         }
 
         #endregion
