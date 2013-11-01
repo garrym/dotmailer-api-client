@@ -1,7 +1,10 @@
 using System;
 using System.Net.Http;
+using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Text;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace dotMailer.Api
 {
@@ -16,7 +19,7 @@ namespace dotMailer.Api
 
         #region Helpers
 
-        private static HttpClient GetHttpClient(string username, string password)
+        private HttpClient GetHttpClient(string username, string password)
         {
             var client = new HttpClient { BaseAddress = new Uri(BaseAddress) };
 
@@ -44,7 +47,7 @@ namespace dotMailer.Api
 
         private ServiceResult<T> SuccessResult<T>(HttpResponseMessage response)
         {
-            var result = response.Content.ReadAsAsync<T>().Result;
+            var result = response.Content.ReadAsAsync<T>(new[] { jsonFormatter }).Result;
             return new ServiceResult<T>(true, result);
         }
 
@@ -69,6 +72,25 @@ namespace dotMailer.Api
 
         #endregion
 
+        #region Formatters
+
+        private static MediaTypeFormatter jsonFormatter;
+        private static MediaTypeFormatter JsonFormatter
+        {
+            get
+            {
+                if (jsonFormatter == null)
+                {
+                    var settings = new JsonSerializerSettings();
+                    settings.Converters.Add(new StringEnumConverter());
+                    jsonFormatter = new JsonMediaTypeFormatter { SerializerSettings = settings };
+                }
+                return jsonFormatter;
+            }
+        }
+
+        #endregion
+
         #region Get
 
         private ServiceResult Get(Request request)
@@ -89,19 +111,19 @@ namespace dotMailer.Api
 
         private ServiceResult<T> Post<T>(Request request)
         {
-            var response = httpClient.PostAsJsonAsync(request.Url, string.Empty).Result;
+            var response = httpClient.PostAsync(request.Url, string.Empty, JsonFormatter).Result;
             return Result<T>(response);
         }
 
         private ServiceResult<T> Post<T>(Request request, T data)
         {
-            var response = httpClient.PostAsJsonAsync(request.Url, data).Result;
+            var response = httpClient.PostAsync(request.Url, data, JsonFormatter).Result;
             return Result<T>(response);
         }
 
         private ServiceResult<TOutput> Post<TOutput, TInput>(Request request, TInput data)
         {
-            var response = httpClient.PostAsJsonAsync(request.Url, data).Result;
+            var response = httpClient.PostAsync(request.Url, data, JsonFormatter).Result;
             return Result<TOutput>(response);
         }
 
@@ -111,7 +133,7 @@ namespace dotMailer.Api
 
         private ServiceResult<T> Put<T>(Request request, T data)
         {
-            var response = httpClient.PutAsJsonAsync(request.Url, data).Result;
+            var response = httpClient.PutAsync(request.Url, data, JsonFormatter).Result;
             return Result<T>(response);
         }
 
