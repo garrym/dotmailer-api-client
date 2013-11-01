@@ -9,7 +9,7 @@ The solution consists of 3 projects:
 
 This is the main project for interacting with the dotMailer API.  All the classes within are auto-generated from the dotMailer.Api.WadlParser (see below) so don't modify them individually here.
 
-This contains the main Client class which is used to call methods the API. Here's an example of the Client in action:
+This contains the main Client class which is used to call methods on the API. Here's an example of the Client in action:
 
 ```csharp
     var client = new Client("demo@apiconnector.com", "demo");
