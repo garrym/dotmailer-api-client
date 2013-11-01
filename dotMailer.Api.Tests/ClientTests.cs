@@ -20,7 +20,7 @@ namespace dotMailer.Api.Tests
         private void AssertResult(Func<ServiceResult> method)
         {
             var result = method();
-            Assert.IsTrue(result.Success);
+            Assert.IsTrue(result.Success, result.Message);
         }
 
         private void AssertResult<T>(Func<ServiceResult<T>> method)
