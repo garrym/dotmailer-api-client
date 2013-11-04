@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -7,6 +6,8 @@ namespace dotMailer.Api.WadlParser.Methods.Abstract
 {
     public abstract class Method : CodeBuilder
     {
+        private static readonly string[] primitiveTypes = { "string", "int", "bool", "guid", "datetime" };
+
         public string Path
         { get; set; }
 
@@ -73,7 +74,7 @@ namespace dotMailer.Api.WadlParser.Methods.Abstract
             get
             {
                 if (returnType == null)
-                { 
+                {
                     var response = Responses.SingleOrDefault(x => x.ReturnType != null);
                     returnType = response == null ? string.Empty : response.ReturnType;
                 }
@@ -83,20 +84,7 @@ namespace dotMailer.Api.WadlParser.Methods.Abstract
 
         private IList<Parameter> PrimitiveParameters
         {
-            get
-            {
-                return Parameters.Where(x =>
-                                        x.DataType.Equals("string", StringComparison.OrdinalIgnoreCase)
-                                        ||
-                                        x.DataType.Equals("int", StringComparison.OrdinalIgnoreCase)
-                                        ||
-                                        x.DataType.Equals("bool", StringComparison.OrdinalIgnoreCase)
-                                        ||
-                                        x.DataType.Equals("guid", StringComparison.OrdinalIgnoreCase)
-                                        ||
-                                        x.DataType.Equals("datetime", StringComparison.OrdinalIgnoreCase)
-                                    ).ToList();
-            }
+            get { return Parameters.Where(x => primitiveTypes.Contains(x.DataType.ToLower())).ToList(); }
         }
 
         protected IList<Parameter> ComplexParameters
