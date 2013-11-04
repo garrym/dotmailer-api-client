@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -15,11 +17,12 @@ namespace dotMailer.Api.WadlParser
         private static readonly RestDefinition restDefinition = new RestDefinition();
         private const string outputDirectory = @"C:\Output\";
         private const string url = "https://api.dotmailer.com/v2/help/wadl";
+        private static readonly IList<TypeMapper> typeMappers = new List<TypeMapper>();
 
         static void Main()
         {
             Console.WriteLine("--------------------------------------------------------");
-            Console.WriteLine(" dotMailer REST API POCO Generator");
+            Console.WriteLine(" dotMailer REST API Client Generator");
             Console.WriteLine("--------------------------------------------------------");
             Console.WriteLine("");
             Console.WriteLine("This application will generate C# classes from the WADL description for the dotMailer API found at {0}", url);
@@ -34,6 +37,7 @@ namespace dotMailer.Api.WadlParser
 
             var document = XDocument.Load(url);
 
+            SetupTypeMappers();
             ProcessTypes(document);
             ProcessMethods(document);
 
@@ -47,6 +51,13 @@ namespace dotMailer.Api.WadlParser
             Console.WriteLine("Press any key to exit");
             Console.WriteLine();
             Console.ReadKey();
+        }
+
+        private static void SetupTypeMappers()
+        {
+            typeMappers.Add(new TypeMapper("dateTime", "DateTime"));
+            typeMappers.Add(new TypeMapper("boolean", "bool"));
+            typeMappers.Add(new TypeMapper("guid", "Guid"));
         }
 
         private static bool IsUsingSimpleTypes(ComplexType complexType)
@@ -359,16 +370,10 @@ namespace dotMailer.Api.WadlParser
         private static string FormatClrType(string value)
         {
             value = value.Replace("xs:", "");
-            switch (value)
-            {
-                case "dateTime":
-                    return "DateTime";
-                case "boolean":
-                    return "bool";
-                case "guid":
-                    return "Guid";
-            }
-            return value;
+
+            var typeMapper = typeMappers.SingleOrDefault(x => x.TypeName.Equals(value, StringComparison.OrdinalIgnoreCase));
+
+            return typeMapper == null ? value : typeMapper.ResolutionTypeName;
         }
     }
 }

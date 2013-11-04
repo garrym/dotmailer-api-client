@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CodeBuilder.cs" />
+    <Compile Include="TypeMapper.cs" />
     <Compile Include="Types\ComplexType.cs" />
     <Compile Include="Methods\DeleteMethod.cs" />
     <Compile Include="Methods\GetMethod.cs" />
@@ -61,7 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Examples\wadl.xml" />
-    <Content Include="Resources\Client.generated.txt">
+    <Content Include="Resources\Client.Generated.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Client.txt">
