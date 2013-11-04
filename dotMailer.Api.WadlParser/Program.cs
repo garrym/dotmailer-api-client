@@ -4,6 +4,8 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Xml.Linq;
+using dotMailer.Api.WadlParser.Methods;
+using dotMailer.Api.WadlParser.Methods.Abstract;
 
 namespace dotMailer.Api.WadlParser
 {
@@ -299,19 +301,19 @@ namespace dotMailer.Api.WadlParser
         private static Method GetMethod(XElement element)
         {
             Method method;
-            var httpMethod = GetHttpMethod(element.Attribute("name").Value);
+            var httpMethod = element.Attribute("name").Value.ToLower();
             switch (httpMethod)
             {
-                case HttpMethod.Put:
+                case "put":
                     method = new PutMethod();
                     break;
-                case HttpMethod.Get:
+                case "get":
                     method = new GetMethod();
                     break;
-                case HttpMethod.Delete:
+                case "delete":
                     method = new DeleteMethod();
                     break;
-                case HttpMethod.Post:
+                case "post":
                     method = new PostMethod();
                     break;
                 default:
@@ -366,23 +368,6 @@ namespace dotMailer.Api.WadlParser
                     return "Guid";
             }
             return value;
-        }
-
-        private static HttpMethod GetHttpMethod(string value)
-        {
-            switch (value.ToLower())
-            {
-                case "get":
-                    return HttpMethod.Get;
-                case "post":
-                    return HttpMethod.Post;
-                case "put":
-                    return HttpMethod.Put;
-                case "delete":
-                    return HttpMethod.Delete;
-                default:
-                    throw new Exception("Unknown HttpMethod");
-            }
         }
     }
 }

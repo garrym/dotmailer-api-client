@@ -1,6 +1,7 @@
 ﻿using System.Linq;
+using dotMailer.Api.WadlParser.Methods.Abstract;
 
-namespace dotMailer.Api.WadlParser
+namespace dotMailer.Api.WadlParser.Methods
 {
     public class PutMethod : Method
     {

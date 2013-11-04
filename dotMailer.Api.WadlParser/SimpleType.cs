@@ -9,7 +9,7 @@ namespace dotMailer.Api.WadlParser
         public string Name
         { get; set; }
 
-        public IList<string> Values = new List<string>();
+        public readonly IList<string> Values = new List<string>();
 
         public override string ToString()
         {

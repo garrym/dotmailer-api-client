@@ -13,11 +13,7 @@
 
         public override string ToString()
         {
-            if (Required)
-                return string.Format("{0} {1}, ", DataType, Name);
-
-            // Check if it's nullable
-            return string.Format("{0}? {1} = null, ", DataType, Name);
+            return string.Format(Required ? "{0} {1}, " : "{0}? {1} = null, ", DataType, Name);
         }
     }
 }

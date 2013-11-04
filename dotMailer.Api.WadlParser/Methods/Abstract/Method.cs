@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace dotMailer.Api.WadlParser
+namespace dotMailer.Api.WadlParser.Methods.Abstract
 {
     public abstract class Method
     {

@@ -9,7 +9,7 @@ namespace dotMailer.Api.WadlParser
         public string Name
         { get; set; }
 
-        public IList<Property> Properties = new List<Property>();
+        public readonly IList<Property> Properties = new List<Property>();
 
         public bool IsUsingSimpleTypes { get; set; }
 
