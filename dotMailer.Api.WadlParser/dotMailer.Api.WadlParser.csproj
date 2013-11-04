@@ -41,7 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ComplexType.cs" />
+    <Compile Include="CodeBuilder.cs" />
+    <Compile Include="Types\ComplexType.cs" />
     <Compile Include="Methods\DeleteMethod.cs" />
     <Compile Include="Methods\GetMethod.cs" />
     <Compile Include="Methods\Abstract\Method.cs" />
@@ -53,8 +54,7 @@
     <Compile Include="Methods\PutMethod.cs" />
     <Compile Include="Response.cs" />
     <Compile Include="RestDefinition.cs" />
-    <Compile Include="SimpleType.cs" />
-    <Compile Include="StringBuilderExtensions.cs" />
+    <Compile Include="Types\SimpleType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

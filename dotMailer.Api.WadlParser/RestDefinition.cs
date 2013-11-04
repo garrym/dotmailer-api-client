@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using dotMailer.Api.WadlParser.Methods.Abstract;
+using dotMailer.Api.WadlParser.Types;
 
 namespace dotMailer.Api.WadlParser
 {

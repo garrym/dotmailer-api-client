@@ -5,7 +5,7 @@ using System.Text;
 
 namespace dotMailer.Api.WadlParser.Methods.Abstract
 {
-    public abstract class Method
+    public abstract class Method : CodeBuilder
     {
         public string Path
         { get; set; }
@@ -25,13 +25,11 @@ namespace dotMailer.Api.WadlParser.Methods.Abstract
 
         protected abstract void AppendMethodRequest();
 
-        private readonly StringBuilder sb = new StringBuilder();
-
         public override string ToString()
         {
             AppendSummary();
             AppendMethod();
-            return sb.ToString();
+            return base.ToString();
         }
 
         private void AppendSummary()
@@ -125,16 +123,6 @@ namespace dotMailer.Api.WadlParser.Methods.Abstract
             }
 
             AppendMethodRequest();
-        }
-
-        protected void AddLine(int indentation, string value, params object[] args)
-        {
-            var indents = "";
-            for (var i = 0; i < indentation; i++)
-                indents += "\t";
-
-            value = indents + value;
-            sb.AppendLineFormat(value, args);
         }
     }
 }

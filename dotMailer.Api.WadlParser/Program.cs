@@ -6,6 +6,7 @@ using System.Text;
 using System.Xml.Linq;
 using dotMailer.Api.WadlParser.Methods;
 using dotMailer.Api.WadlParser.Methods.Abstract;
+using dotMailer.Api.WadlParser.Types;
 
 namespace dotMailer.Api.WadlParser
 {
