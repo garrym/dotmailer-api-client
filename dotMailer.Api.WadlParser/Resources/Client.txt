@@ -68,11 +68,28 @@ namespace dotMailer.Api
             return new ServiceResult<T>(false, default(T), message);
         }
 
+        private ServiceResult ExceptionResult(Exception exception)
+        {
+            var message = GetExceptionMessage(exception);
+            return new ServiceResult(false, message);
+        }
+
+        private ServiceResult<T> ExceptionResult<T>(Exception exception)
+        {
+            var message = GetExceptionMessage(exception);
+            return new ServiceResult<T>(false, default(T), message);
+        }
+
         private string GetErrorMessage(HttpResponseMessage response)
         {
             var errorInfo = response.Content.ReadAsAsync<RequestErrorInfo>().Result;
             var message = string.Format("Failed to {0} object (Status Code: {1}, Status Description: {2}, Detail: {3})", response.RequestMessage.Method.Method, (int)response.StatusCode, response.StatusCode, errorInfo.Message);
             return message;
+        }
+
+        private string GetExceptionMessage(Exception exception)
+        {
+            return string.Format("An exception occurred: {0}", exception);
         }
 
         #endregion
@@ -81,14 +98,28 @@ namespace dotMailer.Api
 
         private ServiceResult Get(Request request)
         {
-            var response = httpClient.GetAsync(request.Url).Result;
-            return Result(response);
+            try
+            {
+                var response = httpClient.GetAsync(request.Url).Result;
+                return Result(response);
+            }
+            catch (Exception exception)
+            {
+                return ExceptionResult(exception);
+            }
         }
 
         private ServiceResult<T> Get<T>(Request request)
         {
-            var response = httpClient.GetAsync(request.Url).Result;
-            return Result<T>(response);
+            try
+            {
+                var response = httpClient.GetAsync(request.Url).Result;
+                return Result<T>(response);
+            }
+            catch (Exception exception)
+            {
+                return ExceptionResult<T>(exception);
+            }
         }
 
         #endregion
@@ -97,20 +128,41 @@ namespace dotMailer.Api
 
         private ServiceResult<T> Post<T>(Request request)
         {
-            var response = httpClient.PostAsync(request.Url, string.Empty, jsonFormatter).Result;
-            return Result<T>(response);
+            try
+            {
+                var response = httpClient.PostAsync(request.Url, string.Empty, jsonFormatter).Result;
+                return Result<T>(response);
+            }
+            catch (Exception exception)
+            {
+                return ExceptionResult<T>(exception);
+            }
         }
 
         private ServiceResult<T> Post<T>(Request request, T data)
         {
-            var response = httpClient.PostAsync(request.Url, data, jsonFormatter).Result;
-            return Result<T>(response);
+            try
+            {
+                var response = httpClient.PostAsync(request.Url, data, jsonFormatter).Result;
+                return Result<T>(response);
+            }
+            catch (Exception exception)
+            {
+                return ExceptionResult<T>(exception);
+            }
         }
 
         private ServiceResult<TOutput> Post<TOutput, TInput>(Request request, TInput data)
         {
-            var response = httpClient.PostAsync(request.Url, data, jsonFormatter).Result;
-            return Result<TOutput>(response);
+            try
+            {
+                var response = httpClient.PostAsync(request.Url, data, jsonFormatter).Result;
+                return Result<TOutput>(response);
+            }
+            catch (Exception exception)
+            {
+                return ExceptionResult<TOutput>(exception);
+            }
         }
 
         #endregion
@@ -119,8 +171,15 @@ namespace dotMailer.Api
 
         private ServiceResult<T> Put<T>(Request request, T data)
         {
-            var response = httpClient.PutAsync(request.Url, data, jsonFormatter).Result;
-            return Result<T>(response);
+            try
+            {
+                var response = httpClient.PutAsync(request.Url, data, jsonFormatter).Result;
+                return Result<T>(response);
+            }
+            catch (Exception exception)
+            {
+                return ExceptionResult<T>(exception);
+            }
         }
 
         #endregion
@@ -129,14 +188,28 @@ namespace dotMailer.Api
 
         private ServiceResult Delete(Request request)
         {
-            var response = httpClient.DeleteAsync(request.Url).Result;
-            return Result(response);
+            try
+            {
+                var response = httpClient.DeleteAsync(request.Url).Result;
+                return Result(response);
+            }
+            catch (Exception exception)
+            {
+                return ExceptionResult(exception);
+            }
         }
 
         private ServiceResult<T> Delete<T>(Request request)
         {
-            var response = httpClient.DeleteAsync(request.Url).Result;
-            return Result<T>(response);
+            try
+            {
+                var response = httpClient.DeleteAsync(request.Url).Result;
+                return Result<T>(response);
+            }
+            catch (Exception exception)
+            {
+                return ExceptionResult<T>(exception);
+            }
         }
 
         #endregion
