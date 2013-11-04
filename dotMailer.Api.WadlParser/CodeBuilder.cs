@@ -7,9 +7,14 @@ namespace dotMailer.Api.WadlParser
     {
         private readonly StringBuilder stringBuilder = new StringBuilder();
 
+        protected void AddLine(string value, params object[] args)
+        {
+            AddLine(0, value, args);
+        }
+
         protected void AddLine(int indentation, string value, params object[] args)
         {
-            var indents = "";
+            var indents = string.Empty;
             for (var i = 0; i < indentation; i++)
                 indents += "\t";
 

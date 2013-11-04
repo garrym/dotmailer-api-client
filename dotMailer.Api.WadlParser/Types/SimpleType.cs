@@ -12,8 +12,8 @@ namespace dotMailer.Api.WadlParser.Types
 
         public override string ToString()
         {
-            AddLine(0, "namespace dotMailer.Api.Resources.Enums");
-            AddLine(0, "{");
+            AddLine("namespace dotMailer.Api.Resources.Enums");
+            AddLine("{");
             AddLine(1, "public enum {0}", Name);
             AddLine(1, "{");
             foreach (var value in Values)
@@ -23,7 +23,7 @@ namespace dotMailer.Api.WadlParser.Types
                 AddLine(2, "{0}{1}", value, last ? "" : ",");
             }
             AddLine(1, "}");
-            AddLine(0, "}");
+            AddLine("}");
 
             return base.ToString();
         }

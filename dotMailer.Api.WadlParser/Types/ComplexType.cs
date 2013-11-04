@@ -19,28 +19,28 @@ namespace dotMailer.Api.WadlParser.Types
             var usingSystem = Properties.Any(x => x.DataType.Equals("DateTime") || x.DataType.Equals("Guid"));
             if (usingSystem)
             {
-                AddLine(0, "using System;");
+                AddLine("using System;");
                 usingsPresent = true;
             }
 
             var usingCollections = Properties.Any(x => x.IsCollection);
             if (usingCollections)
             {
-                AddLine(0, "using System.Collections.Generic;");
+                AddLine("using System.Collections.Generic;");
                 usingsPresent = true;
             }
 
             if (IsUsingSimpleTypes)
             {
-                AddLine(0, "using dotMailer.Api.Resources.Enums;");
+                AddLine("using dotMailer.Api.Resources.Enums;");
                 usingsPresent = true;
             }
 
             if (usingsPresent)
                 AddEmptyLine();
 
-            AddLine(0, "namespace dotMailer.Api.Resources.Models");
-            AddLine(0, "{");
+            AddLine("namespace dotMailer.Api.Resources.Models");
+            AddLine("{");
 
             var isCollection = (Properties.Count == 1 && Properties.First().IsCollection);
 
@@ -63,7 +63,7 @@ namespace dotMailer.Api.WadlParser.Types
                 AddLine(1, "}");
             }
 
-            AddLine(0, "}");
+            AddLine("}");
 
             return base.ToString();
         }

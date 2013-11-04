@@ -24,14 +24,17 @@ namespace dotMailer.Api.WadlParser.Methods.Abstract
 
         public readonly IList<Parameter> Parameters = new List<Parameter>();
 
-        protected abstract void AppendMethodRequest();
-
-        public override string ToString()
+        private IList<Parameter> PrimitiveParameters
         {
-            AppendSummary();
-            AppendMethod();
-            return base.ToString();
+            get { return Parameters.Where(x => primitiveTypes.Contains(x.DataType.ToLower())).ToList(); }
         }
+
+        protected IList<Parameter> ComplexParameters
+        {
+            get { return Parameters.Where(x => !primitiveTypes.Contains(x.DataType.ToLower())).ToList(); }
+        }
+
+        protected abstract void AppendMethodRequest();
 
         private void AppendSummary()
         {
@@ -53,6 +56,27 @@ namespace dotMailer.Api.WadlParser.Methods.Abstract
             AppendMethodBody();
 
             AddLine(2, "}");
+        }
+
+        private void AppendMethodBody()
+        {
+            if (PrimitiveParameters.Any())
+            {
+                AddLine(3, "var request = new Request(\"{0}\", ", Path);
+                AddLine(3, "new Dictionary<string, object>");
+                AddLine(3, "{");
+
+                foreach (var parameter in PrimitiveParameters)
+                    AddLine(4, "{{ \"{0}\", {0} }}{1}", parameter.Name, parameter == Parameters.Last() ? "" : ",");
+
+                AddLine(3, "});");
+            }
+            else
+            {
+                AddLine(3, "var request = new Request(\"{0}\");", Path);
+            }
+
+            AppendMethodRequest();
         }
 
         private string RenderParameters()
@@ -82,35 +106,11 @@ namespace dotMailer.Api.WadlParser.Methods.Abstract
             }
         }
 
-        private IList<Parameter> PrimitiveParameters
+        public override string ToString()
         {
-            get { return Parameters.Where(x => primitiveTypes.Contains(x.DataType.ToLower())).ToList(); }
-        }
-
-        protected IList<Parameter> ComplexParameters
-        {
-            get { return Parameters.Where(x => !PrimitiveParameters.Contains(x)).ToList(); }
-        }
-
-        private void AppendMethodBody()
-        {
-            if (PrimitiveParameters.Any())
-            {
-                AddLine(3, "var request = new Request(\"{0}\", ", Path);
-                AddLine(3, "new Dictionary<string, object>");
-                AddLine(3, "{");
-
-                foreach (var parameter in PrimitiveParameters)
-                    AddLine(4, "{{ \"{0}\", {0} }}{1}", parameter.Name, parameter == Parameters.Last() ? "" : ",");
-
-                AddLine(3, "});");
-            }
-            else
-            {
-                AddLine(3, "var request = new Request(\"{0}\");", Path);
-            }
-
-            AppendMethodRequest();
+            AppendSummary();
+            AppendMethod();
+            return base.ToString();
         }
     }
 }
