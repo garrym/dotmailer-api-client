@@ -44,7 +44,7 @@ This console application is responsible for retrieving the latest WADL definitio
 
 This will generate C# classes on the local file system which can then be copied directly into the dotMailer.Api project.  This was specifically built for the current dotMailer API WADL but could potentially be used on other WADL definitions with some minor modifications.
 
-### dotMailer.Api.TestBench
+### dotMailer.Api.Tests
 
-A small console application for testing method calls and objects returned from the dotMailer.Api client class.
+Tests covering every method of the generated client code to ensure code coverage and completeness.
 
