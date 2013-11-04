@@ -9,7 +9,7 @@ The solution consists of 3 projects:
 
 This is the main project for interacting with the dotMailer API.  All the classes within are auto-generated from the dotMailer.Api.WadlParser (see below) so don't modify them individually here.
 
-This contains the main Client class which is used to call methods on the API. Here's an example of the Client in action:
+This contains the main Client class which is used to call methods on the API. Here's an example of retrieving address books with the Client:
 
 ```csharp
     var client = new Client("demo@apiconnector.com", "demo");
@@ -18,9 +18,7 @@ This contains the main Client class which is used to call methods on the API. He
       Console.WriteLine(addressBook.Name);
 ```
 
-It really is as simple as that!
-
-All of the API methods return a `ServiceResult` which will let you know whether the call was successful or not.  If the call wasn't succesful you'll also be given a simple human-readable message to explain the problem.
+All of the API methods return a `ServiceResult` which will let you know whether the call was successful or not.  If the call was unsuccessful you'll also be given a simple, human-readable message to explain the problem.
 
 ```csharp
     var client = new Client("demo@apiconnector.com", "demo");
@@ -40,9 +38,9 @@ If you're expecting some data back then you'll be given a `ServiceResult` with a
 
 ### dotMailer.Api.WadlParser
 
-This console application is responsible for retrieving the latest WADL definition from http://api.dotmailer.com/v2/help/wadl and generating C# POCO classes and methods for interacting with the dotMailer API.
+This console application is responsible for retrieving the latest API definition (WADL) from http://api.dotmailer.com/v2/help/wadl and generating CLR methods and classes for rich interaction with the dotMailer API.
 
-This will generate C# classes on the local file system which can then be copied directly into the dotMailer.Api project.  This was specifically built for the current dotMailer API WADL but could potentially be used on other WADL definitions with some minor modifications.
+This application will generate C# class files on the local file system which can then be copied directly into the dotMailer.Api project root.  This was specifically built for the current dotMailer API WADL but could potentially be used on other definitions with some minor modifications.
 
 ### dotMailer.Api.Tests
 
