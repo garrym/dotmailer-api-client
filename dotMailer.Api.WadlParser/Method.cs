@@ -5,11 +5,8 @@ using System.Text;
 
 namespace dotMailer.Api.WadlParser
 {
-    public class Method
+    public abstract class Method
     {
-        public HttpMethod HttpMethod
-        { get; set; }
-
         public string Path
         { get; set; }
 
@@ -26,169 +23,118 @@ namespace dotMailer.Api.WadlParser
 
         public readonly IList<Parameter> Parameters = new List<Parameter>();
 
+        protected abstract void AppendMethodRequest();
+
+        private readonly StringBuilder sb = new StringBuilder();
+
         public override string ToString()
+        {
+            AppendSummary();
+            AppendMethod();
+            return sb.ToString();
+        }
+
+        private void AppendSummary()
+        {
+            if (string.IsNullOrEmpty(Description))
+                return;
+
+            AddLine(2, "/// <summary>");
+            AddLine(2, "/// {0}", Description);
+            AddLine(2, "/// </summary>");
+        }
+
+        private void AppendMethod()
+        {
+            var serviceResult = string.IsNullOrEmpty(ReturnType) ? "ServiceResult" : string.Format("ServiceResult<{0}>", ReturnType);
+            var parameters = RenderParameters();
+            AddLine(2, "public {0} {1}({2})", serviceResult, Name, parameters);
+            AddLine(2, "{");
+
+            AppendMethodBody();
+
+            AddLine(2, "}");
+        }
+
+        private string RenderParameters()
         {
             var psb = new StringBuilder();
             foreach (var parameter in Parameters.OrderByDescending(x => x.Required))
-            {
                 psb.Append(parameter);
-            }
 
-            var sb = new StringBuilder();
-
-            // Trim remaining comma-space
             var parameters = psb.ToString();
             if (!string.IsNullOrEmpty(parameters))
                 parameters = parameters.Substring(0, parameters.Length - 2);
 
-            if (!string.IsNullOrEmpty(Description))
+            return parameters;
+        }
+
+        private string returnType;
+        protected string ReturnType
+        {
+            get
             {
-                sb.AppendLine("\t\t/// <summary>");
-                sb.AppendLineFormat("\t\t/// {0}", Description);
-                sb.AppendLine("\t\t/// </summary>");
-            }
-            sb.AppendLineFormat("\t\tpublic {0} {1}({2})", GetServiceResult(), Name, parameters);
-            sb.AppendLine("\t\t{");
-
-            sb.AppendLine(MethodCode());
-
-            sb.AppendLine("\t\t}");
-            return sb.ToString();
-        }
-
-        private string GetServiceResult()
-        {
-            var returnType = GetReturnType();
-            return string.IsNullOrEmpty(returnType) ? "ServiceResult" : string.Format("ServiceResult<{0}>", returnType);
-        }
-
-        private string GetReturnType()
-        {
-            var response = Responses.SingleOrDefault(x => x.ReturnType != null);
-            return response == null ? string.Empty : response.ReturnType;
-        }
-
-        private string MethodCode()
-        {
-            var returnType = GetReturnType();
-
-            var code = string.Empty;
-
-            var primitiveParameters = Parameters.Where(x =>
-                x.DataType.Equals("string", StringComparison.OrdinalIgnoreCase)
-                ||
-                x.DataType.Equals("int", StringComparison.OrdinalIgnoreCase)
-                ||
-                x.DataType.Equals("bool", StringComparison.OrdinalIgnoreCase)
-                ||
-                x.DataType.Equals("guid", StringComparison.OrdinalIgnoreCase)
-                ||
-                x.DataType.Equals("datetime", StringComparison.OrdinalIgnoreCase)
-            ).ToList();
-            var complexParameters = Parameters.Where(x => !primitiveParameters.Contains(x)).ToList();
-            if (primitiveParameters.Any())
-            {
-                code = string.Format("\t\t\tvar request = new Request(\"{0}\", ", Path) + Environment.NewLine;
-                code += "\t\t\tnew Dictionary<string, object>" + Environment.NewLine;
-                code += "\t\t\t{" + Environment.NewLine;
-
-                foreach (var parameter in primitiveParameters)
-                {
-                    code += string.Format("\t\t\t\t{{ \"{0}\", {0} }}{1}", parameter.Name, parameter == Parameters.Last() ? "" : ",") + Environment.NewLine;
+                if (returnType == null)
+                { 
+                    var response = Responses.SingleOrDefault(x => x.ReturnType != null);
+                    returnType = response == null ? string.Empty : response.ReturnType;
                 }
-                ;
-                code += "\t\t\t});" + Environment.NewLine;
+                return returnType;
+            }
+        }
+
+        private IList<Parameter> PrimitiveParameters
+        {
+            get
+            {
+                return Parameters.Where(x =>
+                                        x.DataType.Equals("string", StringComparison.OrdinalIgnoreCase)
+                                        ||
+                                        x.DataType.Equals("int", StringComparison.OrdinalIgnoreCase)
+                                        ||
+                                        x.DataType.Equals("bool", StringComparison.OrdinalIgnoreCase)
+                                        ||
+                                        x.DataType.Equals("guid", StringComparison.OrdinalIgnoreCase)
+                                        ||
+                                        x.DataType.Equals("datetime", StringComparison.OrdinalIgnoreCase)
+                                    ).ToList();
+            }
+        }
+
+        protected IList<Parameter> ComplexParameters
+        {
+            get { return Parameters.Where(x => !PrimitiveParameters.Contains(x)).ToList(); }
+        }
+
+        private void AppendMethodBody()
+        {
+            if (PrimitiveParameters.Any())
+            {
+                AddLine(3, "var request = new Request(\"{0}\", ", Path);
+                AddLine(3, "new Dictionary<string, object>");
+                AddLine(3, "{");
+
+                foreach (var parameter in PrimitiveParameters)
+                    AddLine(4, "{{ \"{0}\", {0} }}{1}", parameter.Name, parameter == Parameters.Last() ? "" : ",");
+
+                AddLine(3, "});");
             }
             else
             {
-                code = string.Format("\t\t\tvar request = new Request(\"{0}\");", Path) + Environment.NewLine;                
+                AddLine(3, "var request = new Request(\"{0}\");", Path);
             }
 
-            if (HttpMethod == HttpMethod.Post)
-            {
-                if (complexParameters.Any())
-                {
-                    var complexParameter = complexParameters.First();
-                    if (string.IsNullOrEmpty(returnType))
-                    {
-                        code += string.Format("\t\t\treturn Post(request, {0});", complexParameter.Name);
-                    }
-                    else
-                    {
-                        if (complexParameter.DataType.Equals(returnType))
-                            code += string.Format("\t\t\treturn Post<{0}>(request, {1});", returnType, complexParameter.Name);
-                        else
-                            code += string.Format("\t\t\treturn Post<{0}, {1}>(request, {2});", returnType, complexParameter.DataType, complexParameter.Name);
-                    }
-                }
-                else
-                {
-                    if (string.IsNullOrEmpty(returnType))
-                    {
-                        code += string.Format("\t\t\treturn Post(request);");
-                    }
-                    else
-                    {
-                        code += string.Format("\t\t\treturn Post<{0}>(request);", returnType);
-                    }
-                }
-            }
+            AppendMethodRequest();
+        }
 
-            if (HttpMethod == HttpMethod.Get)
-            {
-                if (string.IsNullOrEmpty(returnType))
-                {
-                    code += string.Format("\t\t\treturn Get(request);");
-                }
-                else
-                {
-                    code += string.Format("\t\t\treturn Get<{0}>(request);", returnType);
-                }
-            }
+        protected void AddLine(int indentation, string value, params object[] args)
+        {
+            var indents = "";
+            for (var i = 0; i < indentation; i++)
+                indents += "\t";
 
-            if (HttpMethod == HttpMethod.Delete)
-            {
-                if (string.IsNullOrEmpty(returnType))
-                {
-                    code += string.Format("\t\t\treturn Delete(request);");
-                }
-                else
-                {
-                    code += string.Format("\t\t\treturn Delete<{0}>(request);", returnType);
-                }
-            }
-
-            if (HttpMethod == HttpMethod.Put)
-            {
-                if (complexParameters.Any())
-                {
-                    var complexParameter = complexParameters.First();
-                    if (string.IsNullOrEmpty(returnType))
-                    {
-                        code += string.Format("\t\t\treturn Put(request, {0});", complexParameter.Name);
-                    }
-                    else
-                    {
-                        if (complexParameter.DataType.Equals(returnType))
-                            code += string.Format("\t\t\treturn Put<{0}>(request, {1});", returnType, complexParameter.Name);
-                        else
-                            code += string.Format("\t\t\treturn Put<{0}, {1}>(request, {2});", returnType, complexParameter.DataType, complexParameter.Name);
-                    }
-                }
-                else
-                {
-                    if (string.IsNullOrEmpty(returnType))
-                    {
-                        code += string.Format("\t\t\treturn Put(request);");
-                    }
-                    else
-                    {
-                        code += string.Format("\t\t\treturn Put<{0}>(request);", returnType);
-                    }
-                }
-            }
-
-            return code;
+            value = indents + value;
+            sb.AppendLineFormat(value, args);
         }
     }
 }

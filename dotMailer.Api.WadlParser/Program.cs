@@ -275,12 +275,9 @@ namespace dotMailer.Api.WadlParser
 
             foreach (var methodNode in element.Elements())
             {
-                var method = new Method();
+                var method = GetMethod(methodNode);
                 method.Path = path;
                 method.Id = id;
-
-                method.HttpMethod = GetHttpMethod(methodNode.Attribute("name").Value);
-                method.Name = methodNode.Attribute("id").Value;
 
                 var documentationNode = methodNode.Elements().First(x => x.Name.LocalName.Equals("doc"));
                 method.Description = documentationNode.Value;
@@ -297,6 +294,32 @@ namespace dotMailer.Api.WadlParser
 
                 restDefinition.Methods.Add(method);
             }
+        }
+
+        private static Method GetMethod(XElement element)
+        {
+            Method method;
+            var httpMethod = GetHttpMethod(element.Attribute("name").Value);
+            switch (httpMethod)
+            {
+                case HttpMethod.Put:
+                    method = new PutMethod();
+                    break;
+                case HttpMethod.Get:
+                    method = new GetMethod();
+                    break;
+                case HttpMethod.Delete:
+                    method = new DeleteMethod();
+                    break;
+                case HttpMethod.Post:
+                    method = new PostMethod();
+                    break;
+                default:
+                    throw new Exception("Unknown method type");
+
+            }
+            method.Name = element.Attribute("id").Value;
+            return method;
         }
 
         private static Parameter ProcessParameterNode(XElement element)
