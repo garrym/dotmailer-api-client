@@ -1,7 +1,7 @@
 dotMailer .NET API client
 =========
 
-Provides a simple .NET client for the dotMailer REST API that encapsulates some of the lower-level HTTP protocol code leaving consumers with clean methods and simple objects with which to interact with dotMailer.
+Provides a simple .NET wrapper for the dotMailer REST API that encapsulates some of the lower-level HTTP protocol code leaving consumers with clean methods and simple objects with which to interact with dotMailer.
 
 The solution consists of 3 projects:
 
