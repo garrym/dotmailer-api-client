@@ -540,10 +540,10 @@ namespace dotMailer.Api.Tests
         }
 
         [Test]
-        public void Ensure_GetSegmentsRefrehById_Works()
+        public void Ensure_GetSegmentsRefreshById_Works()
         {
             var client = GetClient();
-            AssertResult(() => client.GetSegmentsRefrehById(sampleSegmentId));
+            AssertResult(() => client.GetSegmentsRefreshById(sampleSegmentId));
         }
 
         [Test]
@@ -727,10 +727,10 @@ namespace dotMailer.Api.Tests
         }
 
         [Test]
-        public void Ensure_PostSegmentsRefreh_Works()
+        public void Ensure_PostSegmentsRefresh_Works()
         {
             var client = GetClient();
-            AssertResult(() => client.PostSegmentsRefreh(sampleSegmentId));
+            AssertResult(() => client.PostSegmentsRefresh(sampleSegmentId));
         }
 
         [Test]
