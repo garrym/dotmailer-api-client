@@ -789,1488 +789,2762 @@
   <wadl:resources base="https://api.dotmailer.com/v2/">
     <wadl:resource path="account-info" id="AccountInfo">
       <wadl:method name="GET" id="GetAccountInfo">
-        <wadl:doc>Gets a summary of information about the current status of the account.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets a summary of information about the current status of the account.</wadl:summary>
+        </wadl:doc>
         <wadl:request />
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiAccount" />
           <wadl:representation mediaType="application/xml" element="ApiAccount" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="address-books" id="AddressBooks">
       <wadl:method name="POST" id="PostAddressBooks">
-        <wadl:doc>Creates an address book.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Creates an address book.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="apiAddressBook" style="query" required="true" type="ApiAddressBook" />
+          <wadl:param name="apiAddressBook" style="query" required="true" type="ApiAddressBook">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'apiAddressBook'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="201">
-          <wadl:doc>Entity has been created.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Entity has been created.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiAddressBook" />
           <wadl:representation mediaType="application/xml" element="ApiAddressBook" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="address-books/{addressBookId}/campaigns?select={select}&amp;skip={skip}" id="AddressBookCampaigns">
       <wadl:method name="GET" id="GetAddressBookCampaigns">
-        <wadl:doc>Gets any campaigns that have been sent to an address book.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets any campaigns that have been sent to an address book.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="addressBookId" style="query" required="true" type="xs:int" />
-          <wadl:param name="select" style="query" required="false" type="xs:int" />
-          <wadl:param name="skip" style="query" required="false" type="xs:int" />
+          <wadl:param name="addressBookId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'addressBookId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="select" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'select'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="skip" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'skip'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiCampaignList" />
           <wadl:representation mediaType="application/xml" element="ApiCampaignList" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="address-books/{addressBookId}/contacts" id="AddressBookContacts">
       <wadl:method name="DELETE" id="DeleteAddressBookContacts">
-        <wadl:doc>Deletes all contacts from a given address book.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Deletes all contacts from a given address book.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="addressBookId" style="query" required="true" type="xs:int" />
+          <wadl:param name="addressBookId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'addressBookId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="204">
-          <wadl:doc>Request was successfully processed. Response body is empty.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed. Response body is empty.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
       <wadl:method name="POST" id="PostAddressBookContacts">
-        <wadl:doc>Adds a contact to a given address book.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Adds a contact to a given address book.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="addressBookId" style="query" required="true" type="xs:int" />
-          <wadl:param name="apiContact" style="query" required="true" type="ApiContact" />
+          <wadl:param name="addressBookId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'addressBookId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="apiContact" style="query" required="true" type="ApiContact">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'apiContact'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiContact" />
           <wadl:representation mediaType="application/xml" element="ApiContact" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="address-books/{addressBookId}/contacts/{contactId}" id="AddressBookContact">
       <wadl:method name="DELETE" id="DeleteAddressBookContact">
-        <wadl:doc>Deletes a contact from a given address book.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Deletes a contact from a given address book.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="addressBookId" style="query" required="true" type="xs:int" />
-          <wadl:param name="contactId" style="query" required="true" type="xs:int" />
+          <wadl:param name="addressBookId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'addressBookId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="contactId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'contactId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="204">
-          <wadl:doc>Request was successfully processed. Response body is empty.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed. Response body is empty.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="address-books/{addressBookId}/contacts/import" id="AddressBookContactsImport">
       <wadl:method name="POST" id="PostAddressBookContactsImport">
-        <wadl:doc>Bulk creates, or bulk updates, contacts. Import format can either be CSV or Excel. Must include one column called "Email". Any other columns will attempt to map to your custom data fields. The ID of returned object can be used to query import progress.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Bulk creates, or bulk updates, contacts. Import format can either be CSV or Excel. Must include one column called "Email". Any other columns will attempt to map to your custom data fields. The ID of returned object can be used to query import progress.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="addressBookId" style="query" required="true" type="xs:int" />
+          <wadl:param name="addressBookId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'addressBookId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="202">
-          <wadl:doc>The request has been accepted for further processing.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>The request has been accepted for further processing.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiContactImport" />
           <wadl:representation mediaType="application/xml" element="ApiContactImport" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="address-books/{addressBookId}/contacts/inbulk" id="AddressBookContactsInbulk">
       <wadl:method name="DELETE" id="DeleteAddressBookContactsInbulk">
-        <wadl:doc>Deletes multiple contacts from an address book</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Deletes multiple contacts from an address book</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="addressBookId" style="query" required="true" type="xs:int" />
-          <wadl:param name="contactIds" style="query" required="true" type="Int32List" />
+          <wadl:param name="addressBookId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'addressBookId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="contactIds" style="query" required="true" type="Int32List">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'contactIds'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="204">
-          <wadl:doc>Request was successfully processed. Response body is empty.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed. Response body is empty.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="address-books/{addressBookId}/contacts/modified-since/{date}?withFullData={withFullData}&amp;select={select}&amp;skip={skip}" id="AddressBookContactsModifiedSince">
       <wadl:method name="GET" id="GetAddressBookContactsModifiedSinceDate">
-        <wadl:doc>Gets a list of contacts who were modified since a given date, in a given address book.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets a list of contacts who were modified since a given date, in a given address book.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="addressBookId" style="query" required="true" type="xs:int" />
-          <wadl:param name="date" style="query" required="true" type="xs:dateTime" />
-          <wadl:param name="withFullData" style="query" required="false" type="xs:boolean" />
-          <wadl:param name="select" style="query" required="false" type="xs:int" />
-          <wadl:param name="skip" style="query" required="false" type="xs:int" />
+          <wadl:param name="addressBookId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'addressBookId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="date" style="query" required="true" type="xs:dateTime">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'date'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="withFullData" style="query" required="false" type="xs:boolean">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'withFullData'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="select" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'select'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="skip" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'skip'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiContactList" />
           <wadl:representation mediaType="application/xml" element="ApiContactList" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="address-books/{addressBookId}/contacts/resubscribe" id="AddressBookContactsResubscribe">
       <wadl:method name="POST" id="PostAddressBookContactsResubscribe">
-        <wadl:doc>Resubscribes a previously unsubscribed contact to a given address book.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Resubscribes a previously unsubscribed contact to a given address book.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="addressBookId" style="query" required="true" type="xs:int" />
-          <wadl:param name="apiContactResubscription" style="query" required="true" type="ApiContactResubscription" />
+          <wadl:param name="addressBookId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'addressBookId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="apiContactResubscription" style="query" required="true" type="ApiContactResubscription">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'apiContactResubscription'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiResubscribeResult" />
           <wadl:representation mediaType="application/xml" element="ApiResubscribeResult" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="address-books/{addressBookId}/contacts/unsubscribe" id="AddressBookContactsUnsubscribe">
       <wadl:method name="POST" id="PostAddressBookContactsUnsubscribe">
-        <wadl:doc>Unsubscribes contact from a given address book.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Unsubscribes contact from a given address book.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="addressBookId" style="query" required="true" type="xs:int" />
-          <wadl:param name="apiContact" style="query" required="true" type="ApiContact" />
+          <wadl:param name="addressBookId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'addressBookId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="apiContact" style="query" required="true" type="ApiContact">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'apiContact'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiContactSuppression" />
           <wadl:representation mediaType="application/xml" element="ApiContactSuppression" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="address-books/{addressBookId}/contacts/unsubscribed-since/{date}?select={select}&amp;skip={skip}" id="AddressBookContactsUnsubscribedSince">
       <wadl:method name="GET" id="GetAddressBookContactsUnsubscribedSinceDate">
-        <wadl:doc>Gets a list of contacts who have unsubscribed from a given address book.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets a list of contacts who have unsubscribed from a given address book.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="addressBookId" style="query" required="true" type="xs:int" />
-          <wadl:param name="date" style="query" required="true" type="xs:dateTime" />
-          <wadl:param name="select" style="query" required="false" type="xs:int" />
-          <wadl:param name="skip" style="query" required="false" type="xs:int" />
+          <wadl:param name="addressBookId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'addressBookId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="date" style="query" required="true" type="xs:dateTime">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'date'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="select" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'select'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="skip" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'skip'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiContactSuppressionList" />
           <wadl:representation mediaType="application/xml" element="ApiContactSuppressionList" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="address-books/{addressBookId}/contacts?withFullData={withFullData}&amp;select={select}&amp;skip={skip}" id="AddressBookContacts">
       <wadl:method name="GET" id="GetAddressBookContacts">
-        <wadl:doc>Gets a list of contacts in a given address book.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets a list of contacts in a given address book.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="addressBookId" style="query" required="true" type="xs:int" />
-          <wadl:param name="withFullData" style="query" required="false" type="xs:boolean" />
-          <wadl:param name="select" style="query" required="false" type="xs:int" />
-          <wadl:param name="skip" style="query" required="false" type="xs:int" />
+          <wadl:param name="addressBookId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'addressBookId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="withFullData" style="query" required="false" type="xs:boolean">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'withFullData'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="select" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'select'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="skip" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'skip'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiContactList" />
           <wadl:representation mediaType="application/xml" element="ApiContactList" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="address-books/{id}" id="AddressBook">
       <wadl:method name="GET" id="GetAddressBookById">
-        <wadl:doc>Gets an address book by id.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets an address book by id.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="id" style="query" required="true" type="xs:int" />
+          <wadl:param name="id" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'id'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiAddressBook" />
           <wadl:representation mediaType="application/xml" element="ApiAddressBook" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
       <wadl:method name="PUT" id="UpdateAddressBook">
-        <wadl:doc>Updates an address book.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Updates an address book.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="id" style="query" required="true" type="xs:int" />
-          <wadl:param name="apiAddressBook" style="query" required="true" type="ApiAddressBook" />
+          <wadl:param name="id" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'id'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="apiAddressBook" style="query" required="true" type="ApiAddressBook">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'apiAddressBook'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiAddressBook" />
           <wadl:representation mediaType="application/xml" element="ApiAddressBook" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
       <wadl:method name="DELETE" id="DeleteAddressBook">
-        <wadl:doc>Deletes an address book.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Deletes an address book.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="id" style="query" required="true" type="xs:int" />
+          <wadl:param name="id" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'id'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="204">
-          <wadl:doc>Request was successfully processed. Response body is empty.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed. Response body is empty.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="address-books/private?select={select}&amp;skip={skip}" id="AddressBooksPrivate">
       <wadl:method name="GET" id="GetAddressBooksPrivate">
-        <wadl:doc>Gets all private address books</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets all private address books</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="select" style="query" required="false" type="xs:int" />
-          <wadl:param name="skip" style="query" required="false" type="xs:int" />
+          <wadl:param name="select" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'select'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="skip" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'skip'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiAddressBookList" />
           <wadl:representation mediaType="application/xml" element="ApiAddressBookList" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="address-books/public?select={select}&amp;skip={skip}" id="AddressBooksPublic">
       <wadl:method name="GET" id="GetAddressBooksPublic">
-        <wadl:doc>Gets all public address books</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets all public address books</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="select" style="query" required="false" type="xs:int" />
-          <wadl:param name="skip" style="query" required="false" type="xs:int" />
+          <wadl:param name="select" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'select'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="skip" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'skip'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiAddressBookList" />
           <wadl:representation mediaType="application/xml" element="ApiAddressBookList" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="address-books?select={select}&amp;skip={skip}" id="AddressBooks">
       <wadl:method name="GET" id="GetAddressBooks">
-        <wadl:doc>Gets all address books</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets all address books</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="select" style="query" required="false" type="xs:int" />
-          <wadl:param name="skip" style="query" required="false" type="xs:int" />
+          <wadl:param name="select" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'select'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="skip" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'skip'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiAddressBookList" />
           <wadl:representation mediaType="application/xml" element="ApiAddressBookList" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="campaigns" id="Campaigns">
       <wadl:method name="POST" id="PostCampaigns">
-        <wadl:doc>Creates a campaign.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Creates a campaign.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="apiCampaign" style="query" required="true" type="ApiCampaign" />
+          <wadl:param name="apiCampaign" style="query" required="true" type="ApiCampaign">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'apiCampaign'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="201">
-          <wadl:doc>Entity has been created.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Entity has been created.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiCampaign" />
           <wadl:representation mediaType="application/xml" element="ApiCampaign" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="campaigns/{campaignId}/activities/{contactId}" id="CampaignActivity">
       <wadl:method name="GET" id="GetCampaignActivityByContactId">
-        <wadl:doc>Gets activity for a given contact and campaign.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets activity for a given contact and campaign.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="campaignId" style="query" required="true" type="xs:int" />
-          <wadl:param name="contactId" style="query" required="true" type="xs:int" />
+          <wadl:param name="campaignId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'campaignId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="contactId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'contactId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiCampaignContactSummary" />
           <wadl:representation mediaType="application/xml" element="ApiCampaignContactSummary" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="campaigns/{campaignId}/activities/{contactId}/clicks?select={select}&amp;skip={skip}" id="CampaignActivityClicks">
       <wadl:method name="GET" id="GetCampaignActivityClicks">
-        <wadl:doc>Gets a list of campaign link clicks for a contact.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets a list of campaign link clicks for a contact.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="campaignId" style="query" required="true" type="xs:int" />
-          <wadl:param name="contactId" style="query" required="true" type="xs:int" />
-          <wadl:param name="select" style="query" required="false" type="xs:int" />
-          <wadl:param name="skip" style="query" required="false" type="xs:int" />
+          <wadl:param name="campaignId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'campaignId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="contactId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'contactId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="select" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'select'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="skip" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'skip'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiCampaignContactClickList" />
           <wadl:representation mediaType="application/xml" element="ApiCampaignContactClickList" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="campaigns/{campaignId}/activities/{contactId}/opens?select={select}&amp;skip={skip}" id="CampaignActivityOpens">
       <wadl:method name="GET" id="GetCampaignActivityOpens">
-        <wadl:doc>Gets a list of campaign opens for a contact.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets a list of campaign opens for a contact.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="campaignId" style="query" required="true" type="xs:int" />
-          <wadl:param name="contactId" style="query" required="true" type="xs:int" />
-          <wadl:param name="select" style="query" required="false" type="xs:int" />
-          <wadl:param name="skip" style="query" required="false" type="xs:int" />
+          <wadl:param name="campaignId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'campaignId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="contactId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'contactId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="select" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'select'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="skip" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'skip'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiCampaignContactOpenList" />
           <wadl:representation mediaType="application/xml" element="ApiCampaignContactOpenList" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="campaigns/{campaignId}/activities/{contactId}/page-views?select={select}&amp;skip={skip}" id="CampaignActivityPageViews">
       <wadl:method name="GET" id="GetCampaignActivityPageViews">
-        <wadl:doc>Gets a list of page views for a contact.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets a list of page views for a contact.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="campaignId" style="query" required="true" type="xs:int" />
-          <wadl:param name="contactId" style="query" required="true" type="xs:int" />
-          <wadl:param name="select" style="query" required="false" type="xs:int" />
-          <wadl:param name="skip" style="query" required="false" type="xs:int" />
+          <wadl:param name="campaignId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'campaignId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="contactId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'contactId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="select" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'select'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="skip" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'skip'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiCampaignContactPageViewList" />
           <wadl:representation mediaType="application/xml" element="ApiCampaignContactPageViewList" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="campaigns/{campaignId}/activities/{contactId}/replies?select={select}&amp;skip={skip}" id="CampaignActivityReplies">
       <wadl:method name="GET" id="GetCampaignActivityReplies">
-        <wadl:doc>Gets a list of campaign replies for a contact. You may not request more than 5 records at a time using the "select" parameter.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets a list of campaign replies for a contact. You may not request more than 5 records at a time using the "select" parameter.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="campaignId" style="query" required="true" type="xs:int" />
-          <wadl:param name="contactId" style="query" required="true" type="xs:int" />
-          <wadl:param name="select" style="query" required="false" type="xs:int" />
-          <wadl:param name="skip" style="query" required="false" type="xs:int" />
+          <wadl:param name="campaignId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'campaignId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="contactId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'contactId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="select" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'select'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="skip" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'skip'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiCampaignContactReplyList" />
           <wadl:representation mediaType="application/xml" element="ApiCampaignContactReplyList" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="campaigns/{campaignId}/activities/{contactId}/roi-details?select={select}&amp;skip={skip}" id="CampaignActivityRoiDetails">
       <wadl:method name="GET" id="GetCampaignActivityRoiDetails">
-        <wadl:doc>Gets a list of ROI information for a contact.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets a list of ROI information for a contact.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="campaignId" style="query" required="true" type="xs:int" />
-          <wadl:param name="contactId" style="query" required="true" type="xs:int" />
-          <wadl:param name="select" style="query" required="false" type="xs:int" />
-          <wadl:param name="skip" style="query" required="false" type="xs:int" />
+          <wadl:param name="campaignId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'campaignId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="contactId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'contactId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="select" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'select'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="skip" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'skip'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiCampaignContactRoiDetailList" />
           <wadl:representation mediaType="application/xml" element="ApiCampaignContactRoiDetailList" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="campaigns/{campaignId}/activities/{contactId}/social-bookmark-views?select={select}&amp;skip={skip}" id="CampaignActivitySocialBookmarkViews">
       <wadl:method name="GET" id="GetCampaignActivitySocialBookmarkViews">
-        <wadl:doc>Gets campaign social bookmark views for a contact.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets campaign social bookmark views for a contact.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="campaignId" style="query" required="true" type="xs:int" />
-          <wadl:param name="contactId" style="query" required="true" type="xs:int" />
-          <wadl:param name="select" style="query" required="false" type="xs:int" />
-          <wadl:param name="skip" style="query" required="false" type="xs:int" />
+          <wadl:param name="campaignId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'campaignId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="contactId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'contactId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="select" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'select'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="skip" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'skip'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiCampaignContactSocialBookmarkViewList" />
           <wadl:representation mediaType="application/xml" element="ApiCampaignContactSocialBookmarkViewList" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="campaigns/{campaignId}/activities/since-date/{date}?select={select}&amp;skip={skip}" id="CampaignActivitiesSinceDate">
       <wadl:method name="GET" id="GetCampaignActivitiesSinceDateByDate">
-        <wadl:doc>Gets a list of contacts who were sent a campaign, and retrieves only those contacts who showed activity (e.g. they clicked, opened) after a specified date.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets a list of contacts who were sent a campaign, and retrieves only those contacts who showed activity (e.g. they clicked, opened) after a specified date.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="campaignId" style="query" required="true" type="xs:int" />
-          <wadl:param name="date" style="query" required="true" type="xs:dateTime" />
-          <wadl:param name="select" style="query" required="false" type="xs:int" />
-          <wadl:param name="skip" style="query" required="false" type="xs:int" />
+          <wadl:param name="campaignId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'campaignId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="date" style="query" required="true" type="xs:dateTime">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'date'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="select" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'select'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="skip" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'skip'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiCampaignContactSummaryList" />
           <wadl:representation mediaType="application/xml" element="ApiCampaignContactSummaryList" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="campaigns/{campaignId}/activities?select={select}&amp;skip={skip}" id="CampaignActivities">
       <wadl:method name="GET" id="GetCampaignActivities">
-        <wadl:doc>Gets a list of contacts who were sent a campaign, with their activity.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets a list of contacts who were sent a campaign, with their activity.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="campaignId" style="query" required="true" type="xs:int" />
-          <wadl:param name="select" style="query" required="false" type="xs:int" />
-          <wadl:param name="skip" style="query" required="false" type="xs:int" />
+          <wadl:param name="campaignId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'campaignId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="select" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'select'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="skip" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'skip'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiCampaignContactSummaryList" />
           <wadl:representation mediaType="application/xml" element="ApiCampaignContactSummaryList" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="campaigns/{campaignId}/address-books?select={select}&amp;skip={skip}" id="CampaignAddressBooks">
       <wadl:method name="GET" id="GetCampaignAddressBooks">
-        <wadl:doc>Gets any address books that a campaign has ever been sent to.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets any address books that a campaign has ever been sent to.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="campaignId" style="query" required="true" type="xs:int" />
-          <wadl:param name="select" style="query" required="false" type="xs:int" />
-          <wadl:param name="skip" style="query" required="false" type="xs:int" />
+          <wadl:param name="campaignId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'campaignId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="select" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'select'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="skip" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'skip'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiAddressBookList" />
           <wadl:representation mediaType="application/xml" element="ApiAddressBookList" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="campaigns/{campaignId}/attachments" id="CampaignAttachments">
       <wadl:method name="GET" id="GetCampaignAttachments">
-        <wadl:doc>Gets documents that are currently attached to a campaign.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets documents that are currently attached to a campaign.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="campaignId" style="query" required="true" type="xs:int" />
+          <wadl:param name="campaignId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'campaignId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiDocumentList" />
           <wadl:representation mediaType="application/xml" element="ApiDocumentList" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
       <wadl:method name="POST" id="PostCampaignAttachments">
-        <wadl:doc>Adds a document to a campaign as an attachment.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Adds a document to a campaign as an attachment.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="campaignId" style="query" required="true" type="xs:int" />
-          <wadl:param name="document" style="query" required="true" type="ApiDocument" />
+          <wadl:param name="campaignId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'campaignId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="document" style="query" required="true" type="ApiDocument">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'document'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiDocument" />
           <wadl:representation mediaType="application/xml" element="ApiDocument" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="campaigns/{campaignId}/attachments/{documentId}" id="CampaignAttachment">
       <wadl:method name="DELETE" id="DeleteCampaignAttachment">
-        <wadl:doc>Removes an attachment from a campaign.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Removes an attachment from a campaign.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="campaignId" style="query" required="true" type="xs:int" />
-          <wadl:param name="documentId" style="query" required="true" type="xs:int" />
+          <wadl:param name="campaignId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'campaignId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="documentId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'documentId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="204">
-          <wadl:doc>Request was successfully processed. Response body is empty.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed. Response body is empty.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="campaigns/{campaignId}/clicks?select={select}&amp;skip={skip}" id="CampaignClicks">
       <wadl:method name="GET" id="GetCampaignClicks">
-        <wadl:doc>Gets a list of campaign link clicks.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets a list of campaign link clicks.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="campaignId" style="query" required="true" type="xs:int" />
-          <wadl:param name="select" style="query" required="false" type="xs:int" />
-          <wadl:param name="skip" style="query" required="false" type="xs:int" />
+          <wadl:param name="campaignId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'campaignId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="select" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'select'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="skip" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'skip'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiCampaignContactClickList" />
           <wadl:representation mediaType="application/xml" element="ApiCampaignContactClickList" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="campaigns/{campaignId}/copy" id="CampaignCopy">
       <wadl:method name="POST" id="PostCampaignCopy">
-        <wadl:doc>Copies a given campaign returning the new campaign.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Copies a given campaign returning the new campaign.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="campaignId" style="query" required="true" type="xs:int" />
+          <wadl:param name="campaignId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'campaignId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="201">
-          <wadl:doc>Entity has been created.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Entity has been created.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiCampaign" />
           <wadl:representation mediaType="application/xml" element="ApiCampaign" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="campaigns/{campaignId}/hard-bouncing-contacts?withFullData={withFullData}&amp;select={select}&amp;skip={skip}" id="CampaignHardBouncingContacts">
       <wadl:method name="GET" id="GetCampaignHardBouncingContacts">
-        <wadl:doc>Gets a list of contacts who hard bounced when sent a particular campaign.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets a list of contacts who hard bounced when sent a particular campaign.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="campaignId" style="query" required="true" type="xs:int" />
-          <wadl:param name="withFullData" style="query" required="false" type="xs:boolean" />
-          <wadl:param name="select" style="query" required="false" type="xs:int" />
-          <wadl:param name="skip" style="query" required="false" type="xs:int" />
+          <wadl:param name="campaignId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'campaignId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="withFullData" style="query" required="false" type="xs:boolean">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'withFullData'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="select" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'select'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="skip" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'skip'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiContactList" />
           <wadl:representation mediaType="application/xml" element="ApiContactList" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="campaigns/{campaignId}/opens?select={select}&amp;skip={skip}" id="CampaignOpens">
       <wadl:method name="GET" id="GetCampaignOpens">
-        <wadl:doc>Gets a list of campaign opens.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets a list of campaign opens.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="campaignId" style="query" required="true" type="xs:int" />
-          <wadl:param name="select" style="query" required="false" type="xs:int" />
-          <wadl:param name="skip" style="query" required="false" type="xs:int" />
+          <wadl:param name="campaignId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'campaignId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="select" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'select'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="skip" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'skip'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiCampaignContactOpenList" />
           <wadl:representation mediaType="application/xml" element="ApiCampaignContactOpenList" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="campaigns/{campaignId}/page-views/since-date/{date}?select={select}&amp;skip={skip}" id="CampaignPageViewsSinceDate">
       <wadl:method name="GET" id="GetCampaignPageViewsSinceDateByDate">
-        <wadl:doc>Gets a list of page views for a campaign after a specified date.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets a list of page views for a campaign after a specified date.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="campaignId" style="query" required="true" type="xs:int" />
-          <wadl:param name="date" style="query" required="true" type="xs:dateTime" />
-          <wadl:param name="select" style="query" required="false" type="xs:int" />
-          <wadl:param name="skip" style="query" required="false" type="xs:int" />
+          <wadl:param name="campaignId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'campaignId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="date" style="query" required="true" type="xs:dateTime">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'date'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="select" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'select'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="skip" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'skip'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiCampaignContactPageViewList" />
           <wadl:representation mediaType="application/xml" element="ApiCampaignContactPageViewList" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="campaigns/{campaignId}/roi-details/since-date/{date}?select={select}&amp;skip={skip}" id="CampaignRoiDetailsSinceDate">
       <wadl:method name="GET" id="GetCampaignRoiDetailsSinceDateByDate">
-        <wadl:doc>Retrieves a list of ROI information for a campaign after the specified date.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Retrieves a list of ROI information for a campaign after the specified date.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="campaignId" style="query" required="true" type="xs:int" />
-          <wadl:param name="date" style="query" required="true" type="xs:dateTime" />
-          <wadl:param name="select" style="query" required="false" type="xs:int" />
-          <wadl:param name="skip" style="query" required="false" type="xs:int" />
+          <wadl:param name="campaignId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'campaignId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="date" style="query" required="true" type="xs:dateTime">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'date'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="select" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'select'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="skip" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'skip'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiCampaignContactRoiDetailList" />
           <wadl:representation mediaType="application/xml" element="ApiCampaignContactRoiDetailList" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="campaigns/{campaignId}/social-bookmark-views?select={select}&amp;skip={skip}" id="CampaignSocialBookmarkViews">
       <wadl:method name="GET" id="GetCampaignSocialBookmarkViews">
-        <wadl:doc>Gets campaign social bookmark views for a campaign.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets campaign social bookmark views for a campaign.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="campaignId" style="query" required="true" type="xs:int" />
-          <wadl:param name="select" style="query" required="false" type="xs:int" />
-          <wadl:param name="skip" style="query" required="false" type="xs:int" />
+          <wadl:param name="campaignId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'campaignId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="select" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'select'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="skip" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'skip'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiCampaignContactSocialBookmarkViewList" />
           <wadl:representation mediaType="application/xml" element="ApiCampaignContactSocialBookmarkViewList" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="campaigns/{campaignId}/summary" id="CampaignSummary">
       <wadl:method name="GET" id="GetCampaignSummary">
-        <wadl:doc>Gets a summary of reporting information for a specified campaign.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets a summary of reporting information for a specified campaign.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="campaignId" style="query" required="true" type="xs:int" />
+          <wadl:param name="campaignId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'campaignId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiCampaignSummary" />
           <wadl:representation mediaType="application/xml" element="ApiCampaignSummary" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="campaigns/{id}" id="Campaign">
       <wadl:method name="GET" id="GetCampaignById">
-        <wadl:doc>Gets a campaign by ID.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets a campaign by ID.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="id" style="query" required="true" type="xs:int" />
+          <wadl:param name="id" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'id'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiCampaign" />
           <wadl:representation mediaType="application/xml" element="ApiCampaign" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
       <wadl:method name="PUT" id="UpdateCampaign">
-        <wadl:doc>Updates a given campaign.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Updates a given campaign.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="id" style="query" required="true" type="xs:int" />
-          <wadl:param name="apiCampaign" style="query" required="true" type="ApiCampaign" />
+          <wadl:param name="id" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'id'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="apiCampaign" style="query" required="true" type="ApiCampaign">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'apiCampaign'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiCampaign" />
           <wadl:representation mediaType="application/xml" element="ApiCampaign" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="campaigns/send" id="CampaignsSend">
       <wadl:method name="POST" id="PostCampaignsSend">
-        <wadl:doc>Sends a specified campaign to one or more address books, segments or contacts at a specified time. Leave the address book array empty to send to All Contacts.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Sends a specified campaign to one or more address books, segments or contacts at a specified time. Leave the address book array empty to send to All Contacts.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="apiCampaignSend" style="query" required="true" type="ApiCampaignSend" />
+          <wadl:param name="apiCampaignSend" style="query" required="true" type="ApiCampaignSend">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'apiCampaignSend'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="202">
-          <wadl:doc>The request has been accepted for further processing.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>The request has been accepted for further processing.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiCampaignSend" />
           <wadl:representation mediaType="application/xml" element="ApiCampaignSend" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="campaigns/send/{sendId}" id="CampaignsSend">
       <wadl:method name="GET" id="GetCampaignsSendBySendId">
-        <wadl:doc>Gets the send status using send ID.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets the send status using send ID.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="sendId" style="query" required="true" type="Guid" />
+          <wadl:param name="sendId" style="query" required="true" type="Guid">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'sendId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiCampaignSend" />
           <wadl:representation mediaType="application/xml" element="ApiCampaignSend" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="campaigns/with-activity-since/{date}?select={select}&amp;skip={skip}" id="CampaignsWithActivitySince">
       <wadl:method name="GET" id="GetCampaignsWithActivitySinceDate">
-        <wadl:doc>Gets all sent campaigns, which have had activity (e.g. clicks, opens) after a specified date.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets all sent campaigns, which have had activity (e.g. clicks, opens) after a specified date.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="date" style="query" required="true" type="xs:dateTime" />
-          <wadl:param name="select" style="query" required="false" type="xs:int" />
-          <wadl:param name="skip" style="query" required="false" type="xs:int" />
+          <wadl:param name="date" style="query" required="true" type="xs:dateTime">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'date'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="select" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'select'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="skip" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'skip'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiCampaignList" />
           <wadl:representation mediaType="application/xml" element="ApiCampaignList" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="campaigns?select={select}&amp;skip={skip}" id="Campaigns">
       <wadl:method name="GET" id="GetCampaigns">
-        <wadl:doc>Gets all campaigns</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets all campaigns</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="select" style="query" required="false" type="xs:int" />
-          <wadl:param name="skip" style="query" required="false" type="xs:int" />
+          <wadl:param name="select" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'select'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="skip" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'skip'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiCampaignList" />
           <wadl:representation mediaType="application/xml" element="ApiCampaignList" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="contacts" id="Contacts">
       <wadl:method name="POST" id="PostContacts">
-        <wadl:doc>Creates a contact.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Creates a contact.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="apiContact" style="query" required="true" type="ApiContact" />
+          <wadl:param name="apiContact" style="query" required="true" type="ApiContact">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'apiContact'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="201">
-          <wadl:doc>Entity has been created.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Entity has been created.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiContact" />
           <wadl:representation mediaType="application/xml" element="ApiContact" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="contacts/{contactId}/address-books?select={select}&amp;skip={skip}" id="ContactAddressBooks">
       <wadl:method name="GET" id="GetContactAddressBooks">
-        <wadl:doc>Gets any address books that a contact is in.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets any address books that a contact is in.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="contactId" style="query" required="true" type="xs:int" />
-          <wadl:param name="select" style="query" required="false" type="xs:int" />
-          <wadl:param name="skip" style="query" required="false" type="xs:int" />
+          <wadl:param name="contactId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'contactId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="select" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'select'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="skip" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'skip'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiAddressBookList" />
           <wadl:representation mediaType="application/xml" element="ApiAddressBookList" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="contacts/{email}" id="Contact">
       <wadl:method name="GET" id="GetContactByEmail">
-        <wadl:doc>Gets a contact by email address.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets a contact by email address.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="email" style="query" required="true" type="xs:string" />
+          <wadl:param name="email" style="query" required="true" type="xs:string">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'email'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiContact" />
           <wadl:representation mediaType="application/xml" element="ApiContact" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="contacts/{email}/transactional-data/{collectionName}" id="ContactTransactionalData">
       <wadl:method name="DELETE" id="DeleteContactTransactionalData">
-        <wadl:doc>Deletes all transactional data for a contact.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Deletes all transactional data for a contact.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="collectionName" style="query" required="true" type="xs:string" />
-          <wadl:param name="email" style="query" required="true" type="xs:string" />
+          <wadl:param name="collectionName" style="query" required="true" type="xs:string">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'collectionName'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="email" style="query" required="true" type="xs:string">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'email'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="204">
-          <wadl:doc>Request was successfully processed. Response body is empty.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed. Response body is empty.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
       <wadl:method name="GET" id="GetContactTransactionalDataByCollectionName">
-        <wadl:doc>Gets a list of all transactional data for a contact (100 most recent only).</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets a list of all transactional data for a contact (100 most recent only).</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="collectionName" style="query" required="true" type="xs:string" />
-          <wadl:param name="email" style="query" required="true" type="xs:string" />
+          <wadl:param name="collectionName" style="query" required="true" type="xs:string">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'collectionName'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="email" style="query" required="true" type="xs:string">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'email'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiTransactionalDataList" />
           <wadl:representation mediaType="application/xml" element="ApiTransactionalDataList" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="contacts/{id}" id="Contact">
       <wadl:method name="GET" id="GetContactById">
-        <wadl:doc>Gets a contact by ID. Unsubscribed or suppressed contacts will not be retrieved.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets a contact by ID. Unsubscribed or suppressed contacts will not be retrieved.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="id" style="query" required="true" type="xs:int" />
+          <wadl:param name="id" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'id'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiContact" />
           <wadl:representation mediaType="application/xml" element="ApiContact" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
       <wadl:method name="PUT" id="UpdateContact">
-        <wadl:doc>Updates a contact.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Updates a contact.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="id" style="query" required="true" type="xs:int" />
-          <wadl:param name="apiContact" style="query" required="true" type="ApiContact" />
+          <wadl:param name="id" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'id'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="apiContact" style="query" required="true" type="ApiContact">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'apiContact'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiContact" />
           <wadl:representation mediaType="application/xml" element="ApiContact" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
       <wadl:method name="DELETE" id="DeleteContact">
-        <wadl:doc>Deletes a contact.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Deletes a contact.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="id" style="query" required="true" type="xs:int" />
+          <wadl:param name="id" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'id'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="204">
-          <wadl:doc>Request was successfully processed. Response body is empty.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed. Response body is empty.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="contacts/{id}/transactional-data/{collectionName}" id="ContactTransactionalData">
       <wadl:method name="DELETE" id="DeleteContactTransactionalData">
-        <wadl:doc>Deletes all transactional data for a contact.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Deletes all transactional data for a contact.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="collectionName" style="query" required="true" type="xs:string" />
-          <wadl:param name="id" style="query" required="true" type="xs:int" />
+          <wadl:param name="collectionName" style="query" required="true" type="xs:string">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'collectionName'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="id" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'id'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="204">
-          <wadl:doc>Request was successfully processed. Response body is empty.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed. Response body is empty.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
       <wadl:method name="GET" id="GetContactTransactionalDataByCollectionName">
-        <wadl:doc>Gets a list of all transactional data for a contact (100 most recent only).</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets a list of all transactional data for a contact (100 most recent only).</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="collectionName" style="query" required="true" type="xs:string" />
-          <wadl:param name="id" style="query" required="true" type="xs:int" />
+          <wadl:param name="collectionName" style="query" required="true" type="xs:string">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'collectionName'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="id" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'id'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiTransactionalDataList" />
           <wadl:representation mediaType="application/xml" element="ApiTransactionalDataList" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="contacts/created-since/{date}?withFullData={withFullData}&amp;select={select}&amp;skip={skip}" id="ContactsCreatedSince">
       <wadl:method name="GET" id="GetContactsCreatedSinceDate">
-        <wadl:doc>Gets a list of created contacts after a specified date.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets a list of created contacts after a specified date.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="date" style="query" required="true" type="xs:dateTime" />
-          <wadl:param name="withFullData" style="query" required="false" type="xs:boolean" />
-          <wadl:param name="select" style="query" required="false" type="xs:int" />
-          <wadl:param name="skip" style="query" required="false" type="xs:int" />
+          <wadl:param name="date" style="query" required="true" type="xs:dateTime">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'date'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="withFullData" style="query" required="false" type="xs:boolean">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'withFullData'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="select" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'select'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="skip" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'skip'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiContactList" />
           <wadl:representation mediaType="application/xml" element="ApiContactList" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="contacts/import" id="ContactsImport">
       <wadl:method name="POST" id="PostContactsImport">
-        <wadl:doc>Bulk creates, or bulk updates, contacts. Import format can either be CSV or Excel. Must include one column called "Email". Any other columns will attempt to map to your custom data fields. The ID of returned object can be used to query import progress.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Bulk creates, or bulk updates, contacts. Import format can either be CSV or Excel. Must include one column called "Email". Any other columns will attempt to map to your custom data fields. The ID of returned object can be used to query import progress.</wadl:summary>
+        </wadl:doc>
         <wadl:request />
         <wadl:response status="202">
-          <wadl:doc>The request has been accepted for further processing.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>The request has been accepted for further processing.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiContactImport" />
           <wadl:representation mediaType="application/xml" element="ApiContactImport" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="contacts/import/{importId}" id="ContactsImport">
       <wadl:method name="GET" id="GetContactsImportByImportId">
-        <wadl:doc>Gets the import status of a previously started contact import.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets the import status of a previously started contact import.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="importId" style="query" required="true" type="Guid" />
+          <wadl:param name="importId" style="query" required="true" type="Guid">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'importId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiContactImport" />
           <wadl:representation mediaType="application/xml" element="ApiContactImport" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="contacts/import/{importId}/report" id="ContactsImportReport">
       <wadl:method name="GET" id="GetContactsImportReport">
-        <wadl:doc>Gets a report with statistics about what was successfully imported, and what was unable to be imported.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets a report with statistics about what was successfully imported, and what was unable to be imported.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="importId" style="query" required="true" type="Guid" />
+          <wadl:param name="importId" style="query" required="true" type="Guid">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'importId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiContactImportReport" />
           <wadl:representation mediaType="application/xml" element="ApiContactImportReport" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="contacts/import/{importId}/report-faults" id="ContactsImportReportFaults">
       <wadl:method name="GET" id="GetContactsImportReportFaults">
-        <wadl:doc>Gets all records that were not successfully imported. The data are returned in CSV file, which is UTF-8 encoded. This data will only be available for approximately one week after import.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets all records that were not successfully imported. The data are returned in CSV file, which is UTF-8 encoded. This data will only be available for approximately one week after import.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="importId" style="query" required="true" type="Guid" />
+          <wadl:param name="importId" style="query" required="true" type="Guid">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'importId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="contacts/modified-since/{date}?withFullData={withFullData}&amp;select={select}&amp;skip={skip}" id="ContactsModifiedSince">
       <wadl:method name="GET" id="GetContactsModifiedSinceDate">
-        <wadl:doc>Gets a list of modified contacts after a specified date.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets a list of modified contacts after a specified date.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="date" style="query" required="true" type="xs:dateTime" />
-          <wadl:param name="withFullData" style="query" required="false" type="xs:boolean" />
-          <wadl:param name="select" style="query" required="false" type="xs:int" />
-          <wadl:param name="skip" style="query" required="false" type="xs:int" />
+          <wadl:param name="date" style="query" required="true" type="xs:dateTime">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'date'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="withFullData" style="query" required="false" type="xs:boolean">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'withFullData'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="select" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'select'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="skip" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'skip'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiContactList" />
           <wadl:representation mediaType="application/xml" element="ApiContactList" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="contacts/resubscribe" id="ContactsResubscribe">
       <wadl:method name="POST" id="PostContactsResubscribe">
-        <wadl:doc>Resubscribes a previously unsubscribed contact.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Resubscribes a previously unsubscribed contact.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="apiContactResubscription" style="query" required="true" type="ApiContactResubscription" />
+          <wadl:param name="apiContactResubscription" style="query" required="true" type="ApiContactResubscription">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'apiContactResubscription'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiResubscribeResult" />
           <wadl:representation mediaType="application/xml" element="ApiResubscribeResult" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="contacts/suppressed-since/{date}?select={select}&amp;skip={skip}" id="ContactsSuppressedSince">
       <wadl:method name="GET" id="GetContactsSuppressedSinceDate">
-        <wadl:doc>Gets a list of suppressed contacts after a given date along with the reason for suppression.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets a list of suppressed contacts after a given date along with the reason for suppression.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="date" style="query" required="true" type="xs:dateTime" />
-          <wadl:param name="select" style="query" required="false" type="xs:int" />
-          <wadl:param name="skip" style="query" required="false" type="xs:int" />
+          <wadl:param name="date" style="query" required="true" type="xs:dateTime">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'date'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="select" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'select'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="skip" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'skip'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiContactSuppressionList" />
           <wadl:representation mediaType="application/xml" element="ApiContactSuppressionList" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="contacts/transactional-data/{collectionName}" id="ContactsTransactionalData">
       <wadl:method name="POST" id="PostContactsTransactionalData">
-        <wadl:doc>Adds a single piece of transactional data to a contact.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Adds a single piece of transactional data to a contact.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="collectionName" style="query" required="true" type="xs:string" />
-          <wadl:param name="apiTransactionalData" style="query" required="true" type="ApiTransactionalData" />
+          <wadl:param name="collectionName" style="query" required="true" type="xs:string">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'collectionName'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="apiTransactionalData" style="query" required="true" type="ApiTransactionalData">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'apiTransactionalData'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="201">
-          <wadl:doc>Entity has been created.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Entity has been created.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiTransactionalData" />
           <wadl:representation mediaType="application/xml" element="ApiTransactionalData" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="contacts/transactional-data/{collectionName}/{key}" id="ContactsTransactionalData">
       <wadl:method name="POST" id="PostContactsTransactionalData">
-        <wadl:doc>Replaces a piece of transactional data by key (logicall equivalent to a delete and an insert).</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Replaces a piece of transactional data by key (logicall equivalent to a delete and an insert).</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="collectionName" style="query" required="true" type="xs:string" />
-          <wadl:param name="key" style="query" required="true" type="xs:string" />
-          <wadl:param name="apiJsonData" style="query" required="true" type="ApiJsonData" />
+          <wadl:param name="collectionName" style="query" required="true" type="xs:string">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'collectionName'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="key" style="query" required="true" type="xs:string">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'key'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="apiJsonData" style="query" required="true" type="ApiJsonData">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'apiJsonData'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiTransactionalData" />
           <wadl:representation mediaType="application/xml" element="ApiTransactionalData" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
       <wadl:method name="DELETE" id="DeleteContactsTransactionalData">
-        <wadl:doc>Deletes a piece of transactional data by key.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Deletes a piece of transactional data by key.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="collectionName" style="query" required="true" type="xs:string" />
-          <wadl:param name="key" style="query" required="true" type="xs:string" />
+          <wadl:param name="collectionName" style="query" required="true" type="xs:string">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'collectionName'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="key" style="query" required="true" type="xs:string">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'key'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="204">
-          <wadl:doc>Request was successfully processed. Response body is empty.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed. Response body is empty.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
       <wadl:method name="GET" id="GetContactsTransactionalDataByKey">
-        <wadl:doc>Gets a piece of transactional data by key.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets a piece of transactional data by key.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="collectionName" style="query" required="true" type="xs:string" />
-          <wadl:param name="key" style="query" required="true" type="xs:string" />
+          <wadl:param name="collectionName" style="query" required="true" type="xs:string">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'collectionName'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="key" style="query" required="true" type="xs:string">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'key'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiTransactionalData" />
           <wadl:representation mediaType="application/xml" element="ApiTransactionalData" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="contacts/transactional-data/import/{collectionName}" id="ContactsTransactionalDataImport">
       <wadl:method name="POST" id="PostContactsTransactionalDataImport">
-        <wadl:doc>Adds multiple pieces of transactional data to contacts asynchronously, returning an identifier that can be used to check for import progress.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Adds multiple pieces of transactional data to contacts asynchronously, returning an identifier that can be used to check for import progress.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="collectionName" style="query" required="true" type="xs:string" />
-          <wadl:param name="apiTransactionalData" style="query" required="true" type="ApiTransactionalDataList" />
+          <wadl:param name="collectionName" style="query" required="true" type="xs:string">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'collectionName'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="apiTransactionalData" style="query" required="true" type="ApiTransactionalDataList">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'apiTransactionalData'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="202">
-          <wadl:doc>The request has been accepted for further processing.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>The request has been accepted for further processing.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiTransactionalDataImport" />
           <wadl:representation mediaType="application/xml" element="ApiTransactionalDataImport" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="contacts/transactional-data/import/{importId}" id="ContactsTransactionalDataImport">
       <wadl:method name="GET" id="GetContactsTransactionalDataImportByImportId">
-        <wadl:doc>Gets the import status of a previously started transactional import.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets the import status of a previously started transactional import.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="importId" style="query" required="true" type="Guid" />
+          <wadl:param name="importId" style="query" required="true" type="Guid">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'importId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiTransactionalDataImport" />
           <wadl:representation mediaType="application/xml" element="ApiTransactionalDataImport" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="contacts/transactional-data/import/{importId}/report" id="ContactsTransactionalDataImportReport">
       <wadl:method name="GET" id="GetContactsTransactionalDataImportReport">
-        <wadl:doc>Gets a report with statistics about what was successfully imported, and what was unable to be imported.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets a report with statistics about what was successfully imported, and what was unable to be imported.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="importId" style="query" required="true" type="Guid" />
+          <wadl:param name="importId" style="query" required="true" type="Guid">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'importId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiTransactionalDataImportReport" />
           <wadl:representation mediaType="application/xml" element="ApiTransactionalDataImportReport" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="contacts/unsubscribe" id="ContactsUnsubscribe">
       <wadl:method name="POST" id="PostContactsUnsubscribe">
-        <wadl:doc>Unsubscribes contact from account.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Unsubscribes contact from account.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="apiContact" style="query" required="true" type="ApiContact" />
+          <wadl:param name="apiContact" style="query" required="true" type="ApiContact">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'apiContact'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiContactSuppression" />
           <wadl:representation mediaType="application/xml" element="ApiContactSuppression" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="contacts/unsubscribed-since/{date}?select={select}&amp;skip={skip}" id="ContactsUnsubscribedSince">
       <wadl:method name="GET" id="GetContactsUnsubscribedSinceDate">
-        <wadl:doc>Gets a list of unsubscribed contacts who unsubscribed after a given date.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets a list of unsubscribed contacts who unsubscribed after a given date.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="date" style="query" required="true" type="xs:dateTime" />
-          <wadl:param name="select" style="query" required="false" type="xs:int" />
-          <wadl:param name="skip" style="query" required="false" type="xs:int" />
+          <wadl:param name="date" style="query" required="true" type="xs:dateTime">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'date'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="select" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'select'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="skip" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'skip'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiContactSuppressionList" />
           <wadl:representation mediaType="application/xml" element="ApiContactSuppressionList" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="contacts?withFullData={withFullData}&amp;select={select}&amp;skip={skip}" id="Contacts">
       <wadl:method name="GET" id="GetContacts">
-        <wadl:doc>Gets a list of all contacts in the account</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets a list of all contacts in the account</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="withFullData" style="query" required="false" type="xs:boolean" />
-          <wadl:param name="select" style="query" required="false" type="xs:int" />
-          <wadl:param name="skip" style="query" required="false" type="xs:int" />
+          <wadl:param name="withFullData" style="query" required="false" type="xs:boolean">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'withFullData'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="select" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'select'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="skip" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'skip'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiContactList" />
           <wadl:representation mediaType="application/xml" element="ApiContactList" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="custom-from-addresses?select={select}&amp;skip={skip}" id="CustomFromAddresses">
       <wadl:method name="GET" id="GetCustomFromAddresses">
-        <wadl:doc>Gets all custom from addresses which can be used in a campaign.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets all custom from addresses which can be used in a campaign.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="select" style="query" required="false" type="xs:int" />
-          <wadl:param name="skip" style="query" required="false" type="xs:int" />
+          <wadl:param name="select" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'select'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="skip" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'skip'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiCampaignFromAddressList" />
           <wadl:representation mediaType="application/xml" element="ApiCampaignFromAddressList" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="data-fields" id="DataFields">
       <wadl:method name="POST" id="PostDataFields">
-        <wadl:doc>Creates a data field within the account.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Creates a data field within the account.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="dataField" style="query" required="true" type="ApiDataField" />
+          <wadl:param name="dataField" style="query" required="true" type="ApiDataField">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'dataField'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="201">
-          <wadl:doc>Entity has been created.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Entity has been created.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
       <wadl:method name="GET" id="GetDataFields">
-        <wadl:doc>Lists the data fields within the account.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Lists the data fields within the account.</wadl:summary>
+        </wadl:doc>
         <wadl:request />
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiDataFieldList" />
           <wadl:representation mediaType="application/xml" element="ApiDataFieldList" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="data-fields/{name}" id="DataField">
       <wadl:method name="DELETE" id="DeleteDataField">
-        <wadl:doc>Deletes a data field within the account.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Deletes a data field within the account.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="name" style="query" required="true" type="xs:string" />
+          <wadl:param name="name" style="query" required="true" type="xs:string">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'name'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="409">
-          <wadl:doc>Request could not be carried out because of a conflict on the server.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request could not be carried out because of a conflict on the server.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiDependencyResult" />
           <wadl:representation mediaType="application/xml" element="ApiDependencyResult" />
         </wadl:response>
         <wadl:response status="204">
-          <wadl:doc>Request was successfully processed. Response body is empty.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed. Response body is empty.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="document-folders" id="DocumentFolders">
       <wadl:method name="GET" id="GetDocumentFolders">
-        <wadl:doc>Fetches the document folder tree structure.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Fetches the document folder tree structure.</wadl:summary>
+        </wadl:doc>
         <wadl:request />
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiDocumentFolderList" />
           <wadl:representation mediaType="application/xml" element="ApiDocumentFolderList" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="document-folders/{folderId}" id="DocumentFolder">
       <wadl:method name="POST" id="PostDocumentFolder">
-        <wadl:doc>Creates a new document folder.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Creates a new document folder.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="folderId" style="query" required="true" type="xs:int" />
-          <wadl:param name="folder" style="query" required="true" type="ApiDocumentFolder" />
+          <wadl:param name="folderId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'folderId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="folder" style="query" required="true" type="ApiDocumentFolder">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'folder'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="201">
-          <wadl:doc>Entity has been created.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Entity has been created.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiDocumentFolder" />
           <wadl:representation mediaType="application/xml" element="ApiDocumentFolder" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="document-folders/{folderId}/documents" id="DocumentFolderDocuments">
       <wadl:method name="GET" id="GetDocumentFolderDocuments">
-        <wadl:doc>Gets all uploaded documents.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets all uploaded documents.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="folderId" style="query" required="true" type="xs:int" />
+          <wadl:param name="folderId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'folderId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiDocumentList" />
           <wadl:representation mediaType="application/xml" element="ApiDocumentList" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
       <wadl:method name="POST" id="PostDocumentFolderDocuments">
-        <wadl:doc>Upload a document to the specified folder.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Upload a document to the specified folder.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="folderId" style="query" required="true" type="xs:int" />
+          <wadl:param name="folderId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'folderId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiDocument" />
           <wadl:representation mediaType="application/xml" element="ApiDocument" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="image-folders" id="ImageFolders">
       <wadl:method name="GET" id="GetImageFolders">
-        <wadl:doc>Fetches the campaign image folder tree structure.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Fetches the campaign image folder tree structure.</wadl:summary>
+        </wadl:doc>
         <wadl:request />
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiImageFolderList" />
           <wadl:representation mediaType="application/xml" element="ApiImageFolderList" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="image-folders/{folderId}/images" id="ImageFolderImages">
       <wadl:method name="POST" id="PostImageFolderImages">
-        <wadl:doc>Uploads a new campaign image to the specified folder.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Uploads a new campaign image to the specified folder.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="folderId" style="query" required="true" type="xs:int" />
+          <wadl:param name="folderId" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'folderId'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiImage" />
           <wadl:representation mediaType="application/xml" element="ApiImage" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="image-folders/{id}" id="ImageFolder">
       <wadl:method name="GET" id="GetImageFolderById">
-        <wadl:doc>Gets an image folder by id.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets an image folder by id.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="id" style="query" required="true" type="xs:int" />
+          <wadl:param name="id" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'id'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiImageFolder" />
           <wadl:representation mediaType="application/xml" element="ApiImageFolder" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
       <wadl:method name="POST" id="PostImageFolder">
-        <wadl:doc>Creates a new campaign image folder.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Creates a new campaign image folder.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="id" style="query" required="true" type="xs:int" />
-          <wadl:param name="folder" style="query" required="true" type="ApiImageFolder" />
+          <wadl:param name="id" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'id'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="folder" style="query" required="true" type="ApiImageFolder">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'folder'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="201">
-          <wadl:doc>Entity has been created.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Entity has been created.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiImageFolder" />
           <wadl:representation mediaType="application/xml" element="ApiImageFolder" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
-    <wadl:resource path="segments/refresh/{id}" id="SegmentsRefreh">
-      <wadl:method name="POST" id="PostSegmentsRefreh">
-        <wadl:doc>Refreshes a segment by ID.</wadl:doc>
+    <wadl:resource path="segments/refresh/{id}" id="SegmentsRefresh">
+      <wadl:method name="POST" id="PostSegmentsRefresh">
+        <wadl:doc>
+          <wadl:summary>Refreshes a segment by ID.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="id" style="query" required="true" type="xs:int" />
+          <wadl:param name="id" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'id'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="202">
-          <wadl:doc>The request has been accepted for further processing.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>The request has been accepted for further processing.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiSegmentRefresh" />
           <wadl:representation mediaType="application/xml" element="ApiSegmentRefresh" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
-      <wadl:method name="GET" id="GetSegmentsRefrehById">
-        <wadl:doc>Gets the refresh progress for a segment.</wadl:doc>
+      <wadl:method name="GET" id="GetSegmentsRefreshById">
+        <wadl:doc>
+          <wadl:summary>Gets the refresh progress for a segment.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="id" style="query" required="true" type="xs:int" />
+          <wadl:param name="id" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'id'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiSegmentRefresh" />
           <wadl:representation mediaType="application/xml" element="ApiSegmentRefresh" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="segments?select={select}&amp;skip={skip}" id="Segments">
       <wadl:method name="GET" id="GetSegments">
-        <wadl:doc>Gets all segments.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets all segments.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="select" style="query" required="false" type="xs:int" />
-          <wadl:param name="skip" style="query" required="false" type="xs:int" />
+          <wadl:param name="select" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'select'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="skip" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'skip'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiSegmentList" />
           <wadl:representation mediaType="application/xml" element="ApiSegmentList" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="server-time" id="ServerTime">
       <wadl:method name="GET" id="GetServerTime">
-        <wadl:doc>Gets the UTC time as set on the server.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets the UTC time as set on the server.</wadl:summary>
+        </wadl:doc>
         <wadl:request />
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" />
           <wadl:representation mediaType="application/xml" />
         </wadl:response>
@@ -2278,80 +3552,142 @@
     </wadl:resource>
     <wadl:resource path="sms-messages/send-to/{telephoneNumber}" id="SmsMessagesSendTo">
       <wadl:method name="POST" id="PostSmsMessagesSendTo">
-        <wadl:doc>Send a single SMS message.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Send a single SMS message.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="telephoneNumber" style="query" required="true" type="xs:string" />
-          <wadl:param name="sms" style="query" required="true" type="ApiSms" />
+          <wadl:param name="telephoneNumber" style="query" required="true" type="xs:string">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'telephoneNumber'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="sms" style="query" required="true" type="ApiSms">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'sms'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="204">
-          <wadl:doc>Request was successfully processed. Response body is empty.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed. Response body is empty.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="templates" id="Templates">
       <wadl:method name="POST" id="PostTemplates">
-        <wadl:doc>Creates a template.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Creates a template.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="template" style="query" required="true" type="ApiTemplate" />
+          <wadl:param name="template" style="query" required="true" type="ApiTemplate">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'template'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="201">
-          <wadl:doc>Entity has been created.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Entity has been created.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiTemplate" />
           <wadl:representation mediaType="application/xml" element="ApiTemplate" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="templates/{id}" id="Template">
       <wadl:method name="GET" id="GetTemplateById">
-        <wadl:doc>Gets a template by ID.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets a template by ID.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="id" style="query" required="true" type="xs:int" />
+          <wadl:param name="id" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'id'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiTemplate" />
           <wadl:representation mediaType="application/xml" element="ApiTemplate" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
       <wadl:method name="PUT" id="UpdateTemplate">
-        <wadl:doc>Updates a template.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Updates a template.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="id" style="query" required="true" type="xs:int" />
-          <wadl:param name="template" style="query" required="true" type="ApiTemplate" />
+          <wadl:param name="id" style="query" required="true" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'id'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="template" style="query" required="true" type="ApiTemplate">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'template'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiTemplate" />
           <wadl:representation mediaType="application/xml" element="ApiTemplate" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
     <wadl:resource path="templates?select={select}&amp;skip={skip}" id="Templates">
       <wadl:method name="GET" id="GetTemplates">
-        <wadl:doc>Gets list of all templates.</wadl:doc>
+        <wadl:doc>
+          <wadl:summary>Gets list of all templates.</wadl:summary>
+        </wadl:doc>
         <wadl:request>
-          <wadl:param name="select" style="query" required="false" type="xs:int" />
-          <wadl:param name="skip" style="query" required="false" type="xs:int" />
+          <wadl:param name="select" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'select'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
+          <wadl:param name="skip" style="query" required="false" type="xs:int">
+            <wadl:doc>
+              <wadl:summary>Documentation for 'skip'.</wadl:summary>
+            </wadl:doc>
+          </wadl:param>
         </wadl:request>
         <wadl:response status="200">
-          <wadl:doc>Request was successfully processed.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Request was successfully processed.</wadl:summary>
+          </wadl:doc>
           <wadl:representation mediaType="application/json" element="ApiTemplateList" />
           <wadl:representation mediaType="application/xml" element="ApiTemplateList" />
         </wadl:response>
         <wadl:response status="401">
-          <wadl:doc>Authorization has been denied for this request.</wadl:doc>
+          <wadl:doc>
+            <wadl:summary>Authorization has been denied for this request.</wadl:summary>
+          </wadl:doc>
         </wadl:response>
       </wadl:method>
     </wadl:resource>
