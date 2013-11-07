@@ -919,7 +919,7 @@ namespace dotMailer.Api
 		/// <summary>
 		/// Gets the refresh progress for a segment.
 		/// </summary>
-		public ServiceResult<ApiSegmentRefresh> GetSegmentsRefrehById(int id)
+		public ServiceResult<ApiSegmentRefresh> GetSegmentsRefreshById(int id)
 		{
 			var request = new Request("segments/refresh/{id}", 
 			new Dictionary<string, object>
@@ -1209,7 +1209,7 @@ namespace dotMailer.Api
 		/// <summary>
 		/// Refreshes a segment by ID.
 		/// </summary>
-		public ServiceResult<ApiSegmentRefresh> PostSegmentsRefreh(int id)
+		public ServiceResult<ApiSegmentRefresh> PostSegmentsRefresh(int id)
 		{
 			var request = new Request("segments/refresh/{id}", 
 			new Dictionary<string, object>
