@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Xml.Linq;
-using dotMailer.Api.WadlParser.Methods;
-using dotMailer.Api.WadlParser.Methods.Abstract;
+using dotMailer.Api.WadlParser.Factories;
 using dotMailer.Api.WadlParser.Types;
 
 namespace dotMailer.Api.WadlParser
@@ -17,7 +14,10 @@ namespace dotMailer.Api.WadlParser
         private static readonly RestDefinition restDefinition = new RestDefinition();
         private const string outputDirectory = @"C:\Output\";
         private const string url = "https://api.dotmailer.com/v2/help/wadl";
-        private static readonly IList<TypeMapper> typeMappers = new List<TypeMapper>();
+
+        private static readonly IMethodFactory methodFactory = new MethodFactory();
+        private static readonly IComplexTypeFactory complexTypeFactory = new ComplexTypeFactory();
+        private static readonly ISimpleTypeFactory simpleTypeFactory = new SimpleTypeFactory();
 
         static void Main()
         {
@@ -37,7 +37,6 @@ namespace dotMailer.Api.WadlParser
 
             var document = XDocument.Load(url);
 
-            SetupTypeMappers();
             ProcessTypes(document);
             ProcessMethods(document);
 
@@ -51,13 +50,6 @@ namespace dotMailer.Api.WadlParser
             Console.WriteLine("Press any key to exit");
             Console.WriteLine();
             Console.ReadKey();
-        }
-
-        private static void SetupTypeMappers()
-        {
-            typeMappers.Add(new TypeMapper("dateTime", "DateTime"));
-            typeMappers.Add(new TypeMapper("boolean", "bool"));
-            typeMappers.Add(new TypeMapper("guid", "Guid"));
         }
 
         private static bool IsUsingSimpleTypes(ComplexType complexType)
@@ -222,53 +214,25 @@ namespace dotMailer.Api.WadlParser
 
                 var complexTypeNode = complexTypeNodes.SingleOrDefault(x => x.Attribute("name").Value.Equals(elementType));
                 if (complexTypeNode != null)
-                    ProcessComplexType(name, complexTypeNode);
+                { 
+                    // TODO: Assign name in complexTypeFactory instead
+                    var complexType = complexTypeFactory.Build(complexTypeNode);
+                    complexType.Name = name;
+                    restDefinition.ComplexTypes.Add(complexType);
+                }
 
                 var simpleTypeNode = simpleTypeNodes.SingleOrDefault(x => x.Attribute("name").Value.Equals(elementType));
                 if (simpleTypeNode != null)
-                    ProcessSimpleType(name, simpleTypeNode);
-            }
-        }
-
-        private static string PascalCase(string value)
-        {
-            return char.ToUpper(value[0]) + value.Substring(1);
-        }
-
-        private static void ProcessComplexType(string name, XElement element)
-        {
-            var complexType = new ComplexType { Name = name };
-            foreach (var propertyNode in element.Elements().Where(x => x.Name.LocalName.Equals("sequence")).Elements().ToList())
-            {
-                var property = new Property
                 {
-                    Name = PascalCase(propertyNode.Attribute("name").Value)
-                };
+                    if (name.Equals("guid", StringComparison.OrdinalIgnoreCase))
+                        continue;
 
-                var typeAttribute = propertyNode.Attribute("type");
-                if (typeAttribute == null)
-                    continue;
-
-                property.DataType = FormatClrType(typeAttribute.Value);
-                property.IsCollection = !(propertyNode.Attribute("minOccurs") == null && propertyNode.Attribute("maxOccurs") == null);
-
-                complexType.Properties.Add(property);
+                    // TODO: Assign name in simpleTypeFactory instead
+                    var simpleType = simpleTypeFactory.Build(simpleTypeNode);
+                    simpleType.Name = name;
+                    restDefinition.SimpleTypes.Add(simpleType);
+                }
             }
-
-            restDefinition.ComplexTypes.Add(complexType);
-        }
-
-        private static void ProcessSimpleType(string name, XElement element)
-        {
-            if (name.Equals("guid", StringComparison.OrdinalIgnoreCase))
-                return;
-
-            var simpleType = new SimpleType { Name = name };
-            foreach (var value in element.Elements().Where(x => x.Name.LocalName.Equals("restriction")).Elements().Select(x => x.Attribute("value").Value))
-            {
-                simpleType.Values.Add(value);
-            }
-            restDefinition.SimpleTypes.Add(simpleType);
         }
 
         private static void ProcessMethods(XDocument document)
@@ -284,96 +248,11 @@ namespace dotMailer.Api.WadlParser
 
         private static void ProcessMethodNode(XElement element)
         {
-            var path = element.Attribute("path").Value;
-            var id = element.Attribute("id").Value;
-
             foreach (var methodNode in element.Elements())
             {
-                var method = GetMethod(methodNode);
-                method.Path = path;
-                method.Id = id;
-
-                var documentationNode = methodNode.Elements().First(x => x.Name.LocalName.Equals("doc"));
-                method.Description = documentationNode.Value;
-
-                var requestNode = methodNode.Elements().First(x => x.Name.LocalName.Equals("request"));
-                foreach (var parameterNode in requestNode.Elements())
-                    method.Parameters.Add(ProcessParameterNode(parameterNode));
-
-                var responseNodes = methodNode.Elements().Where(x => x.Name.LocalName.Equals("response"));
-                foreach (var responseNode in responseNodes)
-                {
-                    method.Responses.Add(ProcessResponseNode(responseNode));
-                }
-
+                var method = methodFactory.Build(methodNode);
                 restDefinition.Methods.Add(method);
             }
-        }
-
-        private static Method GetMethod(XElement element)
-        {
-            Method method;
-            var httpMethod = element.Attribute("name").Value.ToLower();
-            switch (httpMethod)
-            {
-                case "put":
-                    method = new PutMethod();
-                    break;
-                case "get":
-                    method = new GetMethod();
-                    break;
-                case "delete":
-                    method = new DeleteMethod();
-                    break;
-                case "post":
-                    method = new PostMethod();
-                    break;
-                default:
-                    throw new Exception("Unknown method type");
-
-            }
-            method.Name = element.Attribute("id").Value;
-            return method;
-        }
-
-        private static Parameter ProcessParameterNode(XElement element)
-        {
-            var parameter = new Parameter
-            {
-                Name = element.Attribute("name").Value,
-                DataType = FormatClrType(element.Attribute("type").Value),
-                Required = bool.Parse(element.Attribute("required").Value)
-            };
-            return parameter;
-        }
-
-        private static Response ProcessResponseNode(XElement responseNode)
-        {
-            var response = new Response();
-            var statusCode = int.Parse(responseNode.Attribute("status").Value);
-            response.StatusCode = statusCode;
-            var docNode = responseNode.Elements().FirstOrDefault(x => x.Name.LocalName.Equals("doc"));
-            if (docNode != null)
-                response.Message = docNode.Value;
-
-            var representationNodes = responseNode.Elements().Where(x => x.Name.LocalName.Equals("representation", StringComparison.OrdinalIgnoreCase)).ToList();
-            if (representationNodes.Any())
-            {
-                var typeAttribute = representationNodes.First().Attribute("element");
-                if (typeAttribute != null)
-                    response.ReturnType = FormatClrType(typeAttribute.Value);
-            }
-
-            return response;
-        }
-
-        private static string FormatClrType(string value)
-        {
-            value = value.Replace("xs:", "");
-
-            var typeMapper = typeMappers.SingleOrDefault(x => x.TypeName.Equals(value, StringComparison.OrdinalIgnoreCase));
-
-            return typeMapper == null ? value : typeMapper.ResolutionTypeName;
         }
     }
 }

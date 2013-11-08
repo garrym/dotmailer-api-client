@@ -42,6 +42,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CodeBuilder.cs" />
+    <Compile Include="Factories\ComplexTypeFactory.cs" />
+    <Compile Include="Factories\IComplexTypeFactory.cs" />
+    <Compile Include="Factories\IFactory.cs" />
+    <Compile Include="Factories\IMethodFactory.cs" />
+    <Compile Include="Factories\IParameterFactory.cs" />
+    <Compile Include="Factories\IResponseFactory.cs" />
+    <Compile Include="Factories\ISimpleTypeFactory.cs" />
+    <Compile Include="Factories\MethodFactory.cs" />
+    <Compile Include="Factories\ParameterFactory.cs" />
+    <Compile Include="Factories\ResponseFactory.cs" />
+    <Compile Include="Factories\SimpleTypeFactory.cs" />
+    <Compile Include="Helpers.cs" />
     <Compile Include="TypeMapper.cs" />
     <Compile Include="Types\ComplexType.cs" />
     <Compile Include="Methods\DeleteMethod.cs" />
