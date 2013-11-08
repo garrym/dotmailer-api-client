@@ -24,7 +24,7 @@ namespace dotMailer.Api.WadlParser.Methods.Abstract
 
         public readonly IList<Parameter> Parameters = new List<Parameter>();
 
-        private IList<Parameter> PrimitiveParameters
+        protected IList<Parameter> PrimitiveParameters
         {
             get { return Parameters.Where(x => primitiveTypes.Contains(x.DataType.ToLower())).ToList(); }
         }
@@ -34,9 +34,7 @@ namespace dotMailer.Api.WadlParser.Methods.Abstract
             get { return Parameters.Where(x => !primitiveTypes.Contains(x.DataType.ToLower())).ToList(); }
         }
 
-        protected abstract void AppendMethodRequest();
-
-        private void AppendSummary()
+        protected void AppendSummary()
         {
             if (string.IsNullOrEmpty(Description))
                 return;
@@ -46,51 +44,7 @@ namespace dotMailer.Api.WadlParser.Methods.Abstract
             AddLine(2, "/// </summary>");
         }
 
-        private void AppendMethod()
-        {
-            var serviceResult = string.IsNullOrEmpty(ReturnType) ? "ServiceResult" : string.Format("ServiceResult<{0}>", ReturnType);
-            var parameters = RenderParameters();
-            AddLine(2, "public {0} {1}({2})", serviceResult, Name, parameters);
-            AddLine(2, "{");
-
-            AppendMethodBody();
-
-            AddLine(2, "}");
-        }
-
-        private void AppendMethodBody()
-        {
-            if (PrimitiveParameters.Any())
-            {
-                AddLine(3, "var request = new Request(\"{0}\", ", Path);
-                AddLine(3, "new Dictionary<string, object>");
-                AddLine(3, "{");
-
-                foreach (var parameter in PrimitiveParameters)
-                    AddLine(4, "{{ \"{0}\", {0} }}{1}", parameter.Name, parameter == Parameters.Last() ? "" : ",");
-
-                AddLine(3, "});");
-            }
-            else
-            {
-                AddLine(3, "var request = new Request(\"{0}\");", Path);
-            }
-
-            AppendMethodRequest();
-        }
-
-        private string RenderParameters()
-        {
-            var psb = new StringBuilder();
-            foreach (var parameter in Parameters.OrderByDescending(x => x.Required))
-                psb.Append(parameter);
-
-            var parameters = psb.ToString();
-            if (!string.IsNullOrEmpty(parameters))
-                parameters = parameters.Substring(0, parameters.Length - 2);
-
-            return parameters;
-        }
+        protected abstract void AppendMethod();
 
         private string returnType;
         protected string ReturnType
@@ -111,6 +65,19 @@ namespace dotMailer.Api.WadlParser.Methods.Abstract
             AppendSummary();
             AppendMethod();
             return base.ToString();
+        }
+
+        protected string RenderParameters()
+        {
+            var psb = new StringBuilder();
+            foreach (var parameter in Parameters.OrderByDescending(x => x.Required))
+                psb.Append(parameter);
+
+            var parameters = psb.ToString();
+            if (!string.IsNullOrEmpty(parameters))
+                parameters = parameters.Substring(0, parameters.Length - 2);
+
+            return parameters;
         }
     }
 }

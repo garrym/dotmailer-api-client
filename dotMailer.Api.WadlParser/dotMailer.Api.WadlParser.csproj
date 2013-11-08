@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CodeBuilder.cs" />
+    <Compile Include="Factories\AsyncMethodFactory.cs" />
     <Compile Include="Factories\ComplexTypeFactory.cs" />
     <Compile Include="Factories\Abstract\IComplexTypeFactory.cs" />
     <Compile Include="Factories\Abstract\IFactory.cs" />
@@ -53,7 +54,14 @@
     <Compile Include="Factories\ParameterFactory.cs" />
     <Compile Include="Factories\ResponseFactory.cs" />
     <Compile Include="Factories\SimpleTypeFactory.cs" />
+    <Compile Include="Factories\SyncMethodFactory.cs" />
     <Compile Include="Helpers.cs" />
+    <Compile Include="Methods\Abstract\AsyncMethod.cs" />
+    <Compile Include="Methods\Abstract\SyncMethod.cs" />
+    <Compile Include="Methods\DeleteAsyncMethod.cs" />
+    <Compile Include="Methods\GetAsyncMethod.cs" />
+    <Compile Include="Methods\PostAsyncMethod.cs" />
+    <Compile Include="Methods\PutAsyncMethod.cs" />
     <Compile Include="TypeMapper.cs" />
     <Compile Include="Types\ComplexType.cs" />
     <Compile Include="Methods\DeleteMethod.cs" />

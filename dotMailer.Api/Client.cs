@@ -97,11 +97,6 @@ namespace dotMailer.Api
 
         #region Get
 
-        private ServiceResult Get(Request request)
-        {
-            return GetAsync(request).Result;
-        }
-
         private async Task<ServiceResult> GetAsync(Request request)
         {
             try
@@ -113,11 +108,6 @@ namespace dotMailer.Api
             {
                 return ExceptionResult(exception);
             }
-        }
-
-        private ServiceResult<T> Get<T>(Request request)
-        {
-            return GetAsync<T>(request).Result;
         }
 
         private async Task<ServiceResult<T>> GetAsync<T>(Request request)
@@ -137,11 +127,6 @@ namespace dotMailer.Api
 
         #region Post
 
-        private ServiceResult<T> Post<T>(Request request)
-        {
-            return PostAsync<T>(request).Result;
-        }
-
         private async Task<ServiceResult<T>> PostAsync<T>(Request request)
         {
             try
@@ -155,11 +140,6 @@ namespace dotMailer.Api
             }
         }
 
-        private ServiceResult<T> Post<T>(Request request, T data)
-        {
-            return PostAsync<T>(request, data).Result;
-        }
-
         private async Task<ServiceResult<T>> PostAsync<T>(Request request, T data)
         {
             try
@@ -171,11 +151,6 @@ namespace dotMailer.Api
             {
                 return ExceptionResult<T>(exception);
             }
-        }
-
-        private ServiceResult<TOutput> Post<TOutput, TInput>(Request request, TInput data)
-        {
-            return PostAsync<TOutput, TInput>(request, data).Result;
         }
 
         private async Task<ServiceResult<TOutput>> PostAsync<TOutput, TInput>(Request request, TInput data)
@@ -195,11 +170,6 @@ namespace dotMailer.Api
 
         #region Put
 
-        private ServiceResult<T> Put<T>(Request request, T data)
-        {
-            return PutAsync(request, data).Result;
-        }
-
         private async Task<ServiceResult<T>> PutAsync<T>(Request request, T data)
         {
             try
@@ -217,11 +187,6 @@ namespace dotMailer.Api
 
         #region Delete
 
-        private ServiceResult Delete(Request request)
-        {
-            return DeleteAsync(request).Result;
-        }
-
         private async Task<ServiceResult> DeleteAsync(Request request)
         {
             try
@@ -233,11 +198,6 @@ namespace dotMailer.Api
             {
                 return ExceptionResult(exception);
             }
-        }
-
-        private ServiceResult<T> Delete<T>(Request request)
-        {
-            return DeleteAsync<T>(request).Result;
         }
 
         private async Task<ServiceResult<T>> DeleteAsync<T>(Request request)

@@ -16,7 +16,8 @@ namespace dotMailer.Api.WadlParser
         private const string outputDirectory = @"C:\Output\";
         private const string url = "https://api.dotmailer.com/v2/help/wadl";
 
-        private static readonly IMethodFactory methodFactory = new MethodFactory();
+        private static readonly IMethodFactory asyncMethodFactory = new AsyncMethodFactory();
+        private static readonly IMethodFactory syncMethodFactory = new SyncMethodFactory();
         private static readonly IComplexTypeFactory complexTypeFactory = new ComplexTypeFactory();
         private static readonly ISimpleTypeFactory simpleTypeFactory = new SimpleTypeFactory();
 
@@ -251,8 +252,11 @@ namespace dotMailer.Api.WadlParser
         {
             foreach (var methodNode in element.Elements())
             {
-                var method = methodFactory.Build(methodNode);
-                restDefinition.Methods.Add(method);
+                var syncMethod = syncMethodFactory.Build(methodNode);
+                restDefinition.Methods.Add(syncMethod);
+
+                var asyncMethod = asyncMethodFactory.Build(methodNode);
+                restDefinition.Methods.Add(asyncMethod);
             }
         }
     }
