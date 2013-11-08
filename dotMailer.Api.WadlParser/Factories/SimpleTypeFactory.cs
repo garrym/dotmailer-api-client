@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Xml.Linq;
+using dotMailer.Api.WadlParser.Factories.Abstract;
 using dotMailer.Api.WadlParser.Types;
 
 namespace dotMailer.Api.WadlParser.Factories

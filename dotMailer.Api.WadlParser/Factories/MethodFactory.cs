@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Xml.Linq;
+using dotMailer.Api.WadlParser.Factories.Abstract;
 using dotMailer.Api.WadlParser.Methods;
 using dotMailer.Api.WadlParser.Methods.Abstract;
 
