@@ -14,11 +14,10 @@ namespace dotMailer.Api.WadlParser.Factories
 
         public Method Build(XElement element)
         {
-            var path = element.Parent.Attribute("path").Value;
-            var id = element.Parent.Attribute("id").Value;
             var method = GetMethod(element);
-            method.Path = path;
-            method.Id = id;
+            method.Name = element.Attribute("id").Value;
+            method.Path = element.Parent.Attribute("path").Value;
+            method.Id = element.Parent.Attribute("id").Value;
 
             var documentationNode = element.Elements().First(x => x.Name.LocalName.Equals("doc"));
             method.Description = documentationNode.Value;
@@ -41,28 +40,19 @@ namespace dotMailer.Api.WadlParser.Factories
 
         private Method GetMethod(XElement element)
         {
-            Method method;
             var httpMethod = element.Attribute("name").Value.ToLower();
             switch (httpMethod)
             {
                 case "put":
-                    method = new PutMethod();
-                    break;
+                    return new PutMethod();
                 case "get":
-                    method = new GetMethod();
-                    break;
+                    return new GetMethod();
                 case "delete":
-                    method = new DeleteMethod();
-                    break;
+                    return new DeleteMethod();
                 case "post":
-                    method = new PostMethod();
-                    break;
-                default:
-                    throw new Exception("Unknown method type");
-
+                    return new PostMethod();
             }
-            method.Name = element.Attribute("id").Value;
-            return method;
+            throw new Exception("Unknown method");
         }
     }
 }
