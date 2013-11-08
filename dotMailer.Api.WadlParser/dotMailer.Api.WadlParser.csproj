@@ -64,15 +64,11 @@
     <Compile Include="Methods\PutAsyncMethod.cs" />
     <Compile Include="TypeMapper.cs" />
     <Compile Include="Types\ComplexType.cs" />
-    <Compile Include="Methods\DeleteMethod.cs" />
-    <Compile Include="Methods\GetMethod.cs" />
     <Compile Include="Methods\Abstract\Method.cs" />
     <Compile Include="Parameter.cs" />
-    <Compile Include="Methods\PostMethod.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Property.cs" />
-    <Compile Include="Methods\PutMethod.cs" />
     <Compile Include="Response.cs" />
     <Compile Include="RestDefinition.cs" />
     <Compile Include="Types\SimpleType.cs" />

@@ -3,7 +3,7 @@ using System.Text;
 
 namespace dotMailer.Api.WadlParser.Methods.Abstract
 {
-    public abstract class SyncMethod : Method
+    public class SyncMethod : Method
     {
         protected override void AppendMethod()
         {
