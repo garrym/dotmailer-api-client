@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
@@ -98,9 +99,14 @@ namespace dotMailer.Api
 
         private ServiceResult Get(Request request)
         {
+            return GetAsync(request).Result;
+        }
+
+        private async Task<ServiceResult> GetAsync(Request request)
+        {
             try
             {
-                var response = httpClient.GetAsync(request.Url).Result;
+                var response = await httpClient.GetAsync(request.Url);
                 return Result(response);
             }
             catch (Exception exception)
@@ -111,9 +117,14 @@ namespace dotMailer.Api
 
         private ServiceResult<T> Get<T>(Request request)
         {
+            return GetAsync<T>(request).Result;
+        }
+
+        private async Task<ServiceResult<T>> GetAsync<T>(Request request)
+        {
             try
             {
-                var response = httpClient.GetAsync(request.Url).Result;
+                var response = await httpClient.GetAsync(request.Url);
                 return Result<T>(response);
             }
             catch (Exception exception)
@@ -128,9 +139,14 @@ namespace dotMailer.Api
 
         private ServiceResult<T> Post<T>(Request request)
         {
+            return PostAsync<T>(request).Result;
+        }
+
+        private async Task<ServiceResult<T>> PostAsync<T>(Request request)
+        {
             try
             {
-                var response = httpClient.PostAsync(request.Url, string.Empty, jsonFormatter).Result;
+                var response = await httpClient.PostAsync(request.Url, string.Empty, jsonFormatter);
                 return Result<T>(response);
             }
             catch (Exception exception)
@@ -141,9 +157,14 @@ namespace dotMailer.Api
 
         private ServiceResult<T> Post<T>(Request request, T data)
         {
+            return PostAsync<T>(request, data).Result;
+        }
+
+        private async Task<ServiceResult<T>> PostAsync<T>(Request request, T data)
+        {
             try
             {
-                var response = httpClient.PostAsync(request.Url, data, jsonFormatter).Result;
+                var response = await httpClient.PostAsync(request.Url, data, jsonFormatter);
                 return Result<T>(response);
             }
             catch (Exception exception)
@@ -154,9 +175,14 @@ namespace dotMailer.Api
 
         private ServiceResult<TOutput> Post<TOutput, TInput>(Request request, TInput data)
         {
+            return PostAsync<TOutput, TInput>(request, data).Result;
+        }
+
+        private async Task<ServiceResult<TOutput>> PostAsync<TOutput, TInput>(Request request, TInput data)
+        {
             try
             {
-                var response = httpClient.PostAsync(request.Url, data, jsonFormatter).Result;
+                var response = await httpClient.PostAsync(request.Url, data, jsonFormatter);
                 return Result<TOutput>(response);
             }
             catch (Exception exception)
@@ -171,9 +197,14 @@ namespace dotMailer.Api
 
         private ServiceResult<T> Put<T>(Request request, T data)
         {
+            return PutAsync(request, data).Result;
+        }
+
+        private async Task<ServiceResult<T>> PutAsync<T>(Request request, T data)
+        {
             try
             {
-                var response = httpClient.PutAsync(request.Url, data, jsonFormatter).Result;
+                var response = await httpClient.PutAsync(request.Url, data, jsonFormatter);
                 return Result<T>(response);
             }
             catch (Exception exception)
@@ -188,9 +219,14 @@ namespace dotMailer.Api
 
         private ServiceResult Delete(Request request)
         {
+            return DeleteAsync(request).Result;
+        }
+
+        private async Task<ServiceResult> DeleteAsync(Request request)
+        {
             try
             {
-                var response = httpClient.DeleteAsync(request.Url).Result;
+                var response = await httpClient.DeleteAsync(request.Url);
                 return Result(response);
             }
             catch (Exception exception)
@@ -201,9 +237,14 @@ namespace dotMailer.Api
 
         private ServiceResult<T> Delete<T>(Request request)
         {
+            return DeleteAsync<T>(request).Result;
+        }
+
+        private async Task<ServiceResult<T>> DeleteAsync<T>(Request request)
+        {
             try
             {
-                var response = httpClient.DeleteAsync(request.Url).Result;
+                var response = await httpClient.DeleteAsync(request.Url);
                 return Result<T>(response);
             }
             catch (Exception exception)
