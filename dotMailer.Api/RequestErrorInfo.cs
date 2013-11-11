@@ -1,6 +1,6 @@
 namespace dotMailer.Api
 {
-    public class RequestErrorInfo
+    internal class RequestErrorInfo
     {
         public string Message { get; set; }
     }
