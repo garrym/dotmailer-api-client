@@ -16,7 +16,7 @@ namespace dotMailer.Api
     /// </summary>
     public partial class Client
     {
-		public const string BaseAddress = "http://debug-api.dotmailer-internal/v2/";
+		public const string BaseAddress = "https://api.dotmailer.com/v2/";
 
 		/// <summary>
 		/// Deletes an address book.
