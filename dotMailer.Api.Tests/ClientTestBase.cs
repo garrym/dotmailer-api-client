@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.Reflection;
 using dotMailer.Api.Resources.Enums;
 using dotMailer.Api.Resources.Models;
 using NUnit.Framework;
@@ -55,6 +54,9 @@ namespace dotMailer.Api.Tests
         {
             // Get some common resource identifiers so we don't have to hit the API all the time
             var client = GetClient();
+
+            var test = client.GetAddressBooksPublic();
+
             sampleAddressBookId = client.GetAddressBooksPublic().Data.First().Id;
             sampleCampaignId = client.GetCampaigns().Data.First().Id;
             var sampleContact = client.GetContacts().Data.First();
@@ -149,7 +151,7 @@ namespace dotMailer.Api.Tests
 
         protected ApiSms GetSampleSms()
         {
-            return new ApiSms();
+            return new ApiSms { Message = "Hello" };
         }
 
         protected ApiTransactionalDataList GetSampleTransactionalDataList()
@@ -175,27 +177,5 @@ namespace dotMailer.Api.Tests
         }
 
         #endregion
-
-        [Test]
-        public void Ensure_Code_Coverage()
-        {
-            var clientMethods = typeof(Client).GetMethods().Where(m => m.DeclaringType != typeof(object)).OrderBy(x => x.Name).ToList();
-            var testMethods = typeof(ClientTests).GetMethods().Where(m => m.DeclaringType != typeof(object)).OrderBy(x => x.Name).ToList();
-            var testMethodNames = testMethods.Select(x => x.Name).Distinct().ToList();
-
-            foreach (var clientMethod in clientMethods)
-            {
-                var expectedTestMethodName = string.Format("Ensure_{0}_Works", clientMethod.Name);
-                Assert.Contains(expectedTestMethodName, testMethodNames);
-
-                var testMethod = testMethods.Single(x => x.Name.Equals(expectedTestMethodName));
-
-                if (!testMethod.GetCustomAttributes(typeof(TestAttribute)).Any())
-                    Assert.Fail("Client method '{0}' is not covered by expected test '{1}'", clientMethod.Name, expectedTestMethodName);
-
-                if (testMethod.GetCustomAttributes(typeof(IgnoreAttribute)).Any())
-                    Assert.Fail("Client method '{0}' is not covered by expected test '{1}' because it has an ignore flag", clientMethod.Name, expectedTestMethodName);
-            }
-        }
     }
 }

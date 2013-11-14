@@ -77,6 +77,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Examples\wadl.new.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Examples\wadl.xml" />
     <Content Include="Resources\Client.Generated.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

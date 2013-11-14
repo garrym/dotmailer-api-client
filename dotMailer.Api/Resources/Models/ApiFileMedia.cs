@@ -2,12 +2,12 @@ using System.Collections.Generic;
 
 namespace dotMailer.Api.Resources.Models
 {
-	public class ApiDependencyResult
+	public class ApiFileMedia
 	{
-		public ApiDependencyList Dependencies
+		public string FileName
 		{ get; set; }
 
-		public bool Result
+		public byte[] Data
 		{ get; set; }
 	}
 }

@@ -23,12 +23,12 @@ namespace dotMailer.Api.WadlParser.Types
                 usingsPresent = true;
             }
 
-            var usingCollections = Properties.Any(x => x.IsCollection);
-            if (usingCollections)
-            {
+            //var usingCollections = Properties.Any(x => x.IsCollection);
+            //if (usingCollections)
+            //{
                 AddLine("using System.Collections.Generic;");
                 usingsPresent = true;
-            }
+            //}
 
             if (IsUsingSimpleTypes)
             {

@@ -7,7 +7,7 @@ namespace dotMailer.Api.WadlParser
     /// </summary>
     public class TypeMapper
     {
-        public TypeMapper(string typeName, string resolutionTypeName, IEnumerable<string> usings = null)
+        public TypeMapper(string typeName, string resolutionTypeName, IEnumerable<string> usings = null) // TODO: Support usings
         {
             TypeName = typeName;
             ResolutionTypeName = resolutionTypeName;

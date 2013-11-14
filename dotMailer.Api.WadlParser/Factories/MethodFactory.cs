@@ -21,18 +21,15 @@ namespace dotMailer.Api.WadlParser.Factories
             method.Description = documentationNode.Value;
 
             var requestNode = element.Elements().First(x => x.Name.LocalName.Equals("request"));
-            foreach (var parameterNode in requestNode.Elements())
-            {
-                var parameter = parameterFactory.Build(parameterNode);
-                method.Parameters.Add(parameter);
-            }
-
+            var parameterNodes = requestNode.Elements();
             var responseNodes = element.Elements().Where(x => x.Name.LocalName.Equals("response"));
-            foreach (var responseNode in responseNodes)
-            {
-                var response = responseFactory.Build(responseNode);
+
+            foreach (var parameter in parameterNodes.Where(x => x.Name.LocalName.Equals("param") || (x.Name.LocalName.Equals("representation") && x.Attribute("mediaType").Value.Equals("application/json"))).Select(node => parameterFactory.Build(node)))
+                method.Parameters.Add(parameter);
+
+            foreach (var response in responseNodes.Select(node => responseFactory.Build(node)))
                 method.Responses.Add(response);
-            }
+
             return method;
         }
 

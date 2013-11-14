@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using dotMailer.Api.Resources.Enums;
 
 namespace dotMailer.Api.Resources.Models
@@ -11,10 +12,10 @@ namespace dotMailer.Api.Resources.Models
 		public int CampaignId
 		{ get; set; }
 
-		public Int32List AddressBookIds
+		public List<int> AddressBookIds
 		{ get; set; }
 
-		public Int32List ContactIds
+		public List<int> ContactIds
 		{ get; set; }
 
 		public DateTime SendDate

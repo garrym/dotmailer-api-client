@@ -16,7 +16,7 @@ namespace dotMailer.Api
     /// </summary>
     public partial class Client
     {
-		public const string BaseAddress = "https://api.dotmailer.com/v2/";
+		public const string BaseAddress = "http://debug-api.dotmailer-internal/v2/";
 
 		/// <summary>
 		/// Deletes an address book.
@@ -78,27 +78,6 @@ namespace dotMailer.Api
 			new Dictionary<string, object>
 			{
 				{ "addressBookId", addressBookId }
-			});
-			return await DeleteAsync(request);
-		}
-
-		/// <summary>
-		/// Deletes multiple contacts from an address book
-		/// </summary>
-		public ServiceResult DeleteAddressBookContactsInbulk(int addressBookId, Int32List contactIds)
-		{
-			return DeleteAddressBookContactsInbulkAsync(addressBookId, contactIds).Result;
-		}
-
-		/// <summary>
-		/// Deletes multiple contacts from an address book
-		/// </summary>
-		public async Task<ServiceResult> DeleteAddressBookContactsInbulkAsync(int addressBookId, Int32List contactIds)
-		{
-			var request = new Request("address-books/{addressBookId}/contacts/inbulk", 
-			new Dictionary<string, object>
-			{
-				{ "addressBookId", addressBookId },
 			});
 			return await DeleteAsync(request);
 		}
@@ -737,21 +716,20 @@ namespace dotMailer.Api
 		/// <summary>
 		/// Gets a list of contacts who hard bounced when sent a particular campaign.
 		/// </summary>
-		public ServiceResult<ApiContactList> GetCampaignHardBouncingContacts(int campaignId, bool? withFullData = null, int? select = null, int? skip = null)
+		public ServiceResult<ApiContactList> GetCampaignHardBouncingContacts(int campaignId, int? select = null, int? skip = null)
 		{
-			return GetCampaignHardBouncingContactsAsync(campaignId, withFullData, select, skip).Result;
+			return GetCampaignHardBouncingContactsAsync(campaignId, select, skip).Result;
 		}
 
 		/// <summary>
 		/// Gets a list of contacts who hard bounced when sent a particular campaign.
 		/// </summary>
-		public async Task<ServiceResult<ApiContactList>> GetCampaignHardBouncingContactsAsync(int campaignId, bool? withFullData = null, int? select = null, int? skip = null)
+		public async Task<ServiceResult<ApiContactList>> GetCampaignHardBouncingContactsAsync(int campaignId, int? select = null, int? skip = null)
 		{
 			var request = new Request("campaigns/{campaignId}/hard-bouncing-contacts?withFullData={withFullData}&select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId },
-				{ "withFullData", withFullData },
 				{ "select", select },
 				{ "skip", skip }
 			});
@@ -1453,7 +1431,7 @@ namespace dotMailer.Api
 		/// <summary>
 		/// Gets the UTC time as set on the server.
 		/// </summary>
-		public ServiceResult GetServerTime()
+		public ServiceResult<DateTime> GetServerTime()
 		{
 			return GetServerTimeAsync().Result;
 		}
@@ -1461,10 +1439,10 @@ namespace dotMailer.Api
 		/// <summary>
 		/// Gets the UTC time as set on the server.
 		/// </summary>
-		public async Task<ServiceResult> GetServerTimeAsync()
+		public async Task<ServiceResult<DateTime>> GetServerTimeAsync()
 		{
 			var request = new Request("server-time");
-			return await GetAsync(request);
+			return await GetAsync<DateTime>(request);
 		}
 
 		/// <summary>
@@ -1531,24 +1509,45 @@ namespace dotMailer.Api
 		}
 
 		/// <summary>
-		/// Bulk creates, or bulk updates, contacts. Import format can either be CSV or Excel. Must include one column called "Email". Any other columns will attempt to map to your custom data fields. The ID of returned object can be used to query import progress.
+		/// Deletes multiple contacts from an address book
 		/// </summary>
-		public ServiceResult<ApiContactImport> PostAddressBookContactsImport(int addressBookId)
+		public ServiceResult PostAddressBookContactsDelete(int addressBookId, List<int> int32List)
 		{
-			return PostAddressBookContactsImportAsync(addressBookId).Result;
+			return PostAddressBookContactsDeleteAsync(addressBookId, int32List).Result;
+		}
+
+		/// <summary>
+		/// Deletes multiple contacts from an address book
+		/// </summary>
+		public async Task<ServiceResult> PostAddressBookContactsDeleteAsync(int addressBookId, List<int> int32List)
+		{
+			var request = new Request("address-books/{addressBookId}/contacts/delete", 
+			new Dictionary<string, object>
+			{
+				{ "addressBookId", addressBookId },
+			});
+			return await PostAsync(request, int32List);
 		}
 
 		/// <summary>
 		/// Bulk creates, or bulk updates, contacts. Import format can either be CSV or Excel. Must include one column called "Email". Any other columns will attempt to map to your custom data fields. The ID of returned object can be used to query import progress.
 		/// </summary>
-		public async Task<ServiceResult<ApiContactImport>> PostAddressBookContactsImportAsync(int addressBookId)
+		public ServiceResult<ApiContactImport> PostAddressBookContactsImport(int addressBookId, ApiFileMedia apiFileMedia)
+		{
+			return PostAddressBookContactsImportAsync(addressBookId, apiFileMedia).Result;
+		}
+
+		/// <summary>
+		/// Bulk creates, or bulk updates, contacts. Import format can either be CSV or Excel. Must include one column called "Email". Any other columns will attempt to map to your custom data fields. The ID of returned object can be used to query import progress.
+		/// </summary>
+		public async Task<ServiceResult<ApiContactImport>> PostAddressBookContactsImportAsync(int addressBookId, ApiFileMedia apiFileMedia)
 		{
 			var request = new Request("address-books/{addressBookId}/contacts/import", 
 			new Dictionary<string, object>
 			{
-				{ "addressBookId", addressBookId }
+				{ "addressBookId", addressBookId },
 			});
-			return await PostAsync<ApiContactImport>(request);
+			return await PostAsync<ApiContactImport, ApiFileMedia>(request, apiFileMedia);
 		}
 
 		/// <summary>
@@ -1613,22 +1612,22 @@ namespace dotMailer.Api
 		/// <summary>
 		/// Adds a document to a campaign as an attachment.
 		/// </summary>
-		public ServiceResult<ApiDocument> PostCampaignAttachments(int campaignId, ApiDocument document)
+		public ServiceResult<ApiDocument> PostCampaignAttachments(int campaignId, ApiDocument apiDocument)
 		{
-			return PostCampaignAttachmentsAsync(campaignId, document).Result;
+			return PostCampaignAttachmentsAsync(campaignId, apiDocument).Result;
 		}
 
 		/// <summary>
 		/// Adds a document to a campaign as an attachment.
 		/// </summary>
-		public async Task<ServiceResult<ApiDocument>> PostCampaignAttachmentsAsync(int campaignId, ApiDocument document)
+		public async Task<ServiceResult<ApiDocument>> PostCampaignAttachmentsAsync(int campaignId, ApiDocument apiDocument)
 		{
 			var request = new Request("campaigns/{campaignId}/attachments", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId },
 			});
-			return await PostAsync<ApiDocument>(request, document);
+			return await PostAsync<ApiDocument>(request, apiDocument);
 		}
 
 		/// <summary>
@@ -1706,18 +1705,18 @@ namespace dotMailer.Api
 		/// <summary>
 		/// Bulk creates, or bulk updates, contacts. Import format can either be CSV or Excel. Must include one column called "Email". Any other columns will attempt to map to your custom data fields. The ID of returned object can be used to query import progress.
 		/// </summary>
-		public ServiceResult<ApiContactImport> PostContactsImport()
+		public ServiceResult<ApiContactImport> PostContactsImport(ApiFileMedia apiFileMedia)
 		{
-			return PostContactsImportAsync().Result;
+			return PostContactsImportAsync(apiFileMedia).Result;
 		}
 
 		/// <summary>
 		/// Bulk creates, or bulk updates, contacts. Import format can either be CSV or Excel. Must include one column called "Email". Any other columns will attempt to map to your custom data fields. The ID of returned object can be used to query import progress.
 		/// </summary>
-		public async Task<ServiceResult<ApiContactImport>> PostContactsImportAsync()
+		public async Task<ServiceResult<ApiContactImport>> PostContactsImportAsync(ApiFileMedia apiFileMedia)
 		{
 			var request = new Request("contacts/import");
-			return await PostAsync<ApiContactImport>(request);
+			return await PostAsync<ApiContactImport, ApiFileMedia>(request, apiFileMedia);
 		}
 
 		/// <summary>
@@ -1783,22 +1782,22 @@ namespace dotMailer.Api
 		/// <summary>
 		/// Adds multiple pieces of transactional data to contacts asynchronously, returning an identifier that can be used to check for import progress.
 		/// </summary>
-		public ServiceResult<ApiTransactionalDataImport> PostContactsTransactionalDataImport(string collectionName, ApiTransactionalDataList apiTransactionalData)
+		public ServiceResult<ApiTransactionalDataImport> PostContactsTransactionalDataImport(string collectionName, ApiTransactionalDataList apiTransactionalDataList)
 		{
-			return PostContactsTransactionalDataImportAsync(collectionName, apiTransactionalData).Result;
+			return PostContactsTransactionalDataImportAsync(collectionName, apiTransactionalDataList).Result;
 		}
 
 		/// <summary>
 		/// Adds multiple pieces of transactional data to contacts asynchronously, returning an identifier that can be used to check for import progress.
 		/// </summary>
-		public async Task<ServiceResult<ApiTransactionalDataImport>> PostContactsTransactionalDataImportAsync(string collectionName, ApiTransactionalDataList apiTransactionalData)
+		public async Task<ServiceResult<ApiTransactionalDataImport>> PostContactsTransactionalDataImportAsync(string collectionName, ApiTransactionalDataList apiTransactionalDataList)
 		{
 			var request = new Request("contacts/transactional-data/import/{collectionName}", 
 			new Dictionary<string, object>
 			{
 				{ "collectionName", collectionName },
 			});
-			return await PostAsync<ApiTransactionalDataImport, ApiTransactionalDataList>(request, apiTransactionalData);
+			return await PostAsync<ApiTransactionalDataImport, ApiTransactionalDataList>(request, apiTransactionalDataList);
 		}
 
 		/// <summary>
@@ -1821,102 +1820,102 @@ namespace dotMailer.Api
 		/// <summary>
 		/// Creates a data field within the account.
 		/// </summary>
-		public ServiceResult PostDataFields(ApiDataField dataField)
+		public ServiceResult PostDataFields(ApiDataField apiDataField)
 		{
-			return PostDataFieldsAsync(dataField).Result;
+			return PostDataFieldsAsync(apiDataField).Result;
 		}
 
 		/// <summary>
 		/// Creates a data field within the account.
 		/// </summary>
-		public async Task<ServiceResult> PostDataFieldsAsync(ApiDataField dataField)
+		public async Task<ServiceResult> PostDataFieldsAsync(ApiDataField apiDataField)
 		{
 			var request = new Request("data-fields");
-			return await PostAsync(request, dataField);
+			return await PostAsync(request, apiDataField);
 		}
 
 		/// <summary>
 		/// Creates a new document folder.
 		/// </summary>
-		public ServiceResult<ApiDocumentFolder> PostDocumentFolder(int folderId, ApiDocumentFolder folder)
+		public ServiceResult<ApiDocumentFolder> PostDocumentFolder(int folderId, ApiDocumentFolder apiDocumentFolder)
 		{
-			return PostDocumentFolderAsync(folderId, folder).Result;
+			return PostDocumentFolderAsync(folderId, apiDocumentFolder).Result;
 		}
 
 		/// <summary>
 		/// Creates a new document folder.
 		/// </summary>
-		public async Task<ServiceResult<ApiDocumentFolder>> PostDocumentFolderAsync(int folderId, ApiDocumentFolder folder)
+		public async Task<ServiceResult<ApiDocumentFolder>> PostDocumentFolderAsync(int folderId, ApiDocumentFolder apiDocumentFolder)
 		{
 			var request = new Request("document-folders/{folderId}", 
 			new Dictionary<string, object>
 			{
 				{ "folderId", folderId },
 			});
-			return await PostAsync<ApiDocumentFolder>(request, folder);
+			return await PostAsync<ApiDocumentFolder>(request, apiDocumentFolder);
 		}
 
 		/// <summary>
 		/// Upload a document to the specified folder.
 		/// </summary>
-		public ServiceResult<ApiDocument> PostDocumentFolderDocuments(int folderId)
+		public ServiceResult<ApiDocument> PostDocumentFolderDocuments(int folderId, ApiFileMedia apiFileMedia)
 		{
-			return PostDocumentFolderDocumentsAsync(folderId).Result;
+			return PostDocumentFolderDocumentsAsync(folderId, apiFileMedia).Result;
 		}
 
 		/// <summary>
 		/// Upload a document to the specified folder.
 		/// </summary>
-		public async Task<ServiceResult<ApiDocument>> PostDocumentFolderDocumentsAsync(int folderId)
+		public async Task<ServiceResult<ApiDocument>> PostDocumentFolderDocumentsAsync(int folderId, ApiFileMedia apiFileMedia)
 		{
 			var request = new Request("document-folders/{folderId}/documents", 
 			new Dictionary<string, object>
 			{
-				{ "folderId", folderId }
+				{ "folderId", folderId },
 			});
-			return await PostAsync<ApiDocument>(request);
+			return await PostAsync<ApiDocument, ApiFileMedia>(request, apiFileMedia);
 		}
 
 		/// <summary>
 		/// Creates a new campaign image folder.
 		/// </summary>
-		public ServiceResult<ApiImageFolder> PostImageFolder(int id, ApiImageFolder folder)
+		public ServiceResult<ApiImageFolder> PostImageFolder(int id, ApiImageFolder apiImageFolder)
 		{
-			return PostImageFolderAsync(id, folder).Result;
+			return PostImageFolderAsync(id, apiImageFolder).Result;
 		}
 
 		/// <summary>
 		/// Creates a new campaign image folder.
 		/// </summary>
-		public async Task<ServiceResult<ApiImageFolder>> PostImageFolderAsync(int id, ApiImageFolder folder)
+		public async Task<ServiceResult<ApiImageFolder>> PostImageFolderAsync(int id, ApiImageFolder apiImageFolder)
 		{
 			var request = new Request("image-folders/{id}", 
 			new Dictionary<string, object>
 			{
 				{ "id", id },
 			});
-			return await PostAsync<ApiImageFolder>(request, folder);
+			return await PostAsync<ApiImageFolder>(request, apiImageFolder);
 		}
 
 		/// <summary>
 		/// Uploads a new campaign image to the specified folder.
 		/// </summary>
-		public ServiceResult<ApiImage> PostImageFolderImages(int folderId)
+		public ServiceResult<ApiImage> PostImageFolderImages(int folderId, ApiFileMedia apiFileMedia)
 		{
-			return PostImageFolderImagesAsync(folderId).Result;
+			return PostImageFolderImagesAsync(folderId, apiFileMedia).Result;
 		}
 
 		/// <summary>
 		/// Uploads a new campaign image to the specified folder.
 		/// </summary>
-		public async Task<ServiceResult<ApiImage>> PostImageFolderImagesAsync(int folderId)
+		public async Task<ServiceResult<ApiImage>> PostImageFolderImagesAsync(int folderId, ApiFileMedia apiFileMedia)
 		{
 			var request = new Request("image-folders/{folderId}/images", 
 			new Dictionary<string, object>
 			{
-				{ "folderId", folderId }
+				{ "folderId", folderId },
 			});
-			return await PostAsync<ApiImage>(request);
+			return await PostAsync<ApiImage, ApiFileMedia>(request, apiFileMedia);
 		}
 
 		/// <summary>
@@ -1943,39 +1942,39 @@ namespace dotMailer.Api
 		/// <summary>
 		/// Send a single SMS message.
 		/// </summary>
-		public ServiceResult PostSmsMessagesSendTo(string telephoneNumber, ApiSms sms)
+		public ServiceResult PostSmsMessagesSendTo(string telephoneNumber, ApiSms apiSms)
 		{
-			return PostSmsMessagesSendToAsync(telephoneNumber, sms).Result;
+			return PostSmsMessagesSendToAsync(telephoneNumber, apiSms).Result;
 		}
 
 		/// <summary>
 		/// Send a single SMS message.
 		/// </summary>
-		public async Task<ServiceResult> PostSmsMessagesSendToAsync(string telephoneNumber, ApiSms sms)
+		public async Task<ServiceResult> PostSmsMessagesSendToAsync(string telephoneNumber, ApiSms apiSms)
 		{
 			var request = new Request("sms-messages/send-to/{telephoneNumber}", 
 			new Dictionary<string, object>
 			{
 				{ "telephoneNumber", telephoneNumber },
 			});
-			return await PostAsync(request, sms);
+			return await PostAsync(request, apiSms);
 		}
 
 		/// <summary>
 		/// Creates a template.
 		/// </summary>
-		public ServiceResult<ApiTemplate> PostTemplates(ApiTemplate template)
+		public ServiceResult<ApiTemplate> PostTemplates(ApiTemplate apiTemplate)
 		{
-			return PostTemplatesAsync(template).Result;
+			return PostTemplatesAsync(apiTemplate).Result;
 		}
 
 		/// <summary>
 		/// Creates a template.
 		/// </summary>
-		public async Task<ServiceResult<ApiTemplate>> PostTemplatesAsync(ApiTemplate template)
+		public async Task<ServiceResult<ApiTemplate>> PostTemplatesAsync(ApiTemplate apiTemplate)
 		{
 			var request = new Request("templates");
-			return await PostAsync<ApiTemplate>(request, template);
+			return await PostAsync<ApiTemplate>(request, apiTemplate);
 		}
 
 		/// <summary>
@@ -2044,22 +2043,22 @@ namespace dotMailer.Api
 		/// <summary>
 		/// Updates a template.
 		/// </summary>
-		public ServiceResult<ApiTemplate> UpdateTemplate(int id, ApiTemplate template)
+		public ServiceResult<ApiTemplate> UpdateTemplate(int id, ApiTemplate apiTemplate)
 		{
-			return UpdateTemplateAsync(id, template).Result;
+			return UpdateTemplateAsync(id, apiTemplate).Result;
 		}
 
 		/// <summary>
 		/// Updates a template.
 		/// </summary>
-		public async Task<ServiceResult<ApiTemplate>> UpdateTemplateAsync(int id, ApiTemplate template)
+		public async Task<ServiceResult<ApiTemplate>> UpdateTemplateAsync(int id, ApiTemplate apiTemplate)
 		{
 			var request = new Request("templates/{id}", 
 			new Dictionary<string, object>
 			{
 				{ "id", id },
 			});
-			return await PutAsync<ApiTemplate>(request, template);
+			return await PutAsync<ApiTemplate>(request, apiTemplate);
 		}
 
 

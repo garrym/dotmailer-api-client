@@ -114,6 +114,7 @@
     <Compile Include="Resources\Models\ApiDocumentFolder.cs" />
     <Compile Include="Resources\Models\ApiDocumentFolderList.cs" />
     <Compile Include="Resources\Models\ApiDocumentList.cs" />
+    <Compile Include="Resources\Models\ApiFileMedia.cs" />
     <Compile Include="Resources\Models\ApiImage.cs" />
     <Compile Include="Resources\Models\ApiImageFolder.cs" />
     <Compile Include="Resources\Models\ApiImageFolderList.cs" />

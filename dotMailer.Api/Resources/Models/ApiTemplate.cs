@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using dotMailer.Api.Resources.Enums;
 
 namespace dotMailer.Api.Resources.Models

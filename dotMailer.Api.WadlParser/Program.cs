@@ -15,6 +15,7 @@ namespace dotMailer.Api.WadlParser
         private static readonly RestDefinition restDefinition = new RestDefinition();
         private const string outputDirectory = @"C:\Output\";
         private const string url = "https://api.dotmailer.com/v2/help/wadl";
+        //private const string url = @"Examples\wadl.new.xml";
 
         private static readonly IMethodFactory asyncMethodFactory = new AsyncMethodFactory();
         private static readonly IMethodFactory syncMethodFactory = new SyncMethodFactory();
