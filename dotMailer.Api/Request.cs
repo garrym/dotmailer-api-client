@@ -5,12 +5,6 @@ using System.Web;
 
 namespace dotMailer.Api
 {
-    internal class RequestParameter
-    {
-        public string Key { get; set; }
-        public object Value { get; set; }
-    }
-
     internal class Request
     {
         private readonly string baseAddress;
