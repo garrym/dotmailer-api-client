@@ -16,7 +16,12 @@ namespace dotMailer.Api
     /// </summary>
     public partial class Client
     {
-		public const string BaseAddress = "https://api.dotmailer.com/v2/";
+        private string baseAddress = "https://api.dotmailer.com/v2/";
+		public string BaseAddress
+        {
+            get { return baseAddress; }
+            set { baseAddress = value; }
+        }
 
 		/// <summary>
 		/// Deletes an address book.
@@ -31,7 +36,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult> DeleteAddressBookAsync(int id)
 		{
-			var request = new Request("address-books/{id}", 
+			var request = new Request(BaseAddress, "address-books/{id}", 
 			new Dictionary<string, object>
 			{
 				{ "id", id }
@@ -52,7 +57,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult> DeleteAddressBookContactAsync(int addressBookId, int contactId)
 		{
-			var request = new Request("address-books/{addressBookId}/contacts/{contactId}", 
+			var request = new Request(baseAddress, "address-books/{addressBookId}/contacts/{contactId}", 
 			new Dictionary<string, object>
 			{
 				{ "addressBookId", addressBookId },
@@ -74,7 +79,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult> DeleteAddressBookContactsAsync(int addressBookId)
 		{
-			var request = new Request("address-books/{addressBookId}/contacts", 
+			var request = new Request(baseAddress, "address-books/{addressBookId}/contacts", 
 			new Dictionary<string, object>
 			{
 				{ "addressBookId", addressBookId }
@@ -95,7 +100,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult> DeleteCampaignAttachmentAsync(int campaignId, int documentId)
 		{
-			var request = new Request("campaigns/{campaignId}/attachments/{documentId}", 
+			var request = new Request(baseAddress, "campaigns/{campaignId}/attachments/{documentId}", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId },
@@ -117,7 +122,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult> DeleteContactAsync(int id)
 		{
-			var request = new Request("contacts/{id}", 
+			var request = new Request(baseAddress, "contacts/{id}", 
 			new Dictionary<string, object>
 			{
 				{ "id", id }
@@ -138,7 +143,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult> DeleteContactsTransactionalDataAsync(string collectionName, string key)
 		{
-			var request = new Request("contacts/transactional-data/{collectionName}/{key}", 
+			var request = new Request(baseAddress, "contacts/transactional-data/{collectionName}/{key}", 
 			new Dictionary<string, object>
 			{
 				{ "collectionName", collectionName },
@@ -160,7 +165,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult> DeleteContactTransactionalDataAsync(string collectionName, string email)
 		{
-			var request = new Request("contacts/{email}/transactional-data/{collectionName}", 
+			var request = new Request(baseAddress, "contacts/{email}/transactional-data/{collectionName}", 
 			new Dictionary<string, object>
 			{
 				{ "collectionName", collectionName },
@@ -182,7 +187,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult> DeleteContactTransactionalDataAsync(string collectionName, int id)
 		{
-			var request = new Request("contacts/{id}/transactional-data/{collectionName}", 
+			var request = new Request(baseAddress, "contacts/{id}/transactional-data/{collectionName}", 
 			new Dictionary<string, object>
 			{
 				{ "collectionName", collectionName },
@@ -204,7 +209,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiDependencyResult>> DeleteDataFieldAsync(string name)
 		{
-			var request = new Request("data-fields/{name}", 
+			var request = new Request(baseAddress, "data-fields/{name}", 
 			new Dictionary<string, object>
 			{
 				{ "name", name }
@@ -225,7 +230,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiAccount>> GetAccountInfoAsync()
 		{
-			var request = new Request("account-info");
+			var request = new Request(baseAddress, "account-info");
 			return await GetAsync<ApiAccount>(request);
 		}
 
@@ -242,7 +247,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiAddressBook>> GetAddressBookByIdAsync(int id)
 		{
-			var request = new Request("address-books/{id}", 
+			var request = new Request(baseAddress, "address-books/{id}", 
 			new Dictionary<string, object>
 			{
 				{ "id", id }
@@ -263,7 +268,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiCampaignList>> GetAddressBookCampaignsAsync(int addressBookId, int? select = null, int? skip = null)
 		{
-			var request = new Request("address-books/{addressBookId}/campaigns?select={select}&skip={skip}", 
+			var request = new Request(baseAddress, "address-books/{addressBookId}/campaigns?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "addressBookId", addressBookId },
@@ -286,7 +291,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiContactList>> GetAddressBookContactsAsync(int addressBookId, bool? withFullData = null, int? select = null, int? skip = null)
 		{
-			var request = new Request("address-books/{addressBookId}/contacts?withFullData={withFullData}&select={select}&skip={skip}", 
+			var request = new Request(baseAddress, "address-books/{addressBookId}/contacts?withFullData={withFullData}&select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "addressBookId", addressBookId },
@@ -310,7 +315,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiContactList>> GetAddressBookContactsModifiedSinceDateAsync(int addressBookId, DateTime date, bool? withFullData = null, int? select = null, int? skip = null)
 		{
-			var request = new Request("address-books/{addressBookId}/contacts/modified-since/{date}?withFullData={withFullData}&select={select}&skip={skip}", 
+			var request = new Request(baseAddress, "address-books/{addressBookId}/contacts/modified-since/{date}?withFullData={withFullData}&select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "addressBookId", addressBookId },
@@ -335,7 +340,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiContactSuppressionList>> GetAddressBookContactsUnsubscribedSinceDateAsync(int addressBookId, DateTime date, int? select = null, int? skip = null)
 		{
-			var request = new Request("address-books/{addressBookId}/contacts/unsubscribed-since/{date}?select={select}&skip={skip}", 
+			var request = new Request(baseAddress, "address-books/{addressBookId}/contacts/unsubscribed-since/{date}?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "addressBookId", addressBookId },
@@ -359,7 +364,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiAddressBookList>> GetAddressBooksAsync(int? select = null, int? skip = null)
 		{
-			var request = new Request("address-books?select={select}&skip={skip}", 
+			var request = new Request(baseAddress, "address-books?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "select", select },
@@ -381,7 +386,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiAddressBookList>> GetAddressBooksPrivateAsync(int? select = null, int? skip = null)
 		{
-			var request = new Request("address-books/private?select={select}&skip={skip}", 
+			var request = new Request(baseAddress, "address-books/private?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "select", select },
@@ -403,7 +408,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiAddressBookList>> GetAddressBooksPublicAsync(int? select = null, int? skip = null)
 		{
-			var request = new Request("address-books/public?select={select}&skip={skip}", 
+			var request = new Request(baseAddress, "address-books/public?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "select", select },
@@ -425,7 +430,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiCampaignContactSummaryList>> GetCampaignActivitiesAsync(int campaignId, int? select = null, int? skip = null)
 		{
-			var request = new Request("campaigns/{campaignId}/activities?select={select}&skip={skip}", 
+			var request = new Request(baseAddress, "campaigns/{campaignId}/activities?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId },
@@ -448,7 +453,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiCampaignContactSummaryList>> GetCampaignActivitiesSinceDateByDateAsync(int campaignId, DateTime date, int? select = null, int? skip = null)
 		{
-			var request = new Request("campaigns/{campaignId}/activities/since-date/{date}?select={select}&skip={skip}", 
+			var request = new Request(baseAddress, "campaigns/{campaignId}/activities/since-date/{date}?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId },
@@ -472,7 +477,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiCampaignContactSummary>> GetCampaignActivityByContactIdAsync(int campaignId, int contactId)
 		{
-			var request = new Request("campaigns/{campaignId}/activities/{contactId}", 
+			var request = new Request(baseAddress, "campaigns/{campaignId}/activities/{contactId}", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId },
@@ -494,7 +499,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiCampaignContactClickList>> GetCampaignActivityClicksAsync(int campaignId, int contactId, int? select = null, int? skip = null)
 		{
-			var request = new Request("campaigns/{campaignId}/activities/{contactId}/clicks?select={select}&skip={skip}", 
+			var request = new Request(baseAddress, "campaigns/{campaignId}/activities/{contactId}/clicks?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId },
@@ -518,7 +523,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiCampaignContactOpenList>> GetCampaignActivityOpensAsync(int campaignId, int contactId, int? select = null, int? skip = null)
 		{
-			var request = new Request("campaigns/{campaignId}/activities/{contactId}/opens?select={select}&skip={skip}", 
+			var request = new Request(baseAddress, "campaigns/{campaignId}/activities/{contactId}/opens?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId },
@@ -542,7 +547,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiCampaignContactPageViewList>> GetCampaignActivityPageViewsAsync(int campaignId, int contactId, int? select = null, int? skip = null)
 		{
-			var request = new Request("campaigns/{campaignId}/activities/{contactId}/page-views?select={select}&skip={skip}", 
+			var request = new Request(baseAddress, "campaigns/{campaignId}/activities/{contactId}/page-views?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId },
@@ -566,7 +571,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiCampaignContactReplyList>> GetCampaignActivityRepliesAsync(int campaignId, int contactId, int? select = null, int? skip = null)
 		{
-			var request = new Request("campaigns/{campaignId}/activities/{contactId}/replies?select={select}&skip={skip}", 
+			var request = new Request(baseAddress, "campaigns/{campaignId}/activities/{contactId}/replies?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId },
@@ -590,7 +595,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiCampaignContactRoiDetailList>> GetCampaignActivityRoiDetailsAsync(int campaignId, int contactId, int? select = null, int? skip = null)
 		{
-			var request = new Request("campaigns/{campaignId}/activities/{contactId}/roi-details?select={select}&skip={skip}", 
+			var request = new Request(baseAddress, "campaigns/{campaignId}/activities/{contactId}/roi-details?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId },
@@ -614,7 +619,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiCampaignContactSocialBookmarkViewList>> GetCampaignActivitySocialBookmarkViewsAsync(int campaignId, int contactId, int? select = null, int? skip = null)
 		{
-			var request = new Request("campaigns/{campaignId}/activities/{contactId}/social-bookmark-views?select={select}&skip={skip}", 
+			var request = new Request(baseAddress, "campaigns/{campaignId}/activities/{contactId}/social-bookmark-views?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId },
@@ -638,7 +643,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiAddressBookList>> GetCampaignAddressBooksAsync(int campaignId, int? select = null, int? skip = null)
 		{
-			var request = new Request("campaigns/{campaignId}/address-books?select={select}&skip={skip}", 
+			var request = new Request(baseAddress, "campaigns/{campaignId}/address-books?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId },
@@ -661,7 +666,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiDocumentList>> GetCampaignAttachmentsAsync(int campaignId)
 		{
-			var request = new Request("campaigns/{campaignId}/attachments", 
+			var request = new Request(baseAddress, "campaigns/{campaignId}/attachments", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId }
@@ -682,7 +687,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiCampaign>> GetCampaignByIdAsync(int id)
 		{
-			var request = new Request("campaigns/{id}", 
+			var request = new Request(baseAddress, "campaigns/{id}", 
 			new Dictionary<string, object>
 			{
 				{ "id", id }
@@ -703,7 +708,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiCampaignContactClickList>> GetCampaignClicksAsync(int campaignId, int? select = null, int? skip = null)
 		{
-			var request = new Request("campaigns/{campaignId}/clicks?select={select}&skip={skip}", 
+			var request = new Request(baseAddress, "campaigns/{campaignId}/clicks?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId },
@@ -726,7 +731,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiContactList>> GetCampaignHardBouncingContactsAsync(int campaignId, int? select = null, int? skip = null)
 		{
-			var request = new Request("campaigns/{campaignId}/hard-bouncing-contacts?withFullData={withFullData}&select={select}&skip={skip}", 
+			var request = new Request(baseAddress, "campaigns/{campaignId}/hard-bouncing-contacts?withFullData={withFullData}&select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId },
@@ -749,7 +754,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiCampaignContactOpenList>> GetCampaignOpensAsync(int campaignId, int? select = null, int? skip = null)
 		{
-			var request = new Request("campaigns/{campaignId}/opens?select={select}&skip={skip}", 
+			var request = new Request(baseAddress, "campaigns/{campaignId}/opens?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId },
@@ -772,7 +777,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiCampaignContactPageViewList>> GetCampaignPageViewsSinceDateByDateAsync(int campaignId, DateTime date, int? select = null, int? skip = null)
 		{
-			var request = new Request("campaigns/{campaignId}/page-views/since-date/{date}?select={select}&skip={skip}", 
+			var request = new Request(baseAddress, "campaigns/{campaignId}/page-views/since-date/{date}?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId },
@@ -796,7 +801,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiCampaignContactRoiDetailList>> GetCampaignRoiDetailsSinceDateByDateAsync(int campaignId, DateTime date, int? select = null, int? skip = null)
 		{
-			var request = new Request("campaigns/{campaignId}/roi-details/since-date/{date}?select={select}&skip={skip}", 
+			var request = new Request(baseAddress, "campaigns/{campaignId}/roi-details/since-date/{date}?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId },
@@ -820,7 +825,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiCampaignList>> GetCampaignsAsync(int? select = null, int? skip = null)
 		{
-			var request = new Request("campaigns?select={select}&skip={skip}", 
+			var request = new Request(baseAddress, "campaigns?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "select", select },
@@ -842,7 +847,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiCampaignContactSocialBookmarkViewList>> GetCampaignSocialBookmarkViewsAsync(int campaignId, int? select = null, int? skip = null)
 		{
-			var request = new Request("campaigns/{campaignId}/social-bookmark-views?select={select}&skip={skip}", 
+			var request = new Request(baseAddress, "campaigns/{campaignId}/social-bookmark-views?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId },
@@ -865,7 +870,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiCampaignSend>> GetCampaignsSendBySendIdAsync(Guid sendId)
 		{
-			var request = new Request("campaigns/send/{sendId}", 
+			var request = new Request(baseAddress, "campaigns/send/{sendId}", 
 			new Dictionary<string, object>
 			{
 				{ "sendId", sendId }
@@ -886,7 +891,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiCampaignSummary>> GetCampaignSummaryAsync(int campaignId)
 		{
-			var request = new Request("campaigns/{campaignId}/summary", 
+			var request = new Request(baseAddress, "campaigns/{campaignId}/summary", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId }
@@ -907,7 +912,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiCampaignList>> GetCampaignsWithActivitySinceDateAsync(DateTime date, int? select = null, int? skip = null)
 		{
-			var request = new Request("campaigns/with-activity-since/{date}?select={select}&skip={skip}", 
+			var request = new Request(baseAddress, "campaigns/with-activity-since/{date}?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "date", date },
@@ -930,7 +935,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiAddressBookList>> GetContactAddressBooksAsync(int contactId, int? select = null, int? skip = null)
 		{
-			var request = new Request("contacts/{contactId}/address-books?select={select}&skip={skip}", 
+			var request = new Request(baseAddress, "contacts/{contactId}/address-books?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "contactId", contactId },
@@ -953,7 +958,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiContact>> GetContactByEmailAsync(string email)
 		{
-			var request = new Request("contacts/{email}", 
+			var request = new Request(baseAddress, "contacts/{email}", 
 			new Dictionary<string, object>
 			{
 				{ "email", email }
@@ -974,7 +979,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiContact>> GetContactByIdAsync(int id)
 		{
-			var request = new Request("contacts/{id}", 
+			var request = new Request(baseAddress, "contacts/{id}", 
 			new Dictionary<string, object>
 			{
 				{ "id", id }
@@ -995,7 +1000,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiContactList>> GetContactsAsync(bool? withFullData = null, int? select = null, int? skip = null)
 		{
-			var request = new Request("contacts?withFullData={withFullData}&select={select}&skip={skip}", 
+			var request = new Request(baseAddress, "contacts?withFullData={withFullData}&select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "withFullData", withFullData },
@@ -1018,7 +1023,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiContactList>> GetContactsCreatedSinceDateAsync(DateTime date, bool? withFullData = null, int? select = null, int? skip = null)
 		{
-			var request = new Request("contacts/created-since/{date}?withFullData={withFullData}&select={select}&skip={skip}", 
+			var request = new Request(baseAddress, "contacts/created-since/{date}?withFullData={withFullData}&select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "date", date },
@@ -1042,7 +1047,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiContactImport>> GetContactsImportByImportIdAsync(Guid importId)
 		{
-			var request = new Request("contacts/import/{importId}", 
+			var request = new Request(baseAddress, "contacts/import/{importId}", 
 			new Dictionary<string, object>
 			{
 				{ "importId", importId }
@@ -1063,7 +1068,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiContactImportReport>> GetContactsImportReportAsync(Guid importId)
 		{
-			var request = new Request("contacts/import/{importId}/report", 
+			var request = new Request(baseAddress, "contacts/import/{importId}/report", 
 			new Dictionary<string, object>
 			{
 				{ "importId", importId }
@@ -1084,7 +1089,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult> GetContactsImportReportFaultsAsync(Guid importId)
 		{
-			var request = new Request("contacts/import/{importId}/report-faults", 
+			var request = new Request(baseAddress, "contacts/import/{importId}/report-faults", 
 			new Dictionary<string, object>
 			{
 				{ "importId", importId }
@@ -1105,7 +1110,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiContactList>> GetContactsModifiedSinceDateAsync(DateTime date, bool? withFullData = null, int? select = null, int? skip = null)
 		{
-			var request = new Request("contacts/modified-since/{date}?withFullData={withFullData}&select={select}&skip={skip}", 
+			var request = new Request(baseAddress, "contacts/modified-since/{date}?withFullData={withFullData}&select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "date", date },
@@ -1129,7 +1134,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiContactSuppressionList>> GetContactsSuppressedSinceDateAsync(DateTime date, int? select = null, int? skip = null)
 		{
-			var request = new Request("contacts/suppressed-since/{date}?select={select}&skip={skip}", 
+			var request = new Request(baseAddress, "contacts/suppressed-since/{date}?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "date", date },
@@ -1152,7 +1157,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiTransactionalData>> GetContactsTransactionalDataByKeyAsync(string collectionName, string key)
 		{
-			var request = new Request("contacts/transactional-data/{collectionName}/{key}", 
+			var request = new Request(baseAddress, "contacts/transactional-data/{collectionName}/{key}", 
 			new Dictionary<string, object>
 			{
 				{ "collectionName", collectionName },
@@ -1174,7 +1179,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiTransactionalDataImport>> GetContactsTransactionalDataImportByImportIdAsync(Guid importId)
 		{
-			var request = new Request("contacts/transactional-data/import/{importId}", 
+			var request = new Request(baseAddress, "contacts/transactional-data/import/{importId}", 
 			new Dictionary<string, object>
 			{
 				{ "importId", importId }
@@ -1195,7 +1200,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiTransactionalDataImportReport>> GetContactsTransactionalDataImportReportAsync(Guid importId)
 		{
-			var request = new Request("contacts/transactional-data/import/{importId}/report", 
+			var request = new Request(baseAddress, "contacts/transactional-data/import/{importId}/report", 
 			new Dictionary<string, object>
 			{
 				{ "importId", importId }
@@ -1216,7 +1221,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiContactSuppressionList>> GetContactsUnsubscribedSinceDateAsync(DateTime date, int? select = null, int? skip = null)
 		{
-			var request = new Request("contacts/unsubscribed-since/{date}?select={select}&skip={skip}", 
+			var request = new Request(baseAddress, "contacts/unsubscribed-since/{date}?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "date", date },
@@ -1239,7 +1244,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiTransactionalDataList>> GetContactTransactionalDataByCollectionNameAsync(string collectionName, string email)
 		{
-			var request = new Request("contacts/{email}/transactional-data/{collectionName}", 
+			var request = new Request(baseAddress, "contacts/{email}/transactional-data/{collectionName}", 
 			new Dictionary<string, object>
 			{
 				{ "collectionName", collectionName },
@@ -1261,7 +1266,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiTransactionalDataList>> GetContactTransactionalDataByCollectionNameAsync(string collectionName, int id)
 		{
-			var request = new Request("contacts/{id}/transactional-data/{collectionName}", 
+			var request = new Request(baseAddress, "contacts/{id}/transactional-data/{collectionName}", 
 			new Dictionary<string, object>
 			{
 				{ "collectionName", collectionName },
@@ -1283,7 +1288,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiCampaignFromAddressList>> GetCustomFromAddressesAsync(int? select = null, int? skip = null)
 		{
-			var request = new Request("custom-from-addresses?select={select}&skip={skip}", 
+			var request = new Request(baseAddress, "custom-from-addresses?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "select", select },
@@ -1305,7 +1310,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiDataFieldList>> GetDataFieldsAsync()
 		{
-			var request = new Request("data-fields");
+			var request = new Request(baseAddress, "data-fields");
 			return await GetAsync<ApiDataFieldList>(request);
 		}
 
@@ -1322,7 +1327,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiDocumentList>> GetDocumentFolderDocumentsAsync(int folderId)
 		{
-			var request = new Request("document-folders/{folderId}/documents", 
+			var request = new Request(baseAddress, "document-folders/{folderId}/documents", 
 			new Dictionary<string, object>
 			{
 				{ "folderId", folderId }
@@ -1343,7 +1348,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiDocumentFolderList>> GetDocumentFoldersAsync()
 		{
-			var request = new Request("document-folders");
+			var request = new Request(baseAddress, "document-folders");
 			return await GetAsync<ApiDocumentFolderList>(request);
 		}
 
@@ -1360,7 +1365,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiImageFolder>> GetImageFolderByIdAsync(int id)
 		{
-			var request = new Request("image-folders/{id}", 
+			var request = new Request(baseAddress, "image-folders/{id}", 
 			new Dictionary<string, object>
 			{
 				{ "id", id }
@@ -1381,7 +1386,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiImageFolderList>> GetImageFoldersAsync()
 		{
-			var request = new Request("image-folders");
+			var request = new Request(baseAddress, "image-folders");
 			return await GetAsync<ApiImageFolderList>(request);
 		}
 
@@ -1398,7 +1403,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiSegmentList>> GetSegmentsAsync(int? select = null, int? skip = null)
 		{
-			var request = new Request("segments?select={select}&skip={skip}", 
+			var request = new Request(baseAddress, "segments?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "select", select },
@@ -1420,7 +1425,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiSegmentRefresh>> GetSegmentsRefreshByIdAsync(int id)
 		{
-			var request = new Request("segments/refresh/{id}", 
+			var request = new Request(baseAddress, "segments/refresh/{id}", 
 			new Dictionary<string, object>
 			{
 				{ "id", id }
@@ -1441,7 +1446,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<DateTime>> GetServerTimeAsync()
 		{
-			var request = new Request("server-time");
+			var request = new Request(baseAddress, "server-time");
 			return await GetAsync<DateTime>(request);
 		}
 
@@ -1458,7 +1463,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiTemplate>> GetTemplateByIdAsync(int id)
 		{
-			var request = new Request("templates/{id}", 
+			var request = new Request(baseAddress, "templates/{id}", 
 			new Dictionary<string, object>
 			{
 				{ "id", id }
@@ -1479,7 +1484,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiTemplateList>> GetTemplatesAsync(int? select = null, int? skip = null)
 		{
-			var request = new Request("templates?select={select}&skip={skip}", 
+			var request = new Request(baseAddress, "templates?select={select}&skip={skip}", 
 			new Dictionary<string, object>
 			{
 				{ "select", select },
@@ -1500,7 +1505,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiContact>> PostAddressBookContactsAsync(int addressBookId, ApiContact apiContact)
 		{
-			var request = new Request("address-books/{addressBookId}/contacts", 
+			var request = new Request(baseAddress, "address-books/{addressBookId}/contacts", 
 			new Dictionary<string, object>
 			{
 				{ "addressBookId", addressBookId },
@@ -1521,7 +1526,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult> PostAddressBookContactsDeleteAsync(int addressBookId, List<int> int32List)
 		{
-			var request = new Request("address-books/{addressBookId}/contacts/delete", 
+			var request = new Request(baseAddress, "address-books/{addressBookId}/contacts/delete", 
 			new Dictionary<string, object>
 			{
 				{ "addressBookId", addressBookId },
@@ -1542,7 +1547,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiContactImport>> PostAddressBookContactsImportAsync(int addressBookId, ApiFileMedia apiFileMedia)
 		{
-			var request = new Request("address-books/{addressBookId}/contacts/import", 
+			var request = new Request(baseAddress, "address-books/{addressBookId}/contacts/import", 
 			new Dictionary<string, object>
 			{
 				{ "addressBookId", addressBookId },
@@ -1563,7 +1568,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiResubscribeResult>> PostAddressBookContactsResubscribeAsync(int addressBookId, ApiContactResubscription apiContactResubscription)
 		{
-			var request = new Request("address-books/{addressBookId}/contacts/resubscribe", 
+			var request = new Request(baseAddress, "address-books/{addressBookId}/contacts/resubscribe", 
 			new Dictionary<string, object>
 			{
 				{ "addressBookId", addressBookId },
@@ -1584,7 +1589,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiContactSuppression>> PostAddressBookContactsUnsubscribeAsync(int addressBookId, ApiContact apiContact)
 		{
-			var request = new Request("address-books/{addressBookId}/contacts/unsubscribe", 
+			var request = new Request(baseAddress, "address-books/{addressBookId}/contacts/unsubscribe", 
 			new Dictionary<string, object>
 			{
 				{ "addressBookId", addressBookId },
@@ -1605,7 +1610,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiAddressBook>> PostAddressBooksAsync(ApiAddressBook apiAddressBook)
 		{
-			var request = new Request("address-books");
+			var request = new Request(baseAddress, "address-books");
 			return await PostAsync<ApiAddressBook>(request, apiAddressBook);
 		}
 
@@ -1622,7 +1627,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiDocument>> PostCampaignAttachmentsAsync(int campaignId, ApiDocument apiDocument)
 		{
-			var request = new Request("campaigns/{campaignId}/attachments", 
+			var request = new Request(baseAddress, "campaigns/{campaignId}/attachments", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId },
@@ -1643,7 +1648,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiCampaign>> PostCampaignCopyAsync(int campaignId)
 		{
-			var request = new Request("campaigns/{campaignId}/copy", 
+			var request = new Request(baseAddress, "campaigns/{campaignId}/copy", 
 			new Dictionary<string, object>
 			{
 				{ "campaignId", campaignId }
@@ -1664,7 +1669,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiCampaign>> PostCampaignsAsync(ApiCampaign apiCampaign)
 		{
-			var request = new Request("campaigns");
+			var request = new Request(baseAddress, "campaigns");
 			return await PostAsync<ApiCampaign>(request, apiCampaign);
 		}
 
@@ -1681,7 +1686,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiCampaignSend>> PostCampaignsSendAsync(ApiCampaignSend apiCampaignSend)
 		{
-			var request = new Request("campaigns/send");
+			var request = new Request(baseAddress, "campaigns/send");
 			return await PostAsync<ApiCampaignSend>(request, apiCampaignSend);
 		}
 
@@ -1698,7 +1703,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiContact>> PostContactsAsync(ApiContact apiContact)
 		{
-			var request = new Request("contacts");
+			var request = new Request(baseAddress, "contacts");
 			return await PostAsync<ApiContact>(request, apiContact);
 		}
 
@@ -1715,7 +1720,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiContactImport>> PostContactsImportAsync(ApiFileMedia apiFileMedia)
 		{
-			var request = new Request("contacts/import");
+			var request = new Request(baseAddress, "contacts/import");
 			return await PostAsync<ApiContactImport, ApiFileMedia>(request, apiFileMedia);
 		}
 
@@ -1732,7 +1737,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiResubscribeResult>> PostContactsResubscribeAsync(ApiContactResubscription apiContactResubscription)
 		{
-			var request = new Request("contacts/resubscribe");
+			var request = new Request(baseAddress, "contacts/resubscribe");
 			return await PostAsync<ApiResubscribeResult, ApiContactResubscription>(request, apiContactResubscription);
 		}
 
@@ -1749,7 +1754,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiTransactionalData>> PostContactsTransactionalDataAsync(string collectionName, ApiTransactionalData apiTransactionalData)
 		{
-			var request = new Request("contacts/transactional-data/{collectionName}", 
+			var request = new Request(baseAddress, "contacts/transactional-data/{collectionName}", 
 			new Dictionary<string, object>
 			{
 				{ "collectionName", collectionName },
@@ -1770,7 +1775,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiTransactionalData>> PostContactsTransactionalDataAsync(string collectionName, string key, ApiJsonData apiJsonData)
 		{
-			var request = new Request("contacts/transactional-data/{collectionName}/{key}", 
+			var request = new Request(baseAddress, "contacts/transactional-data/{collectionName}/{key}", 
 			new Dictionary<string, object>
 			{
 				{ "collectionName", collectionName },
@@ -1792,7 +1797,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiTransactionalDataImport>> PostContactsTransactionalDataImportAsync(string collectionName, ApiTransactionalDataList apiTransactionalDataList)
 		{
-			var request = new Request("contacts/transactional-data/import/{collectionName}", 
+			var request = new Request(baseAddress, "contacts/transactional-data/import/{collectionName}", 
 			new Dictionary<string, object>
 			{
 				{ "collectionName", collectionName },
@@ -1813,7 +1818,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiContactSuppression>> PostContactsUnsubscribeAsync(ApiContact apiContact)
 		{
-			var request = new Request("contacts/unsubscribe");
+			var request = new Request(baseAddress, "contacts/unsubscribe");
 			return await PostAsync<ApiContactSuppression, ApiContact>(request, apiContact);
 		}
 
@@ -1830,7 +1835,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult> PostDataFieldsAsync(ApiDataField apiDataField)
 		{
-			var request = new Request("data-fields");
+			var request = new Request(baseAddress, "data-fields");
 			return await PostAsync(request, apiDataField);
 		}
 
@@ -1847,7 +1852,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiDocumentFolder>> PostDocumentFolderAsync(int folderId, ApiDocumentFolder apiDocumentFolder)
 		{
-			var request = new Request("document-folders/{folderId}", 
+			var request = new Request(baseAddress, "document-folders/{folderId}", 
 			new Dictionary<string, object>
 			{
 				{ "folderId", folderId },
@@ -1868,7 +1873,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiDocument>> PostDocumentFolderDocumentsAsync(int folderId, ApiFileMedia apiFileMedia)
 		{
-			var request = new Request("document-folders/{folderId}/documents", 
+			var request = new Request(baseAddress, "document-folders/{folderId}/documents", 
 			new Dictionary<string, object>
 			{
 				{ "folderId", folderId },
@@ -1889,7 +1894,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiImageFolder>> PostImageFolderAsync(int id, ApiImageFolder apiImageFolder)
 		{
-			var request = new Request("image-folders/{id}", 
+			var request = new Request(baseAddress, "image-folders/{id}", 
 			new Dictionary<string, object>
 			{
 				{ "id", id },
@@ -1910,7 +1915,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiImage>> PostImageFolderImagesAsync(int folderId, ApiFileMedia apiFileMedia)
 		{
-			var request = new Request("image-folders/{folderId}/images", 
+			var request = new Request(baseAddress, "image-folders/{folderId}/images", 
 			new Dictionary<string, object>
 			{
 				{ "folderId", folderId },
@@ -1931,7 +1936,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiSegmentRefresh>> PostSegmentsRefreshAsync(int id)
 		{
-			var request = new Request("segments/refresh/{id}", 
+			var request = new Request(baseAddress, "segments/refresh/{id}", 
 			new Dictionary<string, object>
 			{
 				{ "id", id }
@@ -1952,7 +1957,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult> PostSmsMessagesSendToAsync(string telephoneNumber, ApiSms apiSms)
 		{
-			var request = new Request("sms-messages/send-to/{telephoneNumber}", 
+			var request = new Request(baseAddress, "sms-messages/send-to/{telephoneNumber}", 
 			new Dictionary<string, object>
 			{
 				{ "telephoneNumber", telephoneNumber },
@@ -1973,7 +1978,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiTemplate>> PostTemplatesAsync(ApiTemplate apiTemplate)
 		{
-			var request = new Request("templates");
+			var request = new Request(baseAddress, "templates");
 			return await PostAsync<ApiTemplate>(request, apiTemplate);
 		}
 
@@ -1990,7 +1995,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiAddressBook>> UpdateAddressBookAsync(int id, ApiAddressBook apiAddressBook)
 		{
-			var request = new Request("address-books/{id}", 
+			var request = new Request(baseAddress, "address-books/{id}", 
 			new Dictionary<string, object>
 			{
 				{ "id", id },
@@ -2011,7 +2016,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiCampaign>> UpdateCampaignAsync(int id, ApiCampaign apiCampaign)
 		{
-			var request = new Request("campaigns/{id}", 
+			var request = new Request(baseAddress, "campaigns/{id}", 
 			new Dictionary<string, object>
 			{
 				{ "id", id },
@@ -2032,7 +2037,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiContact>> UpdateContactAsync(int id, ApiContact apiContact)
 		{
-			var request = new Request("contacts/{id}", 
+			var request = new Request(baseAddress, "contacts/{id}", 
 			new Dictionary<string, object>
 			{
 				{ "id", id },
@@ -2053,7 +2058,7 @@ namespace dotMailer.Api
 		/// </summary>
 		public async Task<ServiceResult<ApiTemplate>> UpdateTemplateAsync(int id, ApiTemplate apiTemplate)
 		{
-			var request = new Request("templates/{id}", 
+			var request = new Request(baseAddress, "templates/{id}", 
 			new Dictionary<string, object>
 			{
 				{ "id", id },

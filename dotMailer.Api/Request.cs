@@ -5,18 +5,26 @@ using System.Web;
 
 namespace dotMailer.Api
 {
+    internal class RequestParameter
+    {
+        public string Key { get; set; }
+        public object Value { get; set; }
+    }
+
     internal class Request
     {
+        private readonly string baseAddress;
         private readonly string url;
         private readonly IDictionary<string, object> parameters = new Dictionary<string, object>();
 
-        public Request(string url)
+        public Request(string baseAddress, string url)
         {
+            this.baseAddress = baseAddress;
             this.url = url;
         }
 
-        public Request(string url, IDictionary<string, object> parameters)
-            : this(url)
+        public Request(string baseAddress, string url, IDictionary<string, object> parameters)
+            : this(baseAddress, url)
         {
             this.parameters = parameters;
         }
@@ -29,7 +37,7 @@ namespace dotMailer.Api
                     return url;
 
                 // Check if we've got a querystring, if we have and no parameters are provided then we need to strip the querystring params
-                var uri = new Uri(Client.BaseAddress + url);
+                var uri = new Uri(baseAddress + url);
                 var absolutePath = HttpUtility.UrlDecode(uri.AbsolutePath);
                 var queryString = HttpUtility.ParseQueryString(uri.Query);
 
